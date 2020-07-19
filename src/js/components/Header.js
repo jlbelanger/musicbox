@@ -1,4 +1,5 @@
 import '../../scss/components/Header.scss';
+import Import from './buttons/Import';
 import Next from './buttons/Next';
 import NowPlaying from './NowPlaying';
 import PlayPause from './buttons/PlayPause';
@@ -16,6 +17,7 @@ export default function Header() {
 				<Next />
 			</section>
 			<NowPlaying />
+			<Import />
 		</header>
 	);
 }

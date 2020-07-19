@@ -40,5 +40,9 @@ export default function RatingCell(props) {
 
 RatingCell.propTypes = {
 	index: PropTypes.number.isRequired,
-	value: PropTypes.any.isRequired,
+	value: PropTypes.any,
+};
+
+RatingCell.defaultProps = {
+	value: 0,
 };

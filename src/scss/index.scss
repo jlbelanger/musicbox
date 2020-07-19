@@ -2,8 +2,8 @@
 @import 'utilities/variables';
 
 body {
-	background: #000;
-	color: #fff;
+	background: $black;
+	color: $white;
 	font-family: sans-serif;
 	margin: 0;
 }
@@ -22,7 +22,7 @@ button {
 	appearance: none;
 	background: transparent;
 	border: 0;
-	color: #fff;
+	color: $white;
 	cursor: pointer;
 	font-size: $font-size;
 	line-height: 1;
@@ -120,4 +120,92 @@ input[type="checkbox"] {
 
 section {
 	font-size: $font-size;
+}
+
+.modal-bg {
+	align-items: center;
+	background: rgba($black, .5);
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 2;
+}
+
+.modal {
+	background: $dark-gray;
+	max-width: 400px;
+	padding: 32px;
+	position: relative;
+	width: 100%;
+
+	h1:first-of-type {
+		margin-top: 0;
+	}
+}
+
+.button--primary {
+	background: $primary;
+	width: 100%;
+}
+
+.loading {
+	align-items: center;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-name: spin;
+	animation-timing-function: linear;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 3;
+
+	path {
+		fill: $primary;
+	}
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+.error {
+	color: $danger;
+	font-weight: bold;
+}
+
+h1 {
+	font-size: 28px;
+	font-weight: normal;
+}
+
+#close {
+	position: absolute;
+	right: 16px;
+	top: 16px;
+}
+
+h1,
+ol,
+p {
+	margin-bottom: 0;
+	margin-top: 32px;
+}
+
+a {
+	color: $primary;
+
+	&:hover,
+	&:active,
+	&:focus {
+		text-decoration: none;
+	}
 }
