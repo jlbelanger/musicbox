@@ -1,0 +1,123 @@
+@import './node_modules/normalize.css/normalize';
+@import 'utilities/variables';
+
+body {
+	background: #000;
+	color: #fff;
+	font-family: sans-serif;
+	margin: 0;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+
+article {
+	overflow: auto;
+}
+
+button {
+	appearance: none;
+	background: transparent;
+	border: 0;
+	color: #fff;
+	cursor: pointer;
+	font-size: $font-size;
+	line-height: 1;
+	margin: 0;
+	padding: 16px;
+
+	&[disabled] {
+		cursor: auto;
+		opacity: .5;
+	}
+}
+
+/*
+input {
+	border: 0;
+	color: #fff;
+	background: transparent;
+	font-size: 24px;
+	padding: 16px;
+	line-height: 1;
+	width: 100%;
+}
+*/
+
+input[type="checkbox"] {
+	appearance: none;
+	background-color: #333;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 20px;
+	cursor: pointer;
+	height: 28px;
+	width: 28px;
+
+	&:checked {
+		background-image: url('/assets/img/check.svg');
+	}
+}
+
+.icon {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	font-size: 0;
+	height: 28px;
+	margin: 8px;
+	padding: 0;
+	width: 28px;
+
+	path {
+		fill: $off-white;
+	}
+
+	&:active,
+	&:focus {
+		path {
+			fill: $white;
+		}
+	}
+}
+
+.icon--large {
+	height: 48px;
+	width: 48px;
+}
+
+.icon--small {
+	height: 16px;
+	width: 16px;
+}
+
+.active {
+	path {
+		fill: $primary;
+	}
+
+	&:active,
+	&:focus {
+		path {
+			fill: scale-color($primary, $lightness: 15%);
+		}
+	}
+}
+
+.dimmed {
+	path {
+		opacity: .15;
+	}
+}
+
+:focus {
+	box-shadow: 0 0 0 4px $focus-color;
+	outline: none !important; // stylelint-disable declaration-no-important
+}
+
+section {
+	font-size: $font-size;
+}

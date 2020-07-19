@@ -1,0 +1,51 @@
+@import '../utilities/variables';
+
+table {
+	border-spacing: 0;
+	width: 100%;
+}
+
+thead {
+	position: sticky;
+	top: 0;
+	z-index: 1;
+
+	th {
+		background: #222;
+	}
+}
+
+tbody {
+	tr:nth-of-type(2n) {
+		td,
+		th {
+			background: #111;
+		}
+	}
+
+	th {
+		font-weight: normal;
+	}
+}
+
+th {
+	text-align: left;
+}
+
+td,
+th {
+	font-size: $font-size;
+	padding: 16px;
+	white-space: nowrap;
+}
+
+tr {
+	&:focus {
+		box-shadow: none;
+
+		td,
+		th {
+			background: $focus-color !important; // stylelint-disable declaration-no-important
+		}
+	}
+}
