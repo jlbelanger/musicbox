@@ -12,6 +12,11 @@ export default function RatingCell(props) {
 	const stars = [];
 
 	const dispatch = useDispatch();
+	const onClick = (e) => {
+		if (e.target.value === (props.value / 20).toString()) {
+			dispatch(setSongRating({ index: props.index, value: 0 }));
+		}
+	};
 	const onChange = (e) => {
 		const value = e.target.value * 20;
 		dispatch(setSongRating({ index: props.index, value }));
@@ -30,7 +35,7 @@ export default function RatingCell(props) {
 				{stars.map((star) => (
 					<div className={`rating ${star.active ? ' active' : ' dimmed'}`} key={star.i}>
 						<StarIcon />
-						<input checked={num === star.i} onChange={onChange} name={`rating[${props.index}]`} type="radio" value={star.i} />
+						<input checked={num === star.i} onClick={onClick} onChange={onChange} name={`rating[${props.index}]`} type="radio" value={star.i} />
 					</div>
 				))}
 			</div>
