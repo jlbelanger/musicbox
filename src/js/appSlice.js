@@ -47,6 +47,11 @@ export const appSlice = createSlice({
 			} else {
 				setQueuePositionToCurrentSong(state);
 			}
+
+			if (!state.isPlaying) {
+				state.isPlaying = true;
+				startPlaying(state);
+			}
 		},
 		setSongRating: (state, action) => {
 			state.songs[action.payload.index].rating = action.payload.value;
