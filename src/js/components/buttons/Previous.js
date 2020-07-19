@@ -1,35 +1,30 @@
 import {
-	selectCurrentSongIndex,
-	selectNumSongs,
-	selectShuffle,
-	setCurrentSongIndex,
+	selectCurrentQueueIndex,
+	setCurrentQueueIndex,
 } from '../../appSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as PreviousIcon } from '../../../svg/previous.svg';
 import React from 'react';
 
 export default function Previous() {
-	const currentSongIndex = useSelector(selectCurrentSongIndex);
-	const numSongs = useSelector(selectNumSongs);
-	const shuffle = useSelector(selectShuffle);
+	const currentQueueIndex = useSelector(selectCurrentQueueIndex);
 	const dispatch = useDispatch();
 	const onClick = () => {
 		let newIndex;
-		if (shuffle) {
-			// TODO: Should come from a queue.
-			newIndex = Math.floor(Math.random() * numSongs);
-		} else if (currentSongIndex === null) {
-			newIndex = 0;
-		} else if (currentSongIndex === 0) {
+		if (currentQueueIndex === null) {
+			// This should never happen.
+			return;
+		}
+		if (currentQueueIndex <= 0) {
 			newIndex = null;
 		} else {
-			newIndex = currentSongIndex - 1;
+			newIndex = currentQueueIndex - 1;
 		}
-		dispatch(setCurrentSongIndex(newIndex));
+		dispatch(setCurrentQueueIndex(newIndex));
 	};
 
 	return (
-		<button className="icon" disabled={currentSongIndex === null} id="previous" onClick={onClick} type="button">
+		<button className="icon" disabled={currentQueueIndex === null} id="previous" onClick={onClick} type="button">
 			<PreviousIcon />
 			Previous
 		</button>

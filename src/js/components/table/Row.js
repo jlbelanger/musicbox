@@ -1,7 +1,7 @@
-import { selectCurrentSongIndex, selectIsPlaying, setCurrentSongIndex } from '../../appSlice';
+import { selectCurrentSongId, selectIsPlaying, setCurrentSongId } from '../../appSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import CheckboxCell from './CheckboxCell';
-import dateformat from 'dateformat';
+import prettyDate from '../../helpers/date';
 import PropTypes from 'prop-types';
 import RatingCell from './RatingCell';
 import React from 'react';
@@ -10,12 +10,11 @@ import { ReactComponent as VolumeHighIcon } from '../../../svg/volume-high.svg';
 import { ReactComponent as VolumeOffIcon } from '../../../svg/volume-off.svg';
 
 export default function Row(props) {
-	const currentSongIndex = useSelector(selectCurrentSongIndex);
+	const currentSongId = useSelector(selectCurrentSongId);
 	const isPlaying = useSelector(selectIsPlaying);
-	const prettyDate = (date) => dateformat(new Date(date), 'yyyy-mm-dd, h:MM TT');
 
 	let icon = null;
-	if (props.index === currentSongIndex) {
+	if (props.row.id === currentSongId) {
 		if (isPlaying) {
 			icon = <VolumeHighIcon height="16" width="16" />;
 		} else {
@@ -26,7 +25,7 @@ export default function Row(props) {
 	const dispatch = useDispatch();
 	const onDoubleClick = (e) => {
 		if (['TD', 'TH'].includes(e.target.tagName)) {
-			dispatch(setCurrentSongIndex(props.index));
+			dispatch(setCurrentSongId(props.row.id));
 		}
 	};
 

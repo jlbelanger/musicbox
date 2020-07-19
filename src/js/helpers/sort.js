@@ -11,7 +11,7 @@ const sortTypes = {
 	checked: 'bool',
 };
 
-export const sort = (rows, key, direction) => {
+export default (rows, key, direction) => {
 	const sortType = sortTypes[key];
 	return rows.sort((a, b) => {
 		const defaultVal = sortType === 'bool' ? false : '';
