@@ -1,9 +1,9 @@
 import {
-	selectCurrentIndex,
+	selectCurrentSongIndex,
 	selectIsPlaying,
 	selectNumSongs,
 	selectShuffle,
-	setCurrentIndex,
+	setCurrentSongIndex,
 	toggleIsPlaying,
 } from '../../appSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,19 +12,19 @@ import { ReactComponent as PlayIcon } from '../../../svg/play.svg';
 import React from 'react';
 
 export default function PlayPause() {
-	const currentIndex = useSelector(selectCurrentIndex);
+	const currentSongIndex = useSelector(selectCurrentSongIndex);
 	const shuffle = useSelector(selectShuffle);
 	const numSongs = useSelector(selectNumSongs);
 	const isPlaying = useSelector(selectIsPlaying);
 	const dispatch = useDispatch();
 	const Icon = isPlaying ? PauseIcon : PlayIcon;
 	const onClick = () => {
-		if (currentIndex === null) {
+		if (currentSongIndex === null) {
 			let index = 0;
 			if (shuffle) {
 				index = Math.floor(Math.random() * numSongs);
 			}
-			dispatch(setCurrentIndex(index));
+			dispatch(setCurrentSongIndex(index));
 		}
 		dispatch(toggleIsPlaying());
 	};

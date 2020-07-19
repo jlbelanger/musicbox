@@ -1,4 +1,4 @@
-import { selectCurrentIndex, selectIsPlaying, setCurrentIndex } from '../../appSlice';
+import { selectCurrentSongIndex, selectIsPlaying, setCurrentSongIndex } from '../../appSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import CheckboxCell from './CheckboxCell';
 import dateformat from 'dateformat';
@@ -10,12 +10,12 @@ import { ReactComponent as VolumeHighIcon } from '../../../svg/volume-high.svg';
 import { ReactComponent as VolumeOffIcon } from '../../../svg/volume-off.svg';
 
 export default function Row(props) {
-	const currentIndex = useSelector(selectCurrentIndex);
+	const currentSongIndex = useSelector(selectCurrentSongIndex);
 	const isPlaying = useSelector(selectIsPlaying);
 	const prettyDate = (date) => dateformat(new Date(date), 'yyyy-mm-dd, h:MM TT');
 
 	let icon = null;
-	if (props.index === currentIndex) {
+	if (props.index === currentSongIndex) {
 		if (isPlaying) {
 			icon = <VolumeHighIcon height="16" width="16" />;
 		} else {
@@ -26,7 +26,7 @@ export default function Row(props) {
 	const dispatch = useDispatch();
 	const onDoubleClick = (e) => {
 		if (['TD', 'TH'].includes(e.target.tagName)) {
-			dispatch(setCurrentIndex(props.index));
+			dispatch(setCurrentSongIndex(props.index));
 		}
 	};
 

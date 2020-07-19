@@ -5,7 +5,7 @@ import Storage from './helpers/Storage';
 export const appSlice = createSlice({
 	name: 'app',
 	initialState: {
-		currentIndex: null,
+		currentSongIndex: null,
 		isPlaying: false,
 		repeat: Storage.get('repeat', false),
 		shuffle: Storage.get('shuffle', false),
@@ -36,9 +36,9 @@ export const appSlice = createSlice({
 		setSongRating: (state, action) => {
 			state.songs[action.payload.index].rating = action.payload.value;
 		},
-		setCurrentIndex: (state, action) => {
-			state.currentIndex = action.payload;
-			if (state.currentIndex === null) {
+		setCurrentSongIndex: (state, action) => {
+			state.currentSongIndex = action.payload;
+			if (state.currentSongIndex === null) {
 				state.isPlaying = false;
 			}
 		},
@@ -56,13 +56,13 @@ export const {
 	toggleShuffle,
 	toggleSortDirection,
 	toggleSongChecked,
-	setCurrentIndex,
+	setCurrentSongIndex,
 	setSongRating,
 	setSortColumn,
 } = appSlice.actions;
 
-export const selectCurrentIndex = (state) => state.app.currentIndex;
-export const selectCurrentSong = (state) => (state.app.songs[state.app.currentIndex]);
+export const selectCurrentSongIndex = (state) => state.app.currentSongIndex;
+export const selectCurrentSong = (state) => (state.app.songs[state.app.currentSongIndex]);
 export const selectIsPlaying = (state) => state.app.isPlaying;
 export const selectNumSongs = (state) => state.app.songs.length;
 export const selectRepeat = (state) => state.app.repeat;
