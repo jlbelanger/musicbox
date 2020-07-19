@@ -1,15 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { sort } from './helpers/sort';
+import Storage from './helpers/Storage';
 
 export const appSlice = createSlice({
 	name: 'app',
 	initialState: {
 		currentIndex: null,
 		isPlaying: false,
-		repeat: false,
-		shuffle: true,
-		sortColumn: 'artist',
-		sortDirection: 'asc',
+		repeat: Storage.get('repeat', false),
+		shuffle: Storage.get('shuffle', false),
+		sortColumn: Storage.get('sortColumn', 'artist'),
+		sortDirection: Storage.get('sortDirection', 'asc'),
 		songs: [],
 	},
 	reducers: {
@@ -18,13 +19,16 @@ export const appSlice = createSlice({
 		},
 		toggleRepeat: (state) => {
 			state.repeat = !state.repeat;
+			Storage.set('repeat', state.repeat);
 		},
 		toggleShuffle: (state) => {
 			state.shuffle = !state.shuffle;
+			Storage.set('shuffle', state.shuffle);
 		},
 		toggleSortDirection: (state) => {
 			state.sortDirection = state.sortDirection === 'asc' ? 'desc' : 'asc';
 			state.songs = sort(state.songs, state.sortColumn, state.sortDirection);
+			Storage.set('sortDirection', state.sortDirection);
 		},
 		toggleSongChecked: (state, action) => {
 			state.songs[action.payload].checked = !state.songs[action.payload].checked;
@@ -41,6 +45,7 @@ export const appSlice = createSlice({
 		setSortColumn: (state, action) => {
 			state.sortColumn = action.payload;
 			state.songs = sort(state.songs, state.sortColumn, state.sortDirection);
+			Storage.set('sortColumn', state.sortColumn);
 		},
 	},
 });
