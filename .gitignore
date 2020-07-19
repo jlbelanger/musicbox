@@ -4,4 +4,5 @@
 .gitcommit
 /build
 node_modules
+/src/data/songs.json
 TODO.md

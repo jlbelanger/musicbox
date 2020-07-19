@@ -11,7 +11,7 @@ export const appSlice = createSlice({
 		shuffle: Storage.get('shuffle', false),
 		sortColumn: Storage.get('sortColumn', 'artist'),
 		sortDirection: Storage.get('sortDirection', 'asc'),
-		songs: [],
+		songs: require('../data/songs.json'),
 	},
 	reducers: {
 		toggleIsPlaying: (state) => {
