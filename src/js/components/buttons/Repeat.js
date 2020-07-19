@@ -11,7 +11,7 @@ export default function Repeat() {
 	};
 
 	return (
-		<button className={`icon icon--small${isActive ? ' active' : ''}`} id="repeat" onClick={onClick} type="button">
+		<button className={`icon icon--small${isActive ? ' active' : ''}`} onClick={onClick} type="button">
 			<RepeatIcon />
 			Repeat
 		</button>

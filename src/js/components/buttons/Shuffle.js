@@ -11,7 +11,7 @@ export default function Shuffle() {
 	};
 
 	return (
-		<button className={`icon icon--small${isActive ? ' active' : ''}`} id="shuffle" onClick={onClick} type="button">
+		<button className={`icon icon--small${isActive ? ' active' : ''}`} onClick={onClick} type="button">
 			<ShuffleIcon />
 			Shuffle
 		</button>

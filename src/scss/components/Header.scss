@@ -1,6 +1,8 @@
+@import '../utilities/variables';
+
 header {
 	align-items: center;
-	background: #111;
+	background: $off-black;
 	display: flex;
 	justify-content: space-between;
 	padding: 0 16px;
