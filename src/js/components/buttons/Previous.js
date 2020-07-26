@@ -1,26 +1,36 @@
+import { batch, useDispatch, useSelector } from 'react-redux';
 import {
+	decrementQueueIndex,
 	selectCurrentQueueIndex,
-	setCurrentQueueIndex,
-} from '../../appSlice';
-import { useDispatch, useSelector } from 'react-redux';
+	stopQueue,
+} from '../../slices/queue';
+import { selectColumn, selectDirection } from '../../slices/sort';
+import createQueue from '../../helpers/queue';
 import { ReactComponent as PreviousIcon } from '../../../svg/previous.svg';
 import React from 'react';
+import { selectActiveSongs } from '../../slices/songs';
+import { selectShuffle } from '../../slices/shuffle';
+import { stopPlaying } from '../../slices/isPlaying';
 
 export default function Previous() {
-	const currentQueueIndex = useSelector(selectCurrentQueueIndex);
 	const dispatch = useDispatch();
+	const currentQueueIndex = useSelector(selectCurrentQueueIndex);
+	const songs = useSelector(selectActiveSongs);
+	const shuffle = useSelector(selectShuffle);
+	const column = useSelector(selectColumn);
+	const direction = useSelector(selectDirection);
 	const onClick = () => {
-		let newIndex;
 		if (currentQueueIndex === null) {
-			// This should never happen.
 			return;
 		}
 		if (currentQueueIndex <= 0) {
-			newIndex = null;
+			batch(() => {
+				dispatch(stopPlaying());
+				dispatch(stopQueue(createQueue(songs, { shuffle, column, direction })));
+			});
 		} else {
-			newIndex = currentQueueIndex - 1;
+			dispatch(decrementQueueIndex());
 		}
-		dispatch(setCurrentQueueIndex(newIndex));
 	};
 
 	return (

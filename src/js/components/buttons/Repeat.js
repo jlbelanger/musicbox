@@ -1,11 +1,11 @@
-import { selectRepeat, toggleRepeat } from '../../appSlice';
+import { selectRepeat, toggleRepeat } from '../../slices/repeat';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import { ReactComponent as RepeatIcon } from '../../../svg/repeat.svg';
 
 export default function Repeat() {
-	const isActive = useSelector(selectRepeat);
 	const dispatch = useDispatch();
+	const isActive = useSelector(selectRepeat);
 	const onClick = () => {
 		dispatch(toggleRepeat());
 	};

@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { toggleSongChecked } from '../../appSlice';
+import { toggleChecked } from '../../slices/songs';
 import { useDispatch } from 'react-redux';
 
 export default function CheckboxCell(props) {
 	const dispatch = useDispatch();
 	const onChange = () => {
-		dispatch(toggleSongChecked(props.index));
+		dispatch(toggleChecked(props.id));
+		// TODO: Add-to/remove-from queue.
 	};
 
 	return (
@@ -15,7 +16,7 @@ export default function CheckboxCell(props) {
 }
 
 CheckboxCell.propTypes = {
-	index: PropTypes.number.isRequired,
+	id: PropTypes.string.isRequired,
 	value: PropTypes.bool,
 };
 

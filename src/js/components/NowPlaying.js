@@ -1,5 +1,5 @@
 import React from 'react';
-import { selectCurrentSong } from '../appSlice';
+import { selectCurrentSong } from '../slices/queue';
 import { useSelector } from 'react-redux';
 
 export default function NowPlaying() {

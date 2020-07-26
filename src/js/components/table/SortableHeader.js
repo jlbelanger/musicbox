@@ -1,31 +1,43 @@
 import '../../../scss/components/table/SortableHeader.scss';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import {
-	selectSortColumn,
-	selectSortDirection,
-	setSortColumn,
-	toggleSortDirection,
-} from '../../appSlice';
-import { useDispatch, useSelector } from 'react-redux';
+	selectColumn,
+	selectDirection,
+	setColumn,
+	toggleDirection,
+} from '../../slices/sort';
 import { ReactComponent as ArrowIcon } from '../../../svg/arrow.svg';
+import createQueue from '../../helpers/queue';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { selectActiveSongs } from '../../slices/songs';
+import { selectShuffle } from '../../slices/shuffle';
+import { setQueueAndPreserveCurrentSong } from '../../slices/queue';
 
 export default function SortableHeader(props) {
-	const sortColumn = useSelector(selectSortColumn);
-	const sortDirection = useSelector(selectSortDirection);
-	const isSorted = sortColumn === props.name;
 	const dispatch = useDispatch();
+	const column = useSelector(selectColumn);
+	const direction = useSelector(selectDirection);
+	const shuffle = useSelector(selectShuffle);
+	const songs = useSelector(selectActiveSongs);
+	const isSorted = column === props.name;
 	const onClick = () => {
-		if (isSorted) {
-			dispatch(toggleSortDirection());
-		} else {
-			dispatch(setSortColumn(props.name));
-		}
+		batch(() => {
+			if (isSorted) {
+				dispatch(toggleDirection());
+			} else {
+				dispatch(setColumn(props.name));
+			}
+			dispatch(setQueueAndPreserveCurrentSong({
+				queue: createQueue(songs, { shuffle, column, direction }),
+				shuffle,
+			}));
+		});
 	};
 
 	const className = ['sortable-header__button'];
 	if (isSorted) {
-		className.push(sortDirection);
+		className.push(direction);
 	}
 
 	return (

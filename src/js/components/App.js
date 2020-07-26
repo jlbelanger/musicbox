@@ -1,22 +1,16 @@
-import Header from './Header';
 import ImportModal from './modals/ImportModal';
+import Main from './Main';
 import React from 'react';
-import { selectNumSongs } from '../appSlice';
-import Table from './Table';
+import { selectHasSongs } from '../slices/songs';
 import { useSelector } from 'react-redux';
 
 export default function App() {
-	const numSongs = useSelector(selectNumSongs);
-	if (numSongs <= 0) {
-		return <ImportModal />;
+	const hasSongs = useSelector(selectHasSongs);
+	if (hasSongs <= 0) {
+		return <ImportModal showClose={false} />;
 	}
 
 	return (
-		<main>
-			<Header />
-			<article>
-				<Table />
-			</article>
-		</main>
+		<Main />
 	);
 }

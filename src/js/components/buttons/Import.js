@@ -1,29 +1,25 @@
+import React, { useState } from 'react';
 import { ReactComponent as ImportIcon } from '../../../svg/import.svg';
 import ImportModal from '../modals/ImportModal';
-import React from 'react';
 
-export default class Import extends React.Component {
-	state = {
-		isModalVisible: false,
-	}
+export default function Import() {
+	const [isModalVisible, setModalVisible] = useState(false);
 
-	onClick = () => {
-		this.setState({ isModalVisible: true });
-	}
+	const onClick = () => {
+		setModalVisible(true);
+	};
 
-	onCloseModal = () => {
-		this.setState({ isModalVisible: false });
-	}
+	const onCloseModal = () => {
+		setModalVisible(false);
+	};
 
-	render() {
-		return (
-			<>
-				<button className="icon" onClick={this.onClick} type="button">
-					<ImportIcon />
-					Import
-				</button>
-				{this.state.isModalVisible ? <ImportModal onClose={this.onCloseModal} /> : null}
-			</>
-		);
-	}
+	return (
+		<>
+			<button className="icon" onClick={onClick} type="button">
+				<ImportIcon />
+				Import
+			</button>
+			{isModalVisible ? <ImportModal onClose={onCloseModal} /> : null}
+		</>
+	);
 }

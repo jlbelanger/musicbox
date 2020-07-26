@@ -4,6 +4,7 @@ import Next from './buttons/Next';
 import NowPlaying from './NowPlaying';
 import PlayPause from './buttons/PlayPause';
 import Previous from './buttons/Previous';
+import Queue from './Queue';
 import React from 'react';
 import Shuffle from './buttons/Shuffle';
 
@@ -17,6 +18,7 @@ export default function Header() {
 				<Next />
 			</section>
 			<NowPlaying />
+			<Queue />
 			<Import />
 		</header>
 	);

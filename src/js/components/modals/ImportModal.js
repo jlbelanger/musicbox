@@ -1,88 +1,96 @@
+import React, { useState } from 'react';
 import importItunes from '../../helpers/import';
 import { ReactComponent as LoadingIcon } from '../../../svg/loading.svg';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { ReactComponent as XIcon } from '../../../svg/x.svg';
 
-export default class ImportModal extends React.Component {
-	state = {
-		error: null,
-		file: null,
-		loading: false,
-		url: null,
-	}
+export default function ImportModal(props) {
+	const [error, setError] = useState(null);
+	const [file, setFile] = useState(null);
+	const [loading, setLoading] = useState(false);
+	const [url, setUrl] = useState(null);
 
-	static propTypes = {
-		onClose: PropTypes.func.isRequired,
-	}
+	const onClose = () => {
+		if (props.onClose !== null) {
+			props.onClose();
+		}
+	};
 
-	onClose = () => {
-		this.props.onClose();
-	}
-
-	onSubmit = (e) => {
+	const onSubmit = (e) => {
 		e.preventDefault();
 
-		if (!this.state.file) {
-			this.setState({ error: 'No file selected.' });
+		if (!file) {
+			setError('No file selected.');
 			return;
 		}
 
-		this.setState({ error: null, loading: true });
-		importItunes(this.state.file)
+		setLoading(true);
+		setError(null);
+		importItunes(file)
 			.then((json) => {
 				const blob = new Blob([JSON.stringify(json)], { type: 'application/json' });
-				const url = URL.createObjectURL(blob);
-				this.setState({ loading: false, url });
+				setLoading(false);
+				setUrl(URL.createObjectURL(blob));
 			})
-			.catch((error) => {
-				this.setState({ error: error.message, loading: false });
+			.catch((err) => {
+				setError(err.message);
+				setLoading(false);
 			});
-	}
+	};
 
-	onChange = (e) => {
-		this.setState({ file: e.target.files[0] });
-	}
+	const onChange = (e) => {
+		setFile(e.target.files[0]);
+	};
 
-	render() {
-		return (
-			<section className="modal-bg">
-				<div className="modal">
-					<button className="icon icon--small" id="close" onClick={this.onClose} type="button">
+	return (
+		<section className="modal-bg">
+			<div className="modal">
+				{props.showClose ? (
+					<button className="icon icon--small" id="close" onClick={onClose} type="button">
 						<XIcon />
 						Close
 					</button>
-					<form onSubmit={this.onSubmit}>
-						<h1>Export from iTunes</h1>
-						<ol>
-							<li>Open iTunes</li>
-							<li>Go to File &gt; Library &gt; Export Library&hellip;</li>
-							<li>Select a location to save the XML file</li>
-							<li>Click the Save button</li>
-						</ol>
-						<h1>Import from iTunes</h1>
-						{this.state.error ? <p className="error">{this.state.error}</p> : null}
+				) : null}
+				<form onSubmit={onSubmit}>
+					<h1>Export from iTunes</h1>
+					<ol>
+						<li>Open iTunes</li>
+						<li>Go to File &gt; Library &gt; Export Library&hellip;</li>
+						<li>Select a location to save the XML file</li>
+						<li>Click the Save button</li>
+					</ol>
+					<h1>Import from iTunes</h1>
+					{error ? <p className="error">{error}</p> : null}
+					<p>
+						<input accept=".xml" onChange={onChange} type="file" />
+					</p>
+					<p>
+						<button className="button--primary" disabled={!file} type="submit">Import</button>
+					</p>
+					{url ? (
 						<p>
-							<input accept=".xml" onChange={this.onChange} type="file" />
+							<a download href={url}>
+								Download the new library file, rename it to songs.json, and place it in src/data.
+							</a>
 						</p>
-						<p>
-							<button className="button--primary" disabled={!this.state.file} type="submit">Import</button>
-						</p>
-						{this.state.url ? (
-							<p>
-								<a download href={this.state.url}>
-									Download the new library file, rename it to songs.json, and place it in src/data.
-								</a>
-							</p>
-						) : null}
-					</form>
-					{this.state.loading ? (
-						<div className="loading">
-							<LoadingIcon height="64" width="64" />
-						</div>
 					) : null}
-				</div>
-			</section>
-		);
-	}
+				</form>
+				{loading ? (
+					<div className="loading">
+						<LoadingIcon height="64" width="64" />
+					</div>
+				) : null}
+			</div>
+		</section>
+	);
 }
+
+ImportModal.propTypes = {
+	onClose: PropTypes.func,
+	showClose: PropTypes.bool,
+};
+
+ImportModal.defaultProps = {
+	onClose: null,
+	showClose: true,
+};

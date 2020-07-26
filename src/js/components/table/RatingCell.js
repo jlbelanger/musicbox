@@ -1,7 +1,7 @@
 import '../../../scss/components/table/RatingCell.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { setSongRating } from '../../appSlice';
+import { setRating } from '../../slices/songs';
 import { ReactComponent as StarIcon } from '../../../svg/star.svg';
 import { useDispatch } from 'react-redux';
 
@@ -14,12 +14,12 @@ export default function RatingCell(props) {
 	const dispatch = useDispatch();
 	const onClick = (e) => {
 		if (e.target.value === (props.value / 20).toString()) {
-			dispatch(setSongRating({ index: props.index, value: 0 }));
+			dispatch(setRating({ id: props.id, value: 0 }));
 		}
 	};
 	const onChange = (e) => {
 		const value = e.target.value * 20;
-		dispatch(setSongRating({ index: props.index, value }));
+		dispatch(setRating({ id: props.id, value }));
 	};
 
 	for (i = 1; i <= num; i += 1) {
@@ -35,7 +35,7 @@ export default function RatingCell(props) {
 				{stars.map((star) => (
 					<div className={`rating ${star.active ? ' active' : ' dimmed'}`} key={star.i}>
 						<StarIcon />
-						<input checked={num === star.i} onClick={onClick} onChange={onChange} name={`rating[${props.index}]`} type="radio" value={star.i} />
+						<input checked={num === star.i} onClick={onClick} onChange={onChange} name={`rating[${props.id}]`} type="radio" value={star.i} />
 					</div>
 				))}
 			</div>
@@ -44,7 +44,7 @@ export default function RatingCell(props) {
 }
 
 RatingCell.propTypes = {
-	index: PropTypes.number.isRequired,
+	id: PropTypes.string.isRequired,
 	value: PropTypes.any,
 };
 

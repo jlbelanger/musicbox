@@ -1,6 +1,11 @@
-export default (shuffle, songs) => {
-	const pool = songs.filter((song) => (song.checked))
-		.map((song) => (song.id));
+import sort from './sort';
+
+export default (songs, { shuffle, column, direction }) => {
+	let pool = songs.filter((song) => (song.checked));
+	if (!shuffle) {
+		pool = sort([...songs], column, direction);
+	}
+	pool = pool.map((song) => (song.id));
 	if (!shuffle) {
 		return pool;
 	}
