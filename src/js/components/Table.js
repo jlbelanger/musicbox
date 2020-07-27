@@ -1,12 +1,12 @@
 import '../../scss/components/Table.scss';
 import React from 'react';
 import Row from './table/Row';
-import { selectSongs } from '../slices/songs';
+import { selectSongIds } from '../slices/queue';
 import SortableHeader from './table/SortableHeader';
 import { useSelector } from 'react-redux';
 
 export default function App() {
-	const songs = useSelector(selectSongs);
+	const songIds = useSelector(selectSongIds);
 	return (
 		<table>
 			<thead>
@@ -24,8 +24,8 @@ export default function App() {
 				</tr>
 			</thead>
 			<tbody>
-				{Object.keys(songs).map((songId) => (
-					<Row key={songId} id={songId} row={songs[songId]} />
+				{songIds.map((songId) => (
+					<Row key={songId} id={songId} />
 				))}
 			</tbody>
 		</table>

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import sort from '../helpers/sort';
 
 const findCurrentSongQueueIndex = (queue, currentSongId) => (
 	queue.findIndex((id) => (id === currentSongId))
@@ -12,11 +13,17 @@ const moveToFrontOfQueue = (queue, songId) => {
 	return queue;
 };
 
+const sortSongIds = (songs, column, direction) => (
+	sort(Object.values(songs), column, direction)
+		.map((song) => song.id)
+);
+
 export const queueSlice = createSlice({
 	name: 'queue',
 	initialState: {
 		currentQueueIndex: null,
 		currentSongId: null,
+		ids: [],
 		queue: [],
 	},
 	reducers: {
@@ -53,18 +60,14 @@ export const queueSlice = createSlice({
 				currentQueueIndex: findCurrentSongQueueIndex(state.queue, action.payload),
 			}
 		),
-		setQueue: (state, action) => (
-			{
-				...state,
-				queue: action.payload,
-			}
-		),
-		setQueueAndPreserveCurrentSong: (state, action) => {
+		setQueue: (state, action) => {
+			const ids = sortSongIds(action.payload.songs, action.payload.column, action.payload.direction);
 			let queue = action.payload.queue;
 			if (!state.currentSongId) {
 				return {
 					...state,
 					queue,
+					ids,
 				};
 			}
 
@@ -74,6 +77,7 @@ export const queueSlice = createSlice({
 					...state,
 					queue,
 					currentQueueIndex: 0,
+					ids,
 				};
 			}
 
@@ -81,6 +85,7 @@ export const queueSlice = createSlice({
 				...state,
 				queue,
 				currentQueueIndex: findCurrentSongQueueIndex(queue, state.currentSongId),
+				ids,
 			};
 		},
 		setQueueIndexToCurrentSong: (state) => (
@@ -113,7 +118,6 @@ export const {
 	moveSongToFrontOfQueue,
 	setCurrentSongId,
 	setQueue,
-	setQueueAndPreserveCurrentSong,
 	setQueueIndexToCurrentSong,
 	startQueue,
 	stopQueue,
@@ -122,6 +126,7 @@ export const {
 export const selectCurrentQueueIndex = (state) => state.queue.currentQueueIndex;
 export const selectCurrentSong = (state) => state.songs[state.queue.currentSongId];
 export const selectCurrentSongId = (state) => state.queue.currentSongId;
+export const selectSongIds = (state) => state.queue.ids;
 export const selectHasQueue = (state) => (state.queue.queue.length > 0);
 export const selectUpcomingSongs = (state) => {
 	const index = state.queue.currentQueueIndex;

@@ -1,13 +1,10 @@
 import sort from './sort';
 
 export default (songs, { shuffle, column, direction }) => {
-	let pool = songs.filter((song) => (song.checked));
+	const pool = Object.values(songs).filter((song) => song.checked);
 	if (!shuffle) {
-		pool = sort([...songs], column, direction);
-	}
-	pool = pool.map((song) => (song.id));
-	if (!shuffle) {
-		return pool;
+		return sort(pool, column, direction)
+			.map((song) => (song.id));
 	}
 
 	const queue = [];

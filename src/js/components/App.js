@@ -9,7 +9,6 @@ export default function App() {
 	if (hasSongs <= 0) {
 		return <ImportModal showClose={false} />;
 	}
-
 	return (
 		<Main />
 	);

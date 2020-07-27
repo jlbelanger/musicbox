@@ -25,7 +25,7 @@ export default function Row(props) {
 	const song = songs[props.id];
 
 	let icon = null;
-	if (song.id === currentSongId) {
+	if (props.id === currentSongId) {
 		if (isPlaying) {
 			icon = <VolumeHighIcon height="16" width="16" />;
 		} else {

@@ -4,7 +4,7 @@ import {
 	selectCurrentQueueIndex,
 	stopQueue,
 } from '../../slices/queue';
-import { selectActiveSongs, selectNumSongs } from '../../slices/songs';
+import { selectNumSongs, selectSongs } from '../../slices/songs';
 import { selectColumn, selectDirection } from '../../slices/sort';
 import createQueue from '../../helpers/queue';
 import { ReactComponent as NextIcon } from '../../../svg/next.svg';
@@ -16,7 +16,7 @@ export default function Next() {
 	const dispatch = useDispatch();
 	const currentQueueIndex = useSelector(selectCurrentQueueIndex);
 	const numSongs = useSelector(selectNumSongs);
-	const songs = useSelector(selectActiveSongs);
+	const songs = useSelector(selectSongs);
 	const column = useSelector(selectColumn);
 	const direction = useSelector(selectDirection);
 	const shuffle = useSelector(selectShuffle);

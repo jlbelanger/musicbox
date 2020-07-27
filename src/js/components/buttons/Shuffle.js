@@ -3,22 +3,26 @@ import { selectColumn, selectDirection } from '../../slices/sort';
 import { selectShuffle, toggleShuffle } from '../../slices/shuffle';
 import createQueue from '../../helpers/queue';
 import React from 'react';
-import { selectActiveSongs } from '../../slices/songs';
-import { setQueueAndPreserveCurrentSong } from '../../slices/queue';
+import { selectSongs } from '../../slices/songs';
+import { setQueue } from '../../slices/queue';
 import { ReactComponent as ShuffleIcon } from '../../../svg/shuffle.svg';
 
 export default function Shuffle() {
 	const dispatch = useDispatch();
 	const shuffle = useSelector(selectShuffle);
-	const songs = useSelector(selectActiveSongs);
+	const songs = useSelector(selectSongs);
 	const column = useSelector(selectColumn);
 	const direction = useSelector(selectDirection);
 	const onClick = () => {
 		batch(() => {
 			dispatch(toggleShuffle());
-			dispatch(setQueueAndPreserveCurrentSong({
+			// TODO: This is using the old shuffle value.
+			dispatch(setQueue({
 				queue: createQueue(songs, { shuffle, column, direction }),
 				shuffle,
+				songs,
+				column,
+				direction,
 			}));
 		});
 	};

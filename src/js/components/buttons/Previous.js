@@ -8,14 +8,14 @@ import { selectColumn, selectDirection } from '../../slices/sort';
 import createQueue from '../../helpers/queue';
 import { ReactComponent as PreviousIcon } from '../../../svg/previous.svg';
 import React from 'react';
-import { selectActiveSongs } from '../../slices/songs';
+import { selectSongs } from '../../slices/songs';
 import { selectShuffle } from '../../slices/shuffle';
 import { stopPlaying } from '../../slices/isPlaying';
 
 export default function Previous() {
 	const dispatch = useDispatch();
 	const currentQueueIndex = useSelector(selectCurrentQueueIndex);
-	const songs = useSelector(selectActiveSongs);
+	const songs = useSelector(selectSongs);
 	const shuffle = useSelector(selectShuffle);
 	const column = useSelector(selectColumn);
 	const direction = useSelector(selectDirection);

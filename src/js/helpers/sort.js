@@ -1,5 +1,5 @@
 const sortTypes = {
-	id: 'number',
+	id: 'string',
 	title: 'string',
 	artist: 'string',
 	album: 'string',

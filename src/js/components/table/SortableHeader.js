@@ -10,16 +10,16 @@ import { ReactComponent as ArrowIcon } from '../../../svg/arrow.svg';
 import createQueue from '../../helpers/queue';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { selectActiveSongs } from '../../slices/songs';
+import { selectSongs } from '../../slices/songs';
 import { selectShuffle } from '../../slices/shuffle';
-import { setQueueAndPreserveCurrentSong } from '../../slices/queue';
+import { setQueue } from '../../slices/queue';
 
 export default function SortableHeader(props) {
 	const dispatch = useDispatch();
 	const column = useSelector(selectColumn);
 	const direction = useSelector(selectDirection);
 	const shuffle = useSelector(selectShuffle);
-	const songs = useSelector(selectActiveSongs);
+	const songs = useSelector(selectSongs);
 	const isSorted = column === props.name;
 	const onClick = () => {
 		batch(() => {
@@ -28,9 +28,13 @@ export default function SortableHeader(props) {
 			} else {
 				dispatch(setColumn(props.name));
 			}
-			dispatch(setQueueAndPreserveCurrentSong({
+			// TODO: This is using the old sort values.
+			dispatch(setQueue({
 				queue: createQueue(songs, { shuffle, column, direction }),
 				shuffle,
+				songs,
+				column,
+				direction,
 			}));
 		});
 	};

@@ -9,8 +9,8 @@ export const songsSlice = createSlice({
 		setRating: (state, action) => (
 			{
 				...state,
-				[action.payload.index]: {
-					...state[action.payload.index],
+				[action.payload.id]: {
+					...state[action.payload.id],
 					rating: action.payload.value,
 				},
 			}
@@ -18,9 +18,9 @@ export const songsSlice = createSlice({
 		toggleChecked: (state, action) => (
 			{
 				...state,
-				[action.payload.index]: {
-					...state[action.payload.index],
-					checked: !state[action.payload.index].checked,
+				[action.payload]: {
+					...state[action.payload],
+					checked: !state[action.payload].checked,
 				},
 			}
 		),
