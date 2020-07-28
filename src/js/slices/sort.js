@@ -8,7 +8,16 @@ export const sortSlice = createSlice({
 		direction: Storage.get('sortDirection', 'asc'),
 	},
 	reducers: {
-		setColumn: (state, action) => {
+		sortColumn: (state, action) => {
+			if (state.column === action.payload) {
+				const direction = state.direction === 'asc' ? 'desc' : 'asc';
+				Storage.set('sortDirection', direction);
+				return {
+					...state,
+					direction,
+				};
+			}
+
 			const column = action.payload;
 			Storage.set('sortColumn', column);
 			return {
@@ -17,20 +26,11 @@ export const sortSlice = createSlice({
 				direction: 'asc',
 			};
 		},
-		toggleDirection: (state) => {
-			const direction = state.direction === 'asc' ? 'desc' : 'asc';
-			Storage.set('sortDirection', direction);
-			return {
-				...state,
-				direction,
-			};
-		},
 	},
 });
 
 export const {
-	setColumn,
-	toggleDirection,
+	sortColumn,
 } = sortSlice.actions;
 
 export const selectColumn = (state) => state.sort.column;

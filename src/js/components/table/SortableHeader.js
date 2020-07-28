@@ -3,8 +3,7 @@ import { batch, useDispatch, useSelector } from 'react-redux';
 import {
 	selectColumn,
 	selectDirection,
-	setColumn,
-	toggleDirection,
+	sortColumn,
 } from '../../slices/sort';
 import { ReactComponent as ArrowIcon } from '../../../svg/arrow.svg';
 import createQueue from '../../helpers/queue';
@@ -23,19 +22,17 @@ export default function SortableHeader(props) {
 	const isSorted = column === props.name;
 	const onClick = () => {
 		batch(() => {
-			if (isSorted) {
-				dispatch(toggleDirection());
-			} else {
-				dispatch(setColumn(props.name));
-			}
-			// TODO: This is using the old sort values.
-			dispatch(setQueue({
-				queue: createQueue(songs, { shuffle, column, direction }),
-				shuffle,
-				songs,
-				column,
-				direction,
-			}));
+			dispatch(sortColumn(props.name))
+				.then(() => {
+					// TODO: This is using the old sort values.
+					dispatch(setQueue({
+						queue: createQueue(songs, { shuffle, column, direction }),
+						shuffle,
+						songs,
+						column,
+						direction,
+					}));
+				});
 		});
 	};
 

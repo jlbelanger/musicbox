@@ -88,12 +88,6 @@ export const queueSlice = createSlice({
 				ids,
 			};
 		},
-		setQueueIndexToCurrentSong: (state) => (
-			{
-				...state,
-				currentQueueIndex: findCurrentSongQueueIndex(state.queue, state.currentSongId),
-			}
-		),
 		startQueue: (state) => (
 			{
 				...state,
@@ -118,7 +112,6 @@ export const {
 	moveSongToFrontOfQueue,
 	setCurrentSongId,
 	setQueue,
-	setQueueIndexToCurrentSong,
 	startQueue,
 	stopQueue,
 } = queueSlice.actions;
