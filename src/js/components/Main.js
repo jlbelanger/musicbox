@@ -1,7 +1,6 @@
 import { selectColumn, selectDirection } from '../slices/sort';
 import { selectHasQueue, setQueue } from '../slices/queue';
 import { useDispatch, useSelector } from 'react-redux';
-import Audio from './Audio';
 import createQueue from '../helpers/queue';
 import Header from './Header';
 import React from 'react';
@@ -29,7 +28,6 @@ export default function Main() {
 
 	return (
 		<main>
-			<Audio />
 			<Header />
 			<article>
 				<Table />
