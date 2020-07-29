@@ -1,10 +1,5 @@
 import { batch, useDispatch, useSelector } from 'react-redux';
-import {
-	moveSongToFrontOfQueue,
-	selectCurrentSongId,
-	selectShuffle,
-	setCurrentSongId,
-} from '../../slices/queue';
+import { chooseSong, selectCurrentSongId } from '../../slices/queue';
 import { selectIsPlaying, startPlaying } from '../../slices/isPlaying';
 import CheckboxCell from './CheckboxCell';
 import prettyDate from '../../helpers/date';
@@ -20,7 +15,6 @@ export default function Row(props) {
 	const dispatch = useDispatch();
 	const currentSongId = useSelector(selectCurrentSongId);
 	const isPlaying = useSelector(selectIsPlaying);
-	const shuffle = useSelector(selectShuffle);
 	const songs = useSelector(selectSongs);
 	const song = songs[props.id];
 
@@ -37,11 +31,7 @@ export default function Row(props) {
 		if (['TD', 'TH'].includes(e.target.tagName)) {
 			batch(() => {
 				dispatch(startPlaying());
-				if (shuffle) {
-					dispatch(moveSongToFrontOfQueue(song.id));
-				} else {
-					dispatch(setCurrentSongId(song.id));
-				}
+				dispatch(chooseSong(song.id));
 			});
 		}
 	};

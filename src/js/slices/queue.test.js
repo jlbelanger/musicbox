@@ -26,20 +26,76 @@ describe('queue', () => {
 		});
 	});
 
+	describe('chooseSong', () => {
+		describe('when shuffle is on', () => {
+			it('moves the song to the front of the queue', async () => {
+				expect(reducer({
+					currentQueueIndex: 1,
+					currentSongId: 5,
+					queue: [3, 5, 2, 4, 1],
+					shuffle: true,
+				}, {
+					type: 'queue/chooseSong',
+					payload: 4,
+				})).toEqual({
+					currentQueueIndex: 0,
+					currentSongId: 4,
+					queue: [4, 3, 5, 2, 1],
+					shuffle: true,
+				});
+			});
+		});
+
+		describe('when shuffle is off', () => {
+			it('moves the queue to the specified song', async () => {
+				expect(reducer({
+					currentQueueIndex: 1,
+					currentSongId: 5,
+					queue: [3, 5, 2, 4, 1],
+					shuffle: false,
+				}, {
+					type: 'queue/chooseSong',
+					payload: 4,
+				})).toEqual({
+					currentQueueIndex: 3,
+					currentSongId: 4,
+					queue: [3, 5, 2, 4, 1],
+					shuffle: false,
+				});
+			});
+		});
+	});
+
 	describe('decrementQueueIndex', () => {
-		it.todo('TODO');
+		it('decrements the queue index and sets the current song ID', async () => {
+			expect(reducer({
+				currentQueueIndex: 1,
+				currentSongId: 456,
+				queue: [789, 456, 123],
+			}, {
+				type: 'queue/decrementQueueIndex',
+			})).toEqual({
+				currentQueueIndex: 0,
+				currentSongId: 789,
+				queue: [789, 456, 123],
+			});
+		});
 	});
 
 	describe('incrementQueueIndex', () => {
-		it.todo('TODO');
-	});
-
-	describe('moveSongToFrontOfQueue', () => {
-		it.todo('TODO');
-	});
-
-	describe('setCurrentSongId', () => {
-		it.todo('TODO');
+		it('increments the queue index and sets the current song ID', async () => {
+			expect(reducer({
+				currentQueueIndex: 1,
+				currentSongId: 456,
+				queue: [789, 456, 123],
+			}, {
+				type: 'queue/incrementQueueIndex',
+			})).toEqual({
+				currentQueueIndex: 2,
+				currentSongId: 123,
+				queue: [789, 456, 123],
+			});
+		});
 	});
 
 	describe('setQueue', () => {
@@ -47,7 +103,65 @@ describe('queue', () => {
 	});
 
 	describe('sortColumn', () => {
-		it.todo('TODO');
+		describe('when the column is already sorted ascending', () => {
+			it('changes the direction to descending', async () => {
+				expect(reducer({
+					sortColumn: 'foo',
+					sortDirection: 'asc',
+				}, {
+					type: 'queue/sortColumn',
+					payload: 'foo',
+				})).toEqual({
+					sortColumn: 'foo',
+					sortDirection: 'desc',
+				});
+			});
+		});
+
+		describe('when the column is already sorted descending', () => {
+			it('changes the direction to ascending', async () => {
+				expect(reducer({
+					sortColumn: 'foo',
+					sortDirection: 'desc',
+				}, {
+					type: 'queue/sortColumn',
+					payload: 'foo',
+				})).toEqual({
+					sortColumn: 'foo',
+					sortDirection: 'asc',
+				});
+			});
+		});
+
+		describe('when a different column is sorted ascending', () => {
+			it('changes the column', async () => {
+				expect(reducer({
+					sortColumn: 'foo',
+					sortDirection: 'asc',
+				}, {
+					type: 'queue/sortColumn',
+					payload: 'bar',
+				})).toEqual({
+					sortColumn: 'bar',
+					sortDirection: 'asc',
+				});
+			});
+		});
+
+		describe('when a different column is sorted descending', () => {
+			it('changes the column and direction', async () => {
+				expect(reducer({
+					sortColumn: 'foo',
+					sortDirection: 'desc',
+				}, {
+					type: 'queue/sortColumn',
+					payload: 'bar',
+				})).toEqual({
+					sortColumn: 'bar',
+					sortDirection: 'asc',
+				});
+			});
+		});
 	});
 
 	describe('startQueue', () => {
@@ -59,7 +173,29 @@ describe('queue', () => {
 	});
 
 	describe('toggleShuffle', () => {
-		it.todo('TODO');
+		describe('when shuffle is off', () => {
+			it('enables shuffle', async () => {
+				expect(reducer({
+					shuffle: false,
+				}, {
+					type: 'queue/toggleShuffle',
+				})).toEqual({
+					shuffle: true,
+				});
+			});
+		});
+
+		describe('when shuffle is on', () => {
+			it('disables shuffle', async () => {
+				expect(reducer({
+					shuffle: true,
+				}, {
+					type: 'queue/toggleShuffle',
+				})).toEqual({
+					shuffle: false,
+				});
+			});
+		});
 	});
 
 	describe('selectCurrentQueueIndex', () => {
@@ -85,26 +221,42 @@ describe('queue', () => {
 
 	describe('selectCurrentSongId', () => {
 		it('returns value of currentSongId', async () => {
-			expect(selectCurrentSongId({ queue: { currentSongId: 'foo' } })).toBe('foo');
+			expect(selectCurrentSongId({
+				queue: {
+					currentSongId: 'foo',
+				},
+			})).toBe('foo');
 		});
 	});
 
 	describe('selectSongIds', () => {
 		it('returns value of ids', async () => {
-			expect(selectSongIds({ queue: { ids: 'foo' } })).toBe('foo');
+			expect(selectSongIds({
+				queue: {
+					ids: 'foo',
+				},
+			})).toBe('foo');
 		});
 	});
 
 	describe('selectHasQueue', () => {
 		describe('when the queue is not empty', () => {
 			it('returns true', async () => {
-				expect(selectHasQueue({ queue: { queue: [1] } })).toBe(true);
+				expect(selectHasQueue({
+					queue: {
+						queue: [1],
+					},
+				})).toBe(true);
 			});
 		});
 
 		describe('when the queue is empty', () => {
 			it('returns false', async () => {
-				expect(selectHasQueue({ queue: { queue: [] } })).toBe(false);
+				expect(selectHasQueue({
+					queue: {
+						queue: [],
+					},
+				})).toBe(false);
 			});
 		});
 	});
@@ -130,19 +282,31 @@ describe('queue', () => {
 
 	describe('selectSortColumn', () => {
 		it('returns value of sortColumn', async () => {
-			expect(selectSortColumn({ queue: { sortColumn: 'foo' } })).toBe('foo');
+			expect(selectSortColumn({
+				queue: {
+					sortColumn: 'foo',
+				},
+			})).toBe('foo');
 		});
 	});
 
 	describe('selectSortDirection', () => {
 		it('returns value of sortDirection', async () => {
-			expect(selectSortDirection({ queue: { sortDirection: 'foo' } })).toBe('foo');
+			expect(selectSortDirection({
+				queue: {
+					sortDirection: 'foo',
+				},
+			})).toBe('foo');
 		});
 	});
 
 	describe('selectShuffle', () => {
 		it('returns value of shuffle', async () => {
-			expect(selectShuffle({ queue: { shuffle: 'foo' } })).toBe('foo');
+			expect(selectShuffle({
+				queue: {
+					shuffle: 'foo',
+				},
+			})).toBe('foo');
 		});
 	});
 });

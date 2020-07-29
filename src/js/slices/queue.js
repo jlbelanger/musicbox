@@ -34,6 +34,24 @@ export const queueSlice = createSlice({
 	name: 'queue',
 	initialState,
 	reducers: {
+		chooseSong: (state, action) => {
+			const currentSongId = action.payload;
+			if (state.shuffle) {
+				const queue = moveToFrontOfQueue(state.queue, currentSongId);
+				return {
+					...state,
+					queue,
+					currentQueueIndex: 0,
+					currentSongId,
+				};
+			}
+
+			return {
+				...state,
+				currentSongId,
+				currentQueueIndex: findCurrentSongQueueIndex(state.queue, action.payload),
+			};
+		},
 		decrementQueueIndex: (state) => {
 			const index = state.currentQueueIndex - 1;
 			return {
@@ -50,23 +68,6 @@ export const queueSlice = createSlice({
 				currentSongId: state.queue[index],
 			};
 		},
-		moveSongToFrontOfQueue: (state, action) => {
-			const songId = action.payload;
-			const queue = moveToFrontOfQueue(state.queue, songId);
-			return {
-				...state,
-				queue,
-				currentQueueIndex: 0,
-				currentSongId: songId,
-			};
-		},
-		setCurrentSongId: (state, action) => (
-			{
-				...state,
-				currentSongId: action.payload,
-				currentQueueIndex: findCurrentSongQueueIndex(state.queue, action.payload),
-			}
-		),
 		setQueue: (state, action) => {
 			const ids = sortSongIds(action.payload, state.sortColumn, state.sortDirection);
 			let queue = createQueue(
@@ -143,10 +144,9 @@ export const queueSlice = createSlice({
 });
 
 export const {
+	chooseSong,
 	decrementQueueIndex,
 	incrementQueueIndex,
-	moveSongToFrontOfQueue,
-	setCurrentSongId,
 	setQueue,
 	sortColumn,
 	startQueue,
