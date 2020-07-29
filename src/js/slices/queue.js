@@ -1,5 +1,7 @@
+import createQueue from '../helpers/queue';
 import { createSlice } from '@reduxjs/toolkit';
 import sort from '../helpers/sort';
+import Storage from '../helpers/Storage';
 
 const findCurrentSongQueueIndex = (queue, currentSongId) => (
 	queue.findIndex((id) => (id === currentSongId))
@@ -18,14 +20,19 @@ const sortSongIds = (songs, column, direction) => (
 		.map((song) => song.id)
 );
 
+export const initialState = {
+	currentQueueIndex: null,
+	currentSongId: null,
+	ids: [],
+	queue: [],
+	shuffle: Storage.get('shuffle', false),
+	sortColumn: Storage.get('sortColumn', 'artist'),
+	sortDirection: Storage.get('sortDirection', 'asc'),
+};
+
 export const queueSlice = createSlice({
 	name: 'queue',
-	initialState: {
-		currentQueueIndex: null,
-		currentSongId: null,
-		ids: [],
-		queue: [],
-	},
+	initialState,
 	reducers: {
 		decrementQueueIndex: (state) => {
 			const index = state.currentQueueIndex - 1;
@@ -61,8 +68,15 @@ export const queueSlice = createSlice({
 			}
 		),
 		setQueue: (state, action) => {
-			const ids = sortSongIds(action.payload.songs, action.payload.column, action.payload.direction);
-			let queue = action.payload.queue;
+			const ids = sortSongIds(action.payload, state.sortColumn, state.sortDirection);
+			let queue = createQueue(
+				action.payload,
+				{
+					shuffle: state.shuffle,
+					column: state.sortColumn,
+					direction: state.sortDirection,
+				}
+			);
 			if (!state.currentSongId) {
 				return {
 					...state,
@@ -71,7 +85,7 @@ export const queueSlice = createSlice({
 				};
 			}
 
-			if (action.payload.shuffle) {
+			if (state.shuffle) {
 				queue = moveToFrontOfQueue(queue, state.currentSongId);
 				return {
 					...state,
@@ -86,6 +100,22 @@ export const queueSlice = createSlice({
 				queue,
 				currentQueueIndex: findCurrentSongQueueIndex(queue, state.currentSongId),
 				ids,
+			};
+		},
+		sortColumn: (state, action) => {
+			const sortColumn = action.payload;
+			if (state.sortColumn === sortColumn) {
+				const sortDirection = state.sortDirection === 'asc' ? 'desc' : 'asc';
+				return {
+					...state,
+					sortDirection,
+				};
+			}
+
+			return {
+				...state,
+				sortColumn,
+				sortDirection: 'asc',
 			};
 		},
 		startQueue: (state) => (
@@ -103,6 +133,12 @@ export const queueSlice = createSlice({
 				queue: action.payload,
 			}
 		),
+		toggleShuffle: (state) => (
+			{
+				...state,
+				shuffle: !state.shuffle,
+			}
+		),
 	},
 });
 
@@ -112,8 +148,10 @@ export const {
 	moveSongToFrontOfQueue,
 	setCurrentSongId,
 	setQueue,
+	sortColumn,
 	startQueue,
 	stopQueue,
+	toggleShuffle,
 } = queueSlice.actions;
 
 export const selectCurrentQueueIndex = (state) => state.queue.currentQueueIndex;
@@ -126,5 +164,8 @@ export const selectUpcomingSongs = (state) => {
 	const q = state.queue.queue.slice(index, index + 3);
 	return q.map((id) => state.songs[id]);
 };
+export const selectSortColumn = (state) => state.queue.sortColumn;
+export const selectSortDirection = (state) => state.queue.sortDirection;
+export const selectShuffle = (state) => state.queue.shuffle;
 
 export default queueSlice.reducer;

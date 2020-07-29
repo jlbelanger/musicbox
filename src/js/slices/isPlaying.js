@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+export const initialState = false;
+
 export const isPlayingSlice = createSlice({
 	name: 'isPlaying',
-	initialState: false,
+	initialState,
 	reducers: {
 		startPlaying: () => true,
 		stopPlaying: () => false,

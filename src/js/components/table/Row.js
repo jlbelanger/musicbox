@@ -2,6 +2,7 @@ import { batch, useDispatch, useSelector } from 'react-redux';
 import {
 	moveSongToFrontOfQueue,
 	selectCurrentSongId,
+	selectShuffle,
 	setCurrentSongId,
 } from '../../slices/queue';
 import { selectIsPlaying, startPlaying } from '../../slices/isPlaying';
@@ -10,7 +11,6 @@ import prettyDate from '../../helpers/date';
 import PropTypes from 'prop-types';
 import RatingCell from './RatingCell';
 import React from 'react';
-import { selectShuffle } from '../../slices/shuffle';
 import { selectSongs } from '../../slices/songs';
 import TextCell from './TextCell';
 import { ReactComponent as VolumeHighIcon } from '../../../svg/volume-high.svg';

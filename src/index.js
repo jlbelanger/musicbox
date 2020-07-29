@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './scss/index.scss';
+import al from './js/observer';
 import App from './js/components/App';
 import store from './js/store';
 import { Provider } from 'react-redux';
@@ -19,3 +20,5 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.register();
+
+al();

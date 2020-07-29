@@ -2,9 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const fetchSongs = () => require('../../data/songs.json'); // eslint-disable-line global-require
 
+export const initialState = fetchSongs();
+
 export const songsSlice = createSlice({
 	name: 'songs',
-	initialState: fetchSongs(),
+	initialState,
 	reducers: {
 		setRating: (state, action) => (
 			{
@@ -36,7 +38,7 @@ export const selectSongs = (state) => state.songs;
 export const selectActiveSongs = (state) => (
 	Object.values(selectSongs(state)).filter((song) => (song.checked))
 );
-export const selectNumSongs = (state) => (selectActiveSongs(state).length);
-export const selectHasSongs = (state) => (selectNumSongs(state) > 0);
+export const selectNumActiveSongs = (state) => (selectActiveSongs(state).length);
+export const selectHasSongs = (state) => (Object.keys(state.songs).length > 0);
 
 export default songsSlice.reducer;

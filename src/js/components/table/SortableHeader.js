@@ -1,38 +1,26 @@
 import '../../../scss/components/table/SortableHeader.scss';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import {
-	selectColumn,
-	selectDirection,
+	selectSortColumn,
+	selectSortDirection,
+	setQueue,
 	sortColumn,
-} from '../../slices/sort';
+} from '../../slices/queue';
 import { ReactComponent as ArrowIcon } from '../../../svg/arrow.svg';
-import createQueue from '../../helpers/queue';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { selectSongs } from '../../slices/songs';
-import { selectShuffle } from '../../slices/shuffle';
-import { setQueue } from '../../slices/queue';
 
 export default function SortableHeader(props) {
 	const dispatch = useDispatch();
-	const column = useSelector(selectColumn);
-	const direction = useSelector(selectDirection);
-	const shuffle = useSelector(selectShuffle);
+	const column = useSelector(selectSortColumn);
+	const direction = useSelector(selectSortDirection);
 	const songs = useSelector(selectSongs);
 	const isSorted = column === props.name;
 	const onClick = () => {
 		batch(() => {
-			dispatch(sortColumn(props.name))
-				.then(() => {
-					// TODO: This is using the old sort values.
-					dispatch(setQueue({
-						queue: createQueue(songs, { shuffle, column, direction }),
-						shuffle,
-						songs,
-						column,
-						direction,
-					}));
-				});
+			dispatch(sortColumn(props.name));
+			dispatch(setQueue(songs));
 		});
 	};
 

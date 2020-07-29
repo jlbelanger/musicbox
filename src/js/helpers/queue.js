@@ -1,3 +1,4 @@
+import seedrandom from 'seedrandom';
 import sort from './sort';
 
 export default (songs, { shuffle, column, direction }) => {
@@ -10,10 +11,11 @@ export default (songs, { shuffle, column, direction }) => {
 	const queue = [];
 	let numSongs = pool.length;
 	let i;
+	const rng = seedrandom();
 
 	while (numSongs > 0) {
-		i = Math.floor(Math.random() * numSongs);
-		queue.push(pool[i]);
+		i = Math.floor(rng() * numSongs);
+		queue.push(pool[i].id);
 		pool.splice(i, 1);
 		numSongs -= 1;
 	}
