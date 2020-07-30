@@ -3,7 +3,7 @@ import {
 	changeSort,
 	selectSortColumn,
 	selectSortDirection,
-} from '../../slices/queue';
+} from '../../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as ArrowIcon } from '../../../svg/arrow.svg';
 import PropTypes from 'prop-types';

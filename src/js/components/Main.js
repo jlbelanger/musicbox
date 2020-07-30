@@ -1,4 +1,4 @@
-import { populateQueue, selectHasQueue } from '../slices/queue';
+import { populateQueue, selectHasQueue } from '../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from './Header';
 import React from 'react';

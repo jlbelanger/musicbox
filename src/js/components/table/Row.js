@@ -4,7 +4,7 @@ import {
 	selectCurrentSongId,
 	selectIsPlaying,
 	startPlaying,
-} from '../../slices/queue';
+} from '../../slices/app';
 import CheckboxCell from './CheckboxCell';
 import prettyDate from '../../helpers/date';
 import PropTypes from 'prop-types';

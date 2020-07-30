@@ -10,9 +10,9 @@ import reducer, {
 	selectSortColumn,
 	selectSortDirection,
 	selectUpcomingSongs,
-} from './queue';
+} from './app';
 
-describe('queue', () => {
+describe('app', () => {
 	describe('initialState', () => {
 		it('returns initial state', async () => {
 			expect(initialState).toEqual({

@@ -1,4 +1,4 @@
-import { selectShuffle, toggleShuffle } from '../../slices/queue';
+import { selectShuffle, toggleShuffle } from '../../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import { selectSongs } from '../../slices/songs';

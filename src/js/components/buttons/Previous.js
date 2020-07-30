@@ -4,7 +4,7 @@ import {
 	selectCurrentQueueIndex,
 	stopPlaying,
 	stopQueue,
-} from '../../slices/queue';
+} from '../../slices/app';
 import { ReactComponent as PreviousIcon } from '../../../svg/previous.svg';
 import React from 'react';
 import { selectSongs } from '../../slices/songs';

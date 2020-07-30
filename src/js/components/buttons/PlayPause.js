@@ -4,7 +4,7 @@ import {
 	startPlaying,
 	startQueue,
 	stopPlaying,
-} from '../../slices/queue';
+} from '../../slices/app';
 import { ReactComponent as PauseIcon } from '../../../svg/pause.svg';
 import { ReactComponent as PlayIcon } from '../../../svg/play.svg';
 import React from 'react';

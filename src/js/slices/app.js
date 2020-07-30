@@ -19,8 +19,8 @@ export const initialState = {
 	sortDirection: Storage.get('sortDirection', 'asc'),
 };
 
-export const queueSlice = createSlice({
-	name: 'queue',
+export const appSlice = createSlice({
+	name: 'app',
 	initialState,
 	reducers: {
 		changeSort: (state, action) => {
@@ -198,21 +198,21 @@ export const {
 	stopPlaying,
 	stopQueue,
 	toggleShuffle,
-} = queueSlice.actions;
+} = appSlice.actions;
 
-export const selectCurrentQueueIndex = (state) => state.queue.currentQueueIndex;
-export const selectCurrentSong = (state) => state.songs[state.queue.currentSongId];
-export const selectCurrentSongId = (state) => state.queue.currentSongId;
-export const selectIsPlaying = (state) => state.queue.isPlaying;
-export const selectSongIds = (state) => state.queue.ids;
-export const selectHasQueue = (state) => (state.queue.queue.length > 0);
+export const selectCurrentQueueIndex = (state) => state.app.currentQueueIndex;
+export const selectCurrentSong = (state) => state.songs[state.app.currentSongId];
+export const selectCurrentSongId = (state) => state.app.currentSongId;
+export const selectIsPlaying = (state) => state.app.isPlaying;
+export const selectSongIds = (state) => state.app.ids;
+export const selectHasQueue = (state) => (state.app.queue.length > 0);
 export const selectUpcomingSongs = (state) => {
-	const index = state.queue.currentQueueIndex;
-	const q = state.queue.queue.slice(index, index + 3);
+	const index = state.app.currentQueueIndex;
+	const q = state.app.queue.slice(index, index + 3);
 	return q.map((id) => state.songs[id]);
 };
-export const selectSortColumn = (state) => state.queue.sortColumn;
-export const selectSortDirection = (state) => state.queue.sortDirection;
-export const selectShuffle = (state) => state.queue.shuffle;
+export const selectSortColumn = (state) => state.app.sortColumn;
+export const selectSortDirection = (state) => state.app.sortDirection;
+export const selectShuffle = (state) => state.app.shuffle;
 
-export default queueSlice.reducer;
+export default appSlice.reducer;

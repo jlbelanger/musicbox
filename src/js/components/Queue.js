@@ -1,5 +1,5 @@
 import React from 'react';
-import { selectUpcomingSongs } from '../slices/queue';
+import { selectUpcomingSongs } from '../slices/app';
 import { useSelector } from 'react-redux';
 
 export default function Queue() {

@@ -1,7 +1,7 @@
 import '../../scss/components/Table.scss';
 import React from 'react';
 import Row from './table/Row';
-import { selectSongIds } from '../slices/queue';
+import { selectSongIds } from '../slices/app';
 import SortableHeader from './table/SortableHeader';
 import { useSelector } from 'react-redux';
 
