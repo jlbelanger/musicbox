@@ -2,12 +2,12 @@ import { batch, useDispatch, useSelector } from 'react-redux';
 import {
 	decrementQueueIndex,
 	selectCurrentQueueIndex,
+	stopPlaying,
 	stopQueue,
 } from '../../slices/queue';
 import { ReactComponent as PreviousIcon } from '../../../svg/previous.svg';
 import React from 'react';
 import { selectSongs } from '../../slices/songs';
-import { stopPlaying } from '../../slices/isPlaying';
 
 export default function Previous() {
 	const dispatch = useDispatch();

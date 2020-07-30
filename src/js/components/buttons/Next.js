@@ -2,12 +2,12 @@ import { batch, useDispatch, useSelector } from 'react-redux';
 import {
 	incrementQueueIndex,
 	selectCurrentQueueIndex,
+	stopPlaying,
 	stopQueue,
 } from '../../slices/queue';
 import { selectNumActiveSongs, selectSongs } from '../../slices/songs';
 import { ReactComponent as NextIcon } from '../../../svg/next.svg';
 import React from 'react';
-import { stopPlaying } from '../../slices/isPlaying';
 
 export default function Next() {
 	const dispatch = useDispatch();

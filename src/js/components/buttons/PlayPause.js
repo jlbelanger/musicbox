@@ -1,9 +1,13 @@
 import { batch, useDispatch, useSelector } from 'react-redux';
-import { selectIsPlaying, startPlaying, stopPlaying } from '../../slices/isPlaying';
+import {
+	selectIsPlaying,
+	startPlaying,
+	startQueue,
+	stopPlaying,
+} from '../../slices/queue';
 import { ReactComponent as PauseIcon } from '../../../svg/pause.svg';
 import { ReactComponent as PlayIcon } from '../../../svg/play.svg';
 import React from 'react';
-import { startQueue } from '../../slices/queue';
 
 export default function PlayPause() {
 	const dispatch = useDispatch();

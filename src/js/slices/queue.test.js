@@ -4,6 +4,7 @@ import reducer, {
 	selectCurrentSong,
 	selectCurrentSongId,
 	selectHasQueue,
+	selectIsPlaying,
 	selectShuffle,
 	selectSongIds,
 	selectSortColumn,
@@ -18,6 +19,7 @@ describe('queue', () => {
 				currentQueueIndex: null,
 				currentSongId: null,
 				ids: [],
+				isPlaying: false,
 				queue: [],
 				shuffle: false,
 				sortColumn: 'artist',
@@ -389,7 +391,15 @@ describe('queue', () => {
 		});
 	});
 
+	describe('startPlaying', () => {
+		it.todo('TODO');
+	});
+
 	describe('startQueue', () => {
+		it.todo('TODO');
+	});
+
+	describe('stopPlaying', () => {
 		it.todo('TODO');
 	});
 
@@ -548,6 +558,16 @@ describe('queue', () => {
 					},
 				})).toBe(false);
 			});
+		});
+	});
+
+	describe('selectIsPlaying', () => {
+		it('returns value of isPlaying', async () => {
+			expect(selectIsPlaying({
+				queue: {
+					isPlaying: 'foo',
+				},
+			})).toBe('foo');
 		});
 	});
 

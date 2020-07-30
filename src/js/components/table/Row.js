@@ -1,6 +1,10 @@
 import { batch, useDispatch, useSelector } from 'react-redux';
-import { chooseSong, selectCurrentSongId } from '../../slices/queue';
-import { selectIsPlaying, startPlaying } from '../../slices/isPlaying';
+import {
+	chooseSong,
+	selectCurrentSongId,
+	selectIsPlaying,
+	startPlaying,
+} from '../../slices/queue';
 import CheckboxCell from './CheckboxCell';
 import prettyDate from '../../helpers/date';
 import PropTypes from 'prop-types';
