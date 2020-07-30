@@ -38,7 +38,7 @@ describe('app', () => {
 						sortColumn: 'foo',
 						sortDirection: 'asc',
 					}, {
-						type: 'queue/changeSort',
+						type: 'app/changeSort',
 						payload: {
 							songs: {
 								1: { id: 1, foo: 'b', bar: 'a' },
@@ -64,7 +64,7 @@ describe('app', () => {
 						sortColumn: 'foo',
 						sortDirection: 'desc',
 					}, {
-						type: 'queue/changeSort',
+						type: 'app/changeSort',
 						payload: {
 							songs: {
 								1: { id: 1, foo: 'b', bar: 'a' },
@@ -90,7 +90,7 @@ describe('app', () => {
 						sortColumn: 'bar',
 						sortDirection: 'asc',
 					}, {
-						type: 'queue/changeSort',
+						type: 'app/changeSort',
 						payload: {
 							songs: {
 								1: { id: 1, foo: 'b', bar: 'a' },
@@ -116,7 +116,7 @@ describe('app', () => {
 						sortColumn: 'bar',
 						sortDirection: 'desc',
 					}, {
-						type: 'queue/changeSort',
+						type: 'app/changeSort',
 						payload: {
 							songs: {
 								1: { id: 1, foo: 'b', bar: 'a' },
@@ -146,7 +146,7 @@ describe('app', () => {
 						sortColumn: 'foo',
 						sortDirection: 'asc',
 					}, {
-						type: 'queue/changeSort',
+						type: 'app/changeSort',
 						payload: {
 							songs: {
 								1: { id: 1, foo: 'b', bar: 'a' },
@@ -176,7 +176,7 @@ describe('app', () => {
 						sortColumn: 'foo',
 						sortDirection: 'desc',
 					}, {
-						type: 'queue/changeSort',
+						type: 'app/changeSort',
 						payload: {
 							songs: {
 								1: { id: 1, foo: 'b', bar: 'a' },
@@ -206,7 +206,7 @@ describe('app', () => {
 						sortColumn: 'bar',
 						sortDirection: 'asc',
 					}, {
-						type: 'queue/changeSort',
+						type: 'app/changeSort',
 						payload: {
 							songs: {
 								1: { id: 1, foo: 'b', bar: 'a' },
@@ -236,7 +236,7 @@ describe('app', () => {
 						sortColumn: 'bar',
 						sortDirection: 'desc',
 					}, {
-						type: 'queue/changeSort',
+						type: 'app/changeSort',
 						payload: {
 							songs: {
 								1: { id: 1, foo: 'b', bar: 'a' },
@@ -267,7 +267,7 @@ describe('app', () => {
 						sortColumn: 'foo',
 						sortDirection: 'desc',
 					}, {
-						type: 'queue/changeSort',
+						type: 'app/changeSort',
 						payload: {
 							songs: {
 								1: { id: 1, foo: 'b', bar: 'a' },
@@ -296,16 +296,18 @@ describe('app', () => {
 				expect(reducer({
 					currentQueueIndex: 1,
 					currentSongId: 5,
+					isPlaying: false,
 					queue: [3, 5, 2, 4, 1],
 					shuffle: true,
 				}, {
-					type: 'queue/chooseSong',
+					type: 'app/chooseSong',
 					payload: {
 						currentSongId: 4,
 					},
 				})).toEqual({
 					currentQueueIndex: 0,
 					currentSongId: 4,
+					isPlaying: true,
 					queue: [4, 3, 5, 2, 1],
 					shuffle: true,
 				});
@@ -317,16 +319,18 @@ describe('app', () => {
 				expect(reducer({
 					currentQueueIndex: 1,
 					currentSongId: 5,
+					isPlaying: false,
 					queue: [3, 5, 2, 4, 1],
 					shuffle: false,
 				}, {
-					type: 'queue/chooseSong',
+					type: 'app/chooseSong',
 					payload: {
 						currentSongId: 4,
 					},
 				})).toEqual({
 					currentQueueIndex: 3,
 					currentSongId: 4,
+					isPlaying: true,
 					queue: [3, 5, 2, 4, 1],
 					shuffle: false,
 				});
@@ -341,7 +345,7 @@ describe('app', () => {
 				currentSongId: 456,
 				queue: [789, 456, 123],
 			}, {
-				type: 'queue/decrementQueueIndex',
+				type: 'app/decrementQueueIndex',
 			})).toEqual({
 				currentQueueIndex: 0,
 				currentSongId: 789,
@@ -357,7 +361,7 @@ describe('app', () => {
 				currentSongId: 456,
 				queue: [789, 456, 123],
 			}, {
-				type: 'queue/incrementQueueIndex',
+				type: 'app/incrementQueueIndex',
 			})).toEqual({
 				currentQueueIndex: 2,
 				currentSongId: 123,
@@ -366,44 +370,46 @@ describe('app', () => {
 		});
 	});
 
+	describe('pausePlayback', () => {
+		it.todo('TODO');
+	});
+
 	describe('populateQueue', () => {
-		it('populates ids and queue', async () => {
-			expect(reducer({
-				shuffle: false,
-				sortColumn: 'foo',
-				sortDirection: 'asc',
-			}, {
-				type: 'queue/populateQueue',
-				payload: {
-					songs: {
-						1: { id: 1, foo: 'b', bar: 'a' },
-						2: { id: 2, foo: 'c', bar: 'c' },
-						3: { id: 3, foo: 'a', bar: 'b' },
+		describe('when shuffle is off', () => {
+			it('populates ids and queue in order', async () => {
+				expect(reducer({
+					shuffle: false,
+					sortColumn: 'foo',
+					sortDirection: 'asc',
+				}, {
+					type: 'app/populateQueue',
+					payload: {
+						songs: {
+							1: { id: 1, foo: 'b', bar: 'a' },
+							2: { id: 2, foo: 'c', bar: 'c' },
+							3: { id: 3, foo: 'a', bar: 'b' },
+						},
 					},
-				},
-			})).toEqual({
-				ids: [3, 1, 2],
-				queue: [3, 1, 2],
-				shuffle: false,
-				sortColumn: 'foo',
-				sortDirection: 'asc',
+				})).toEqual({
+					ids: [3, 1, 2],
+					queue: [3, 1, 2],
+					shuffle: false,
+					sortColumn: 'foo',
+					sortDirection: 'asc',
+				});
 			});
+		});
+
+		describe('when shuffle is on', () => {
+			it.todo('TODO');
 		});
 	});
 
-	describe('startPlaying', () => {
+	describe('startPlayback', () => {
 		it.todo('TODO');
 	});
 
-	describe('startQueue', () => {
-		it.todo('TODO');
-	});
-
-	describe('stopPlaying', () => {
-		it.todo('TODO');
-	});
-
-	describe('stopQueue', () => {
+	describe('stopPlayback', () => {
 		it.todo('TODO');
 	});
 
@@ -414,7 +420,7 @@ describe('app', () => {
 					currentSongId: null,
 					shuffle: false,
 				}, {
-					type: 'queue/toggleShuffle',
+					type: 'app/toggleShuffle',
 					payload: {
 						songs: {},
 					},
@@ -432,7 +438,7 @@ describe('app', () => {
 						queue: [1, 2, 3, 4, 5],
 						shuffle: false,
 					}, {
-						type: 'queue/toggleShuffle',
+						type: 'app/toggleShuffle',
 						payload: {
 							seed: 'testseed',
 							songs: {
@@ -459,7 +465,7 @@ describe('app', () => {
 					currentSongId: null,
 					shuffle: true,
 				}, {
-					type: 'queue/toggleShuffle',
+					type: 'app/toggleShuffle',
 					payload: {
 						songs: {},
 					},
@@ -477,7 +483,7 @@ describe('app', () => {
 						queue: [5, 1, 3, 2, 4],
 						shuffle: true,
 					}, {
-						type: 'queue/toggleShuffle',
+						type: 'app/toggleShuffle',
 						payload: {
 							songs: {
 								1: { id: 1, checked: true },
@@ -500,20 +506,24 @@ describe('app', () => {
 
 	describe('selectCurrentQueueIndex', () => {
 		it('returns value of currentQueueIndex', async () => {
-			expect(selectCurrentQueueIndex({ queue: { currentQueueIndex: 'foo' } })).toBe('foo');
+			expect(selectCurrentQueueIndex({
+				app: {
+					currentQueueIndex: 'foo',
+				},
+			})).toBe('foo');
 		});
 	});
 
 	describe('selectCurrentSong', () => {
 		it('returns the current song', async () => {
 			expect(selectCurrentSong({
+				app: {
+					currentSongId: 456,
+				},
 				songs: {
 					123: { checked: true, id: 123 },
 					456: { checked: false, id: 456 },
 					789: { checked: true, id: 789 },
-				},
-				queue: {
-					currentSongId: 456,
 				},
 			})).toEqual({ checked: false, id: 456 });
 		});
@@ -522,7 +532,7 @@ describe('app', () => {
 	describe('selectCurrentSongId', () => {
 		it('returns value of currentSongId', async () => {
 			expect(selectCurrentSongId({
-				queue: {
+				app: {
 					currentSongId: 'foo',
 				},
 			})).toBe('foo');
@@ -532,7 +542,7 @@ describe('app', () => {
 	describe('selectSongIds', () => {
 		it('returns value of ids', async () => {
 			expect(selectSongIds({
-				queue: {
+				app: {
 					ids: 'foo',
 				},
 			})).toBe('foo');
@@ -543,7 +553,7 @@ describe('app', () => {
 		describe('when the queue is not empty', () => {
 			it('returns true', async () => {
 				expect(selectHasQueue({
-					queue: {
+					app: {
 						queue: [1],
 					},
 				})).toBe(true);
@@ -553,7 +563,7 @@ describe('app', () => {
 		describe('when the queue is empty', () => {
 			it('returns false', async () => {
 				expect(selectHasQueue({
-					queue: {
+					app: {
 						queue: [],
 					},
 				})).toBe(false);
@@ -564,7 +574,7 @@ describe('app', () => {
 	describe('selectIsPlaying', () => {
 		it('returns value of isPlaying', async () => {
 			expect(selectIsPlaying({
-				queue: {
+				app: {
 					isPlaying: 'foo',
 				},
 			})).toBe('foo');
@@ -574,14 +584,14 @@ describe('app', () => {
 	describe('selectUpcomingSongs', () => {
 		it('returns upcoming songs', async () => {
 			expect(selectUpcomingSongs({
+				app: {
+					currentQueueIndex: 1,
+					queue: [789, 456, 123],
+				},
 				songs: {
 					123: { checked: true, id: 123 },
 					456: { checked: false, id: 456 },
 					789: { checked: true, id: 789 },
-				},
-				queue: {
-					currentQueueIndex: 1,
-					queue: [789, 456, 123],
 				},
 			})).toEqual([
 				{ checked: false, id: 456 },
@@ -593,7 +603,7 @@ describe('app', () => {
 	describe('selectSortColumn', () => {
 		it('returns value of sortColumn', async () => {
 			expect(selectSortColumn({
-				queue: {
+				app: {
 					sortColumn: 'foo',
 				},
 			})).toBe('foo');
@@ -603,7 +613,7 @@ describe('app', () => {
 	describe('selectSortDirection', () => {
 		it('returns value of sortDirection', async () => {
 			expect(selectSortDirection({
-				queue: {
+				app: {
 					sortDirection: 'foo',
 				},
 			})).toBe('foo');
@@ -613,7 +623,7 @@ describe('app', () => {
 	describe('selectShuffle', () => {
 		it('returns value of shuffle', async () => {
 			expect(selectShuffle({
-				queue: {
+				app: {
 					shuffle: 'foo',
 				},
 			})).toBe('foo');

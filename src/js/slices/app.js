@@ -65,9 +65,10 @@ export const appSlice = createSlice({
 				const queue = moveToFrontOfQueue(state.queue, currentSongId);
 				return {
 					...state,
-					queue,
 					currentQueueIndex: 0,
 					currentSongId,
+					isPlaying: true,
+					queue,
 				};
 			}
 
@@ -75,6 +76,7 @@ export const appSlice = createSlice({
 				...state,
 				currentSongId,
 				currentQueueIndex: findCurrentSongQueueIndex(state.queue, currentSongId),
+				isPlaying: true,
 			};
 		},
 		decrementQueueIndex: (state) => {
@@ -93,6 +95,12 @@ export const appSlice = createSlice({
 				currentSongId: state.queue[index],
 			};
 		},
+		pausePlayback: (state) => (
+			{
+				...state,
+				isPlaying: false,
+			}
+		),
 		populateQueue: (state, action) => {
 			const { songs } = action.payload;
 			const ids = sortSongs(Object.values(songs), state.sortColumn, state.sortDirection);
@@ -108,26 +116,15 @@ export const appSlice = createSlice({
 				queue,
 			};
 		},
-		startPlaying: (state) => (
-			{
-				...state,
-				isPlaying: true,
-			}
-		),
-		startQueue: (state) => (
+		startPlayback: (state) => (
 			{
 				...state,
 				currentQueueIndex: 0,
 				currentSongId: state.queue[0],
+				isPlaying: true,
 			}
 		),
-		stopPlaying: (state) => (
-			{
-				...state,
-				isPlaying: false,
-			}
-		),
-		stopQueue: (state, action) => {
+		stopPlayback: (state, action) => {
 			const { seed, songs } = action.payload;
 			const queue = createQueue(
 				songs,
@@ -142,6 +139,7 @@ export const appSlice = createSlice({
 				...state,
 				currentQueueIndex: null,
 				currentSongId: null,
+				isPlaying: false,
 				queue,
 			};
 		},
@@ -192,11 +190,10 @@ export const {
 	chooseSong,
 	decrementQueueIndex,
 	incrementQueueIndex,
+	pausePlayback,
 	populateQueue,
-	startPlaying,
-	startQueue,
-	stopPlaying,
-	stopQueue,
+	startPlayback,
+	stopPlayback,
 	toggleShuffle,
 } = appSlice.actions;
 

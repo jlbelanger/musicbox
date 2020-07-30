@@ -1,10 +1,9 @@
-import { batch, useDispatch, useSelector } from 'react-redux';
 import {
 	chooseSong,
 	selectCurrentSongId,
 	selectIsPlaying,
-	startPlaying,
 } from '../../slices/app';
+import { useDispatch, useSelector } from 'react-redux';
 import CheckboxCell from './CheckboxCell';
 import prettyDate from '../../helpers/date';
 import PropTypes from 'prop-types';
@@ -33,10 +32,7 @@ export default function Row(props) {
 
 	const onDoubleClick = (e) => {
 		if (['TD', 'TH'].includes(e.target.tagName)) {
-			batch(() => {
-				dispatch(startPlaying());
-				dispatch(chooseSong({ currentSongId: song.id }));
-			});
+			dispatch(chooseSong({ currentSongId: song.id }));
 		}
 	};
 

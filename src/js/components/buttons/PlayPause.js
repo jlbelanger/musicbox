@@ -1,10 +1,9 @@
-import { batch, useDispatch, useSelector } from 'react-redux';
 import {
+	pausePlayback,
 	selectIsPlaying,
-	startPlaying,
-	startQueue,
-	stopPlaying,
+	startPlayback,
 } from '../../slices/app';
+import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as PauseIcon } from '../../../svg/pause.svg';
 import { ReactComponent as PlayIcon } from '../../../svg/play.svg';
 import React from 'react';
@@ -15,12 +14,9 @@ export default function PlayPause() {
 	const Icon = isPlaying ? PauseIcon : PlayIcon;
 	const onClick = () => {
 		if (isPlaying) {
-			dispatch(stopPlaying());
+			dispatch(pausePlayback());
 		} else {
-			batch(() => {
-				dispatch(startPlaying());
-				dispatch(startQueue());
-			});
+			dispatch(startPlayback());
 		}
 	};
 

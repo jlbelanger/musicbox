@@ -1,10 +1,9 @@
-import { batch, useDispatch, useSelector } from 'react-redux';
 import {
 	decrementQueueIndex,
 	selectCurrentQueueIndex,
-	stopPlaying,
-	stopQueue,
+	stopPlayback,
 } from '../../slices/app';
+import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as PreviousIcon } from '../../../svg/previous.svg';
 import React from 'react';
 import { selectSongs } from '../../slices/songs';
@@ -18,10 +17,7 @@ export default function Previous() {
 			return;
 		}
 		if (currentQueueIndex <= 0) {
-			batch(() => {
-				dispatch(stopPlaying());
-				dispatch(stopQueue({ songs }));
-			});
+			dispatch(stopPlayback({ songs }));
 		} else {
 			dispatch(decrementQueueIndex());
 		}
