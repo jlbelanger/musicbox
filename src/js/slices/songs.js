@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getActiveSongs } from '../helpers/queue';
 
 const fetchSongs = () => require('../../data/songs.json'); // eslint-disable-line global-require
 
@@ -8,24 +9,26 @@ export const songsSlice = createSlice({
 	name: 'songs',
 	initialState,
 	reducers: {
-		setRating: (state, action) => (
-			{
+		setRating: (state, action) => {
+			const { id, value } = action.payload;
+			return {
 				...state,
-				[action.payload.id]: {
-					...state[action.payload.id],
-					rating: action.payload.value,
+				[id]: {
+					...state[id],
+					rating: value,
 				},
-			}
-		),
-		toggleChecked: (state, action) => (
-			{
+			};
+		},
+		toggleChecked: (state, action) => {
+			const { id } = action.payload;
+			return {
 				...state,
-				[action.payload]: {
-					...state[action.payload],
-					checked: !state[action.payload].checked,
+				[id]: {
+					...state[id],
+					checked: !state[id].checked,
 				},
-			}
-		),
+			};
+		},
 	},
 });
 
@@ -35,9 +38,7 @@ export const {
 } = songsSlice.actions;
 
 export const selectSongs = (state) => state.songs;
-export const selectActiveSongs = (state) => (
-	Object.values(selectSongs(state)).filter((song) => (song.checked))
-);
+export const selectActiveSongs = (state) => getActiveSongs(selectSongs(state));
 export const selectNumActiveSongs = (state) => (selectActiveSongs(state).length);
 export const selectHasSongs = (state) => (Object.keys(state.songs).length > 0);
 

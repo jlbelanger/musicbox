@@ -1,11 +1,10 @@
 import '../../../scss/components/table/SortableHeader.scss';
-import { batch, useDispatch, useSelector } from 'react-redux';
 import {
+	changeSort,
 	selectSortColumn,
 	selectSortDirection,
-	setQueue,
-	sortColumn,
 } from '../../slices/queue';
+import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as ArrowIcon } from '../../../svg/arrow.svg';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -18,10 +17,7 @@ export default function SortableHeader(props) {
 	const songs = useSelector(selectSongs);
 	const isSorted = column === props.name;
 	const onClick = () => {
-		batch(() => {
-			dispatch(sortColumn(props.name));
-			dispatch(setQueue(songs));
-		});
+		dispatch(changeSort({ sortColumn: props.name, songs }));
 	};
 
 	const className = ['sortable-header__button'];

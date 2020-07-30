@@ -2,12 +2,8 @@ import { batch, useDispatch, useSelector } from 'react-redux';
 import {
 	decrementQueueIndex,
 	selectCurrentQueueIndex,
-	selectShuffle,
-	selectSortColumn,
-	selectSortDirection,
 	stopQueue,
 } from '../../slices/queue';
-import createQueue from '../../helpers/queue';
 import { ReactComponent as PreviousIcon } from '../../../svg/previous.svg';
 import React from 'react';
 import { selectSongs } from '../../slices/songs';
@@ -17,9 +13,6 @@ export default function Previous() {
 	const dispatch = useDispatch();
 	const currentQueueIndex = useSelector(selectCurrentQueueIndex);
 	const songs = useSelector(selectSongs);
-	const shuffle = useSelector(selectShuffle);
-	const column = useSelector(selectSortColumn);
-	const direction = useSelector(selectSortDirection);
 	const onClick = () => {
 		if (currentQueueIndex === null) {
 			return;
@@ -27,7 +20,7 @@ export default function Previous() {
 		if (currentQueueIndex <= 0) {
 			batch(() => {
 				dispatch(stopPlaying());
-				dispatch(stopQueue(createQueue(songs, { shuffle, column, direction })));
+				dispatch(stopQueue({ songs }));
 			});
 		} else {
 			dispatch(decrementQueueIndex());

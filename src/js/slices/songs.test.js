@@ -41,7 +41,9 @@ describe('songs', () => {
 				},
 				{
 					type: 'songs/toggleChecked',
-					payload: 456,
+					payload: {
+						id: 456,
+					},
 				})).toEqual({
 					123: { checked: true, id: 123 },
 					456: { checked: true, id: 456 },
@@ -59,7 +61,9 @@ describe('songs', () => {
 				},
 				{
 					type: 'songs/toggleChecked',
-					payload: 456,
+					payload: {
+						id: 456,
+					},
 				})).toEqual({
 					123: { checked: true, id: 123 },
 					456: { checked: false, id: 456 },

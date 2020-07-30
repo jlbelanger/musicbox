@@ -26,6 +26,268 @@ describe('queue', () => {
 		});
 	});
 
+	describe('changeSort', () => {
+		describe('when shuffle is on', () => {
+			describe('when the column is already sorted ascending', () => {
+				it('sorts the ids; changes the direction to descending', async () => {
+					expect(reducer({
+						ids: [3, 1, 2],
+						shuffle: true,
+						sortColumn: 'foo',
+						sortDirection: 'asc',
+					}, {
+						type: 'queue/changeSort',
+						payload: {
+							songs: {
+								1: { id: 1, foo: 'b', bar: 'a' },
+								2: { id: 2, foo: 'c', bar: 'c' },
+								3: { id: 3, foo: 'a', bar: 'b' },
+							},
+							sortColumn: 'foo',
+						},
+					})).toEqual({
+						ids: [2, 1, 3],
+						shuffle: true,
+						sortColumn: 'foo',
+						sortDirection: 'desc',
+					});
+				});
+			});
+
+			describe('when the column is already sorted descending', () => {
+				it('sorts the ids; changes the direction to ascending', async () => {
+					expect(reducer({
+						ids: [2, 1, 3],
+						shuffle: true,
+						sortColumn: 'foo',
+						sortDirection: 'desc',
+					}, {
+						type: 'queue/changeSort',
+						payload: {
+							songs: {
+								1: { id: 1, foo: 'b', bar: 'a' },
+								2: { id: 2, foo: 'c', bar: 'c' },
+								3: { id: 3, foo: 'a', bar: 'b' },
+							},
+							sortColumn: 'foo',
+						},
+					})).toEqual({
+						ids: [3, 1, 2],
+						shuffle: true,
+						sortColumn: 'foo',
+						sortDirection: 'asc',
+					});
+				});
+			});
+
+			describe('when a different column is sorted ascending', () => {
+				it('sorts the ids; changes the column', async () => {
+					expect(reducer({
+						ids: [1, 3, 2],
+						shuffle: true,
+						sortColumn: 'bar',
+						sortDirection: 'asc',
+					}, {
+						type: 'queue/changeSort',
+						payload: {
+							songs: {
+								1: { id: 1, foo: 'b', bar: 'a' },
+								2: { id: 2, foo: 'c', bar: 'c' },
+								3: { id: 3, foo: 'a', bar: 'b' },
+							},
+							sortColumn: 'foo',
+						},
+					})).toEqual({
+						ids: [3, 1, 2],
+						shuffle: true,
+						sortColumn: 'foo',
+						sortDirection: 'asc',
+					});
+				});
+			});
+
+			describe('when a different column is sorted descending', () => {
+				it('sorts the ids; changes the column and direction', async () => {
+					expect(reducer({
+						ids: [2, 3, 1],
+						shuffle: true,
+						sortColumn: 'bar',
+						sortDirection: 'desc',
+					}, {
+						type: 'queue/changeSort',
+						payload: {
+							songs: {
+								1: { id: 1, foo: 'b', bar: 'a' },
+								2: { id: 2, foo: 'c', bar: 'c' },
+								3: { id: 3, foo: 'a', bar: 'b' },
+							},
+							sortColumn: 'foo',
+						},
+					})).toEqual({
+						ids: [3, 1, 2],
+						shuffle: true,
+						sortColumn: 'foo',
+						sortDirection: 'asc',
+					});
+				});
+			});
+		});
+
+		describe('when shuffle is off', () => {
+			describe('when the column is already sorted ascending', () => {
+				it('sorts the ids; updates the queue; changes the direction to descending', async () => {
+					expect(reducer({
+						currentQueueIndex: null,
+						ids: [3, 1, 2],
+						queue: [3, 1, 2],
+						shuffle: false,
+						sortColumn: 'foo',
+						sortDirection: 'asc',
+					}, {
+						type: 'queue/changeSort',
+						payload: {
+							songs: {
+								1: { id: 1, foo: 'b', bar: 'a' },
+								2: { id: 2, foo: 'c', bar: 'c' },
+								3: { id: 3, foo: 'a', bar: 'b' },
+							},
+							sortColumn: 'foo',
+						},
+					})).toEqual({
+						currentQueueIndex: null,
+						ids: [2, 1, 3],
+						queue: [2, 1, 3],
+						shuffle: false,
+						sortColumn: 'foo',
+						sortDirection: 'desc',
+					});
+				});
+			});
+
+			describe('when the column is already sorted descending', () => {
+				it('sorts the ids; updates the queue; changes the direction to ascending', async () => {
+					expect(reducer({
+						currentQueueIndex: null,
+						ids: [2, 1, 3],
+						queue: [2, 1, 3],
+						shuffle: false,
+						sortColumn: 'foo',
+						sortDirection: 'desc',
+					}, {
+						type: 'queue/changeSort',
+						payload: {
+							songs: {
+								1: { id: 1, foo: 'b', bar: 'a' },
+								2: { id: 2, foo: 'c', bar: 'c' },
+								3: { id: 3, foo: 'a', bar: 'b' },
+							},
+							sortColumn: 'foo',
+						},
+					})).toEqual({
+						currentQueueIndex: null,
+						ids: [3, 1, 2],
+						queue: [3, 1, 2],
+						shuffle: false,
+						sortColumn: 'foo',
+						sortDirection: 'asc',
+					});
+				});
+			});
+
+			describe('when a different column is sorted ascending', () => {
+				it('sorts the ids; updates the queue; changes the column', async () => {
+					expect(reducer({
+						currentQueueIndex: null,
+						ids: [1, 3, 2],
+						queue: [1, 3, 2],
+						shuffle: false,
+						sortColumn: 'bar',
+						sortDirection: 'asc',
+					}, {
+						type: 'queue/changeSort',
+						payload: {
+							songs: {
+								1: { id: 1, foo: 'b', bar: 'a' },
+								2: { id: 2, foo: 'c', bar: 'c' },
+								3: { id: 3, foo: 'a', bar: 'b' },
+							},
+							sortColumn: 'foo',
+						},
+					})).toEqual({
+						currentQueueIndex: null,
+						ids: [3, 1, 2],
+						queue: [3, 1, 2],
+						shuffle: false,
+						sortColumn: 'foo',
+						sortDirection: 'asc',
+					});
+				});
+			});
+
+			describe('when a different column is sorted descending', () => {
+				it('sorts the ids; updates the queue; changes the column and direction', async () => {
+					expect(reducer({
+						currentQueueIndex: null,
+						ids: [2, 3, 1],
+						queue: [2, 3, 1],
+						shuffle: false,
+						sortColumn: 'bar',
+						sortDirection: 'desc',
+					}, {
+						type: 'queue/changeSort',
+						payload: {
+							songs: {
+								1: { id: 1, foo: 'b', bar: 'a' },
+								2: { id: 2, foo: 'c', bar: 'c' },
+								3: { id: 3, foo: 'a', bar: 'b' },
+							},
+							sortColumn: 'foo',
+						},
+					})).toEqual({
+						currentQueueIndex: null,
+						ids: [3, 1, 2],
+						queue: [3, 1, 2],
+						shuffle: false,
+						sortColumn: 'foo',
+						sortDirection: 'asc',
+					});
+				});
+			});
+
+			describe('when a song is already playing', () => {
+				it('moves the queue to the current song', async () => {
+					expect(reducer({
+						currentQueueIndex: 2,
+						currentSongId: 3,
+						ids: [2, 1, 3],
+						queue: [2, 1, 3],
+						shuffle: false,
+						sortColumn: 'foo',
+						sortDirection: 'desc',
+					}, {
+						type: 'queue/changeSort',
+						payload: {
+							songs: {
+								1: { id: 1, foo: 'b', bar: 'a' },
+								2: { id: 2, foo: 'c', bar: 'c' },
+								3: { id: 3, foo: 'a', bar: 'b' },
+							},
+							sortColumn: 'foo',
+						},
+					})).toEqual({
+						currentQueueIndex: 0,
+						currentSongId: 3,
+						ids: [3, 1, 2],
+						queue: [3, 1, 2],
+						shuffle: false,
+						sortColumn: 'foo',
+						sortDirection: 'asc',
+					});
+				});
+			});
+		});
+	});
+
 	describe('chooseSong', () => {
 		describe('when shuffle is on', () => {
 			it('moves the song to the front of the queue', async () => {
@@ -36,7 +298,9 @@ describe('queue', () => {
 					shuffle: true,
 				}, {
 					type: 'queue/chooseSong',
-					payload: 4,
+					payload: {
+						currentSongId: 4,
+					},
 				})).toEqual({
 					currentQueueIndex: 0,
 					currentSongId: 4,
@@ -55,7 +319,9 @@ describe('queue', () => {
 					shuffle: false,
 				}, {
 					type: 'queue/chooseSong',
-					payload: 4,
+					payload: {
+						currentSongId: 4,
+					},
 				})).toEqual({
 					currentQueueIndex: 3,
 					currentSongId: 4,
@@ -98,68 +364,27 @@ describe('queue', () => {
 		});
 	});
 
-	describe('setQueue', () => {
-		it.todo('TODO');
-	});
-
-	describe('sortColumn', () => {
-		describe('when the column is already sorted ascending', () => {
-			it('changes the direction to descending', async () => {
-				expect(reducer({
-					sortColumn: 'foo',
-					sortDirection: 'asc',
-				}, {
-					type: 'queue/sortColumn',
-					payload: 'foo',
-				})).toEqual({
-					sortColumn: 'foo',
-					sortDirection: 'desc',
-				});
-			});
-		});
-
-		describe('when the column is already sorted descending', () => {
-			it('changes the direction to ascending', async () => {
-				expect(reducer({
-					sortColumn: 'foo',
-					sortDirection: 'desc',
-				}, {
-					type: 'queue/sortColumn',
-					payload: 'foo',
-				})).toEqual({
-					sortColumn: 'foo',
-					sortDirection: 'asc',
-				});
-			});
-		});
-
-		describe('when a different column is sorted ascending', () => {
-			it('changes the column', async () => {
-				expect(reducer({
-					sortColumn: 'foo',
-					sortDirection: 'asc',
-				}, {
-					type: 'queue/sortColumn',
-					payload: 'bar',
-				})).toEqual({
-					sortColumn: 'bar',
-					sortDirection: 'asc',
-				});
-			});
-		});
-
-		describe('when a different column is sorted descending', () => {
-			it('changes the column and direction', async () => {
-				expect(reducer({
-					sortColumn: 'foo',
-					sortDirection: 'desc',
-				}, {
-					type: 'queue/sortColumn',
-					payload: 'bar',
-				})).toEqual({
-					sortColumn: 'bar',
-					sortDirection: 'asc',
-				});
+	describe('populateQueue', () => {
+		it('populates ids and queue', async () => {
+			expect(reducer({
+				shuffle: false,
+				sortColumn: 'foo',
+				sortDirection: 'asc',
+			}, {
+				type: 'queue/populateQueue',
+				payload: {
+					songs: {
+						1: { id: 1, foo: 'b', bar: 'a' },
+						2: { id: 2, foo: 'c', bar: 'c' },
+						3: { id: 3, foo: 'a', bar: 'b' },
+					},
+				},
+			})).toEqual({
+				ids: [3, 1, 2],
+				queue: [3, 1, 2],
+				shuffle: false,
+				sortColumn: 'foo',
+				sortDirection: 'asc',
 			});
 		});
 	});
@@ -176,11 +401,44 @@ describe('queue', () => {
 		describe('when shuffle is off', () => {
 			it('enables shuffle', async () => {
 				expect(reducer({
+					currentSongId: null,
 					shuffle: false,
 				}, {
 					type: 'queue/toggleShuffle',
+					payload: {
+						songs: {},
+					},
 				})).toEqual({
+					currentSongId: null,
+					queue: [],
 					shuffle: true,
+				});
+			});
+
+			describe('when a song is already playing', () => {
+				it('enables shuffle; randomizes the queue with the current song at the front', async () => {
+					expect(reducer({
+						currentSongId: 3,
+						queue: [1, 2, 3, 4, 5],
+						shuffle: false,
+					}, {
+						type: 'queue/toggleShuffle',
+						payload: {
+							seed: 'testseed',
+							songs: {
+								1: { id: 1, checked: true },
+								2: { id: 2, checked: true },
+								3: { id: 3, checked: true },
+								4: { id: 4, checked: true },
+								5: { id: 5, checked: true },
+							},
+						},
+					})).toEqual({
+						currentQueueIndex: 0,
+						currentSongId: 3,
+						queue: [3, 4, 2, 5, 1],
+						shuffle: true,
+					});
 				});
 			});
 		});
@@ -188,11 +446,43 @@ describe('queue', () => {
 		describe('when shuffle is on', () => {
 			it('disables shuffle', async () => {
 				expect(reducer({
+					currentSongId: null,
 					shuffle: true,
 				}, {
 					type: 'queue/toggleShuffle',
+					payload: {
+						songs: {},
+					},
 				})).toEqual({
+					currentSongId: null,
+					queue: [],
 					shuffle: false,
+				});
+			});
+
+			describe('when a song is already playing', () => {
+				it('disables shuffle; sorts the queue; moves the queue to the current song', async () => {
+					expect(reducer({
+						currentSongId: 3,
+						queue: [5, 1, 3, 2, 4],
+						shuffle: true,
+					}, {
+						type: 'queue/toggleShuffle',
+						payload: {
+							songs: {
+								1: { id: 1, checked: true },
+								2: { id: 2, checked: true },
+								3: { id: 3, checked: true },
+								4: { id: 4, checked: true },
+								5: { id: 5, checked: true },
+							},
+						},
+					})).toEqual({
+						currentQueueIndex: 2,
+						currentSongId: 3,
+						queue: [1, 2, 3, 4, 5],
+						shuffle: false,
+					});
 				});
 			});
 		});

@@ -1,4 +1,4 @@
-import { selectHasQueue, setQueue } from '../slices/queue';
+import { populateQueue, selectHasQueue } from '../slices/queue';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from './Header';
 import React from 'react';
@@ -11,7 +11,7 @@ export default function Main() {
 	const hasQueue = useSelector(selectHasQueue);
 
 	if (!hasQueue) {
-		dispatch(setQueue(songs));
+		dispatch(populateQueue({ songs }));
 	}
 
 	return (

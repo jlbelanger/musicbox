@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 export default function CheckboxCell(props) {
 	const dispatch = useDispatch();
 	const onChange = () => {
-		dispatch(toggleChecked(props.id));
+		dispatch(toggleChecked({ id: props.id }));
 		// TODO: Add-to/remove-from queue.
 	};
 

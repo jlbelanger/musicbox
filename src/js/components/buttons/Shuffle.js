@@ -1,5 +1,5 @@
-import { batch, useDispatch, useSelector } from 'react-redux';
-import { selectShuffle, setQueue, toggleShuffle } from '../../slices/queue';
+import { selectShuffle, toggleShuffle } from '../../slices/queue';
+import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import { selectSongs } from '../../slices/songs';
 import { ReactComponent as ShuffleIcon } from '../../../svg/shuffle.svg';
@@ -9,10 +9,7 @@ export default function Shuffle() {
 	const shuffle = useSelector(selectShuffle);
 	const songs = useSelector(selectSongs);
 	const onClick = () => {
-		batch(() => {
-			dispatch(toggleShuffle());
-			dispatch(setQueue(songs));
-		});
+		dispatch(toggleShuffle({ songs }));
 	};
 
 	return (

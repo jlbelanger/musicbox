@@ -31,7 +31,7 @@ export default function Row(props) {
 		if (['TD', 'TH'].includes(e.target.tagName)) {
 			batch(() => {
 				dispatch(startPlaying());
-				dispatch(chooseSong(song.id));
+				dispatch(chooseSong({ currentSongId: song.id }));
 			});
 		}
 	};

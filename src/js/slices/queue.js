@@ -1,24 +1,12 @@
-import createQueue from '../helpers/queue';
+import {
+	createQueue,
+	createShuffledQueue,
+	findCurrentSongQueueIndex,
+	moveToFrontOfQueue,
+	sortSongs,
+} from '../helpers/queue';
 import { createSlice } from '@reduxjs/toolkit';
-import sort from '../helpers/sort';
 import Storage from '../helpers/Storage';
-
-const findCurrentSongQueueIndex = (queue, currentSongId) => (
-	queue.findIndex((id) => (id === currentSongId))
-);
-
-const moveToFrontOfQueue = (queue, songId) => {
-	const index = findCurrentSongQueueIndex(queue, songId);
-	queue = [...queue];
-	queue.splice(index, 1);
-	queue.unshift(songId);
-	return queue;
-};
-
-const sortSongIds = (songs, column, direction) => (
-	sort(Object.values(songs), column, direction)
-		.map((song) => song.id)
-);
 
 export const initialState = {
 	currentQueueIndex: null,
@@ -34,8 +22,44 @@ export const queueSlice = createSlice({
 	name: 'queue',
 	initialState,
 	reducers: {
+		changeSort: (state, action) => {
+			const { songs, sortColumn } = action.payload;
+
+			let sortDirection;
+			if (state.sortColumn === sortColumn) {
+				sortDirection = state.sortDirection === 'asc' ? 'desc' : 'asc';
+			} else {
+				sortDirection = 'asc';
+			}
+
+			const ids = sortSongs(Object.values(songs), sortColumn, sortDirection);
+
+			if (state.shuffle) {
+				return {
+					...state,
+					ids,
+					sortColumn,
+					sortDirection,
+				};
+			}
+
+			const queue = [...ids];
+			let currentQueueIndex = state.currentQueueIndex;
+			if (state.currentSongId) {
+				currentQueueIndex = findCurrentSongQueueIndex(queue, state.currentSongId);
+			}
+
+			return {
+				...state,
+				currentQueueIndex,
+				ids,
+				queue,
+				sortColumn,
+				sortDirection,
+			};
+		},
 		chooseSong: (state, action) => {
-			const currentSongId = action.payload;
+			const { currentSongId } = action.payload;
 			if (state.shuffle) {
 				const queue = moveToFrontOfQueue(state.queue, currentSongId);
 				return {
@@ -49,7 +73,7 @@ export const queueSlice = createSlice({
 			return {
 				...state,
 				currentSongId,
-				currentQueueIndex: findCurrentSongQueueIndex(state.queue, action.payload),
+				currentQueueIndex: findCurrentSongQueueIndex(state.queue, currentSongId),
 			};
 		},
 		decrementQueueIndex: (state) => {
@@ -68,55 +92,19 @@ export const queueSlice = createSlice({
 				currentSongId: state.queue[index],
 			};
 		},
-		setQueue: (state, action) => {
-			const ids = sortSongIds(action.payload, state.sortColumn, state.sortDirection);
-			let queue = createQueue(
-				action.payload,
-				{
-					shuffle: state.shuffle,
-					column: state.sortColumn,
-					direction: state.sortDirection,
-				}
-			);
-			if (!state.currentSongId) {
-				return {
-					...state,
-					queue,
-					ids,
-				};
-			}
-
+		populateQueue: (state, action) => {
+			const { songs } = action.payload;
+			const ids = sortSongs(Object.values(songs), state.sortColumn, state.sortDirection);
+			let queue;
 			if (state.shuffle) {
-				queue = moveToFrontOfQueue(queue, state.currentSongId);
-				return {
-					...state,
-					queue,
-					currentQueueIndex: 0,
-					ids,
-				};
+				queue = createShuffledQueue(songs);
+			} else {
+				queue = [...ids];
 			}
-
 			return {
 				...state,
-				queue,
-				currentQueueIndex: findCurrentSongQueueIndex(queue, state.currentSongId),
 				ids,
-			};
-		},
-		sortColumn: (state, action) => {
-			const sortColumn = action.payload;
-			if (state.sortColumn === sortColumn) {
-				const sortDirection = state.sortDirection === 'asc' ? 'desc' : 'asc';
-				return {
-					...state,
-					sortDirection,
-				};
-			}
-
-			return {
-				...state,
-				sortColumn,
-				sortDirection: 'asc',
+				queue,
 			};
 		},
 		startQueue: (state) => (
@@ -126,29 +114,72 @@ export const queueSlice = createSlice({
 				currentSongId: state.queue[0],
 			}
 		),
-		stopQueue: (state, action) => (
-			{
+		stopQueue: (state, action) => {
+			const { seed, songs } = action.payload;
+			const queue = createQueue(
+				songs,
+				{
+					column: state.sortColumn,
+					direction: state.sortDirection,
+					seed,
+					shuffle: state.shuffle,
+				}
+			);
+			return {
 				...state,
 				currentQueueIndex: null,
 				currentSongId: null,
-				queue: action.payload,
+				queue,
+			};
+		},
+		toggleShuffle: (state, action) => {
+			const { seed, songs } = action.payload;
+			const shuffle = !state.shuffle;
+			let queue = createQueue(
+				songs,
+				{
+					column: state.sortColumn,
+					direction: state.sortDirection,
+					seed,
+					shuffle,
+				}
+			);
+
+			if (!state.currentSongId) {
+				return {
+					...state,
+					queue,
+					shuffle,
+				};
 			}
-		),
-		toggleShuffle: (state) => (
-			{
+
+			if (shuffle) {
+				// TODO: But now the previous button is broken.
+				queue = moveToFrontOfQueue(queue, state.currentSongId);
+				return {
+					...state,
+					currentQueueIndex: 0,
+					queue,
+					shuffle,
+				};
+			}
+
+			return {
 				...state,
-				shuffle: !state.shuffle,
-			}
-		),
+				currentQueueIndex: findCurrentSongQueueIndex(queue, state.currentSongId),
+				queue,
+				shuffle,
+			};
+		},
 	},
 });
 
 export const {
+	changeSort,
 	chooseSong,
 	decrementQueueIndex,
 	incrementQueueIndex,
-	setQueue,
-	sortColumn,
+	populateQueue,
 	startQueue,
 	stopQueue,
 	toggleShuffle,
