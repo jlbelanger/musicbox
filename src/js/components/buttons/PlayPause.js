@@ -1,8 +1,4 @@
-import {
-	pausePlayback,
-	selectIsPlaying,
-	startPlayback,
-} from '../../slices/app';
+import { selectIsPlaying, togglePlayback } from '../../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as PauseIcon } from '../../../svg/pause.svg';
 import { ReactComponent as PlayIcon } from '../../../svg/play.svg';
@@ -13,11 +9,7 @@ export default function PlayPause() {
 	const isPlaying = useSelector(selectIsPlaying);
 	const Icon = isPlaying ? PauseIcon : PlayIcon;
 	const onClick = () => {
-		if (isPlaying) {
-			dispatch(pausePlayback());
-		} else {
-			dispatch(startPlayback());
-		}
+		dispatch(togglePlayback());
 	};
 
 	return (

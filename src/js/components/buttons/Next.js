@@ -3,8 +3,8 @@ import {
 	selectCurrentQueueIndex,
 	stopPlayback,
 } from '../../slices/app';
-import { useDispatch, useSelector } from 'react-redux';
 import { selectNumActiveSongs, selectSongs } from '../../slices/songs';
+import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as NextIcon } from '../../../svg/next.svg';
 import React from 'react';
 

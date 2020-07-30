@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 import reducer, {
 	initialState,
 	selectCurrentQueueIndex,
@@ -33,7 +34,7 @@ describe('app', () => {
 			describe('when the column is already sorted ascending', () => {
 				it('sorts the ids; changes the direction to descending', async () => {
 					expect(reducer({
-						ids: [3, 1, 2],
+						ids: [4, 1, 2, 3, 5],
 						shuffle: true,
 						sortColumn: 'foo',
 						sortDirection: 'asc',
@@ -41,14 +42,16 @@ describe('app', () => {
 						type: 'app/changeSort',
 						payload: {
 							songs: {
-								1: { id: 1, foo: 'b', bar: 'a' },
-								2: { id: 2, foo: 'c', bar: 'c' },
-								3: { id: 3, foo: 'a', bar: 'b' },
+								1: { id: 1, foo: 'b', bar: 'b', checked: true },
+								2: { id: 2, foo: 'c', bar: 'a', checked: true },
+								3: { id: 3, foo: 'd', bar: 'c', checked: false },
+								4: { id: 4, foo: 'a', bar: 'e', checked: true },
+								5: { id: 5, foo: 'e', bar: 'd', checked: true },
 							},
 							sortColumn: 'foo',
 						},
 					})).toEqual({
-						ids: [2, 1, 3],
+						ids: [5, 3, 2, 1, 4],
 						shuffle: true,
 						sortColumn: 'foo',
 						sortDirection: 'desc',
@@ -59,7 +62,7 @@ describe('app', () => {
 			describe('when the column is already sorted descending', () => {
 				it('sorts the ids; changes the direction to ascending', async () => {
 					expect(reducer({
-						ids: [2, 1, 3],
+						ids: [5, 3, 2, 1, 4],
 						shuffle: true,
 						sortColumn: 'foo',
 						sortDirection: 'desc',
@@ -67,14 +70,16 @@ describe('app', () => {
 						type: 'app/changeSort',
 						payload: {
 							songs: {
-								1: { id: 1, foo: 'b', bar: 'a' },
-								2: { id: 2, foo: 'c', bar: 'c' },
-								3: { id: 3, foo: 'a', bar: 'b' },
+								1: { id: 1, foo: 'b', bar: 'b', checked: true },
+								2: { id: 2, foo: 'c', bar: 'a', checked: true },
+								3: { id: 3, foo: 'd', bar: 'c', checked: false },
+								4: { id: 4, foo: 'a', bar: 'e', checked: true },
+								5: { id: 5, foo: 'e', bar: 'd', checked: true },
 							},
 							sortColumn: 'foo',
 						},
 					})).toEqual({
-						ids: [3, 1, 2],
+						ids: [4, 1, 2, 3, 5],
 						shuffle: true,
 						sortColumn: 'foo',
 						sortDirection: 'asc',
@@ -85,7 +90,7 @@ describe('app', () => {
 			describe('when a different column is sorted ascending', () => {
 				it('sorts the ids; changes the column', async () => {
 					expect(reducer({
-						ids: [1, 3, 2],
+						ids: [4, 5, 3, 1, 2],
 						shuffle: true,
 						sortColumn: 'bar',
 						sortDirection: 'asc',
@@ -93,14 +98,16 @@ describe('app', () => {
 						type: 'app/changeSort',
 						payload: {
 							songs: {
-								1: { id: 1, foo: 'b', bar: 'a' },
-								2: { id: 2, foo: 'c', bar: 'c' },
-								3: { id: 3, foo: 'a', bar: 'b' },
+								1: { id: 1, foo: 'b', bar: 'b', checked: true },
+								2: { id: 2, foo: 'c', bar: 'a', checked: true },
+								3: { id: 3, foo: 'd', bar: 'c', checked: false },
+								4: { id: 4, foo: 'a', bar: 'e', checked: true },
+								5: { id: 5, foo: 'e', bar: 'd', checked: true },
 							},
 							sortColumn: 'foo',
 						},
 					})).toEqual({
-						ids: [3, 1, 2],
+						ids: [4, 1, 2, 3, 5],
 						shuffle: true,
 						sortColumn: 'foo',
 						sortDirection: 'asc',
@@ -111,7 +118,7 @@ describe('app', () => {
 			describe('when a different column is sorted descending', () => {
 				it('sorts the ids; changes the column and direction', async () => {
 					expect(reducer({
-						ids: [2, 3, 1],
+						ids: [2, 1, 3, 5, 4],
 						shuffle: true,
 						sortColumn: 'bar',
 						sortDirection: 'desc',
@@ -119,14 +126,16 @@ describe('app', () => {
 						type: 'app/changeSort',
 						payload: {
 							songs: {
-								1: { id: 1, foo: 'b', bar: 'a' },
-								2: { id: 2, foo: 'c', bar: 'c' },
-								3: { id: 3, foo: 'a', bar: 'b' },
+								1: { id: 1, foo: 'b', bar: 'b', checked: true },
+								2: { id: 2, foo: 'c', bar: 'a', checked: true },
+								3: { id: 3, foo: 'd', bar: 'c', checked: false },
+								4: { id: 4, foo: 'a', bar: 'e', checked: true },
+								5: { id: 5, foo: 'e', bar: 'd', checked: true },
 							},
 							sortColumn: 'foo',
 						},
 					})).toEqual({
-						ids: [3, 1, 2],
+						ids: [4, 1, 2, 3, 5],
 						shuffle: true,
 						sortColumn: 'foo',
 						sortDirection: 'asc',
@@ -140,8 +149,8 @@ describe('app', () => {
 				it('sorts the ids; updates the queue; changes the direction to descending', async () => {
 					expect(reducer({
 						currentQueueIndex: null,
-						ids: [3, 1, 2],
-						queue: [3, 1, 2],
+						ids: [4, 1, 2, 3, 5],
+						queue: [4, 1, 2, 5],
 						shuffle: false,
 						sortColumn: 'foo',
 						sortDirection: 'asc',
@@ -149,16 +158,18 @@ describe('app', () => {
 						type: 'app/changeSort',
 						payload: {
 							songs: {
-								1: { id: 1, foo: 'b', bar: 'a' },
-								2: { id: 2, foo: 'c', bar: 'c' },
-								3: { id: 3, foo: 'a', bar: 'b' },
+								1: { id: 1, foo: 'b', bar: 'b', checked: true },
+								2: { id: 2, foo: 'c', bar: 'a', checked: true },
+								3: { id: 3, foo: 'd', bar: 'c', checked: false },
+								4: { id: 4, foo: 'a', bar: 'e', checked: true },
+								5: { id: 5, foo: 'e', bar: 'd', checked: true },
 							},
 							sortColumn: 'foo',
 						},
 					})).toEqual({
 						currentQueueIndex: null,
-						ids: [2, 1, 3],
-						queue: [2, 1, 3],
+						ids: [5, 3, 2, 1, 4],
+						queue: [5, 2, 1, 4],
 						shuffle: false,
 						sortColumn: 'foo',
 						sortDirection: 'desc',
@@ -170,8 +181,8 @@ describe('app', () => {
 				it('sorts the ids; updates the queue; changes the direction to ascending', async () => {
 					expect(reducer({
 						currentQueueIndex: null,
-						ids: [2, 1, 3],
-						queue: [2, 1, 3],
+						ids: [5, 3, 2, 1, 4],
+						queue: [5, 2, 1, 4],
 						shuffle: false,
 						sortColumn: 'foo',
 						sortDirection: 'desc',
@@ -179,16 +190,18 @@ describe('app', () => {
 						type: 'app/changeSort',
 						payload: {
 							songs: {
-								1: { id: 1, foo: 'b', bar: 'a' },
-								2: { id: 2, foo: 'c', bar: 'c' },
-								3: { id: 3, foo: 'a', bar: 'b' },
+								1: { id: 1, foo: 'b', bar: 'b', checked: true },
+								2: { id: 2, foo: 'c', bar: 'a', checked: true },
+								3: { id: 3, foo: 'd', bar: 'c', checked: false },
+								4: { id: 4, foo: 'a', bar: 'e', checked: true },
+								5: { id: 5, foo: 'e', bar: 'd', checked: true },
 							},
 							sortColumn: 'foo',
 						},
 					})).toEqual({
 						currentQueueIndex: null,
-						ids: [3, 1, 2],
-						queue: [3, 1, 2],
+						ids: [4, 1, 2, 3, 5],
+						queue: [4, 1, 2, 5],
 						shuffle: false,
 						sortColumn: 'foo',
 						sortDirection: 'asc',
@@ -200,8 +213,8 @@ describe('app', () => {
 				it('sorts the ids; updates the queue; changes the column', async () => {
 					expect(reducer({
 						currentQueueIndex: null,
-						ids: [1, 3, 2],
-						queue: [1, 3, 2],
+						ids: [2, 1, 3, 5, 4],
+						queue: [2, 1, 5, 4],
 						shuffle: false,
 						sortColumn: 'bar',
 						sortDirection: 'asc',
@@ -209,16 +222,18 @@ describe('app', () => {
 						type: 'app/changeSort',
 						payload: {
 							songs: {
-								1: { id: 1, foo: 'b', bar: 'a' },
-								2: { id: 2, foo: 'c', bar: 'c' },
-								3: { id: 3, foo: 'a', bar: 'b' },
+								1: { id: 1, foo: 'b', bar: 'b', checked: true },
+								2: { id: 2, foo: 'c', bar: 'a', checked: true },
+								3: { id: 3, foo: 'd', bar: 'c', checked: false },
+								4: { id: 4, foo: 'a', bar: 'e', checked: true },
+								5: { id: 5, foo: 'e', bar: 'd', checked: true },
 							},
 							sortColumn: 'foo',
 						},
 					})).toEqual({
 						currentQueueIndex: null,
-						ids: [3, 1, 2],
-						queue: [3, 1, 2],
+						ids: [4, 1, 2, 3, 5],
+						queue: [4, 1, 2, 5],
 						shuffle: false,
 						sortColumn: 'foo',
 						sortDirection: 'asc',
@@ -230,8 +245,8 @@ describe('app', () => {
 				it('sorts the ids; updates the queue; changes the column and direction', async () => {
 					expect(reducer({
 						currentQueueIndex: null,
-						ids: [2, 3, 1],
-						queue: [2, 3, 1],
+						ids: [4, 5, 3, 1, 2],
+						queue: [4, 5, 1, 2],
 						shuffle: false,
 						sortColumn: 'bar',
 						sortDirection: 'desc',
@@ -239,16 +254,18 @@ describe('app', () => {
 						type: 'app/changeSort',
 						payload: {
 							songs: {
-								1: { id: 1, foo: 'b', bar: 'a' },
-								2: { id: 2, foo: 'c', bar: 'c' },
-								3: { id: 3, foo: 'a', bar: 'b' },
+								1: { id: 1, foo: 'b', bar: 'b', checked: true },
+								2: { id: 2, foo: 'c', bar: 'a', checked: true },
+								3: { id: 3, foo: 'd', bar: 'c', checked: false },
+								4: { id: 4, foo: 'a', bar: 'e', checked: true },
+								5: { id: 5, foo: 'e', bar: 'd', checked: true },
 							},
 							sortColumn: 'foo',
 						},
 					})).toEqual({
 						currentQueueIndex: null,
-						ids: [3, 1, 2],
-						queue: [3, 1, 2],
+						ids: [4, 1, 2, 3, 5],
+						queue: [4, 1, 2, 5],
 						shuffle: false,
 						sortColumn: 'foo',
 						sortDirection: 'asc',
@@ -259,10 +276,10 @@ describe('app', () => {
 			describe('when a song is already playing', () => {
 				it('moves the queue to the current song', async () => {
 					expect(reducer({
-						currentQueueIndex: 2,
-						currentSongId: 3,
-						ids: [2, 1, 3],
-						queue: [2, 1, 3],
+						currentQueueIndex: 1,
+						currentSongId: 2,
+						ids: [5, 3, 2, 1, 4],
+						queue: [5, 2, 1, 4],
 						shuffle: false,
 						sortColumn: 'foo',
 						sortDirection: 'desc',
@@ -270,17 +287,19 @@ describe('app', () => {
 						type: 'app/changeSort',
 						payload: {
 							songs: {
-								1: { id: 1, foo: 'b', bar: 'a' },
-								2: { id: 2, foo: 'c', bar: 'c' },
-								3: { id: 3, foo: 'a', bar: 'b' },
+								1: { id: 1, foo: 'b', bar: 'b', checked: true },
+								2: { id: 2, foo: 'c', bar: 'a', checked: true },
+								3: { id: 3, foo: 'd', bar: 'c', checked: false },
+								4: { id: 4, foo: 'a', bar: 'e', checked: true },
+								5: { id: 5, foo: 'e', bar: 'd', checked: true },
 							},
 							sortColumn: 'foo',
 						},
 					})).toEqual({
-						currentQueueIndex: 0,
-						currentSongId: 3,
-						ids: [3, 1, 2],
-						queue: [3, 1, 2],
+						currentQueueIndex: 2,
+						currentSongId: 2,
+						ids: [4, 1, 2, 3, 5],
+						queue: [4, 1, 2, 5],
 						shuffle: false,
 						sortColumn: 'foo',
 						sortDirection: 'asc',
@@ -370,10 +389,6 @@ describe('app', () => {
 		});
 	});
 
-	describe('pausePlayback', () => {
-		it.todo('TODO');
-	});
-
 	describe('populateQueue', () => {
 		describe('when shuffle is off', () => {
 			it('populates ids and queue in order', async () => {
@@ -385,14 +400,16 @@ describe('app', () => {
 					type: 'app/populateQueue',
 					payload: {
 						songs: {
-							1: { id: 1, foo: 'b', bar: 'a' },
-							2: { id: 2, foo: 'c', bar: 'c' },
-							3: { id: 3, foo: 'a', bar: 'b' },
+							1: { id: 1, foo: 'b', bar: 'b', checked: true },
+							2: { id: 2, foo: 'c', bar: 'a', checked: true },
+							3: { id: 3, foo: 'd', bar: 'c', checked: false },
+							4: { id: 4, foo: 'a', bar: 'e', checked: true },
+							5: { id: 5, foo: 'e', bar: 'd', checked: true },
 						},
 					},
 				})).toEqual({
-					ids: [3, 1, 2],
-					queue: [3, 1, 2],
+					ids: [4, 1, 2, 3, 5],
+					queue: [4, 1, 2, 5],
 					shuffle: false,
 					sortColumn: 'foo',
 					sortDirection: 'asc',
@@ -401,32 +418,170 @@ describe('app', () => {
 		});
 
 		describe('when shuffle is on', () => {
-			it.todo('TODO');
+			it('populates ids in order and randomizes queue', async () => {
+				expect(reducer({
+					shuffle: true,
+					sortColumn: 'foo',
+					sortDirection: 'asc',
+				}, {
+					type: 'app/populateQueue',
+					payload: {
+						seed: 'testseed',
+						songs: {
+							1: { id: 1, foo: 'b', bar: 'b', checked: true },
+							2: { id: 2, foo: 'c', bar: 'a', checked: true },
+							3: { id: 3, foo: 'd', bar: 'c', checked: false },
+							4: { id: 4, foo: 'a', bar: 'e', checked: true },
+							5: { id: 5, foo: 'e', bar: 'd', checked: true },
+						},
+					},
+				})).toEqual({
+					ids: [4, 1, 2, 3, 5],
+					queue: [4, 2, 5, 1],
+					shuffle: true,
+					sortColumn: 'foo',
+					sortDirection: 'asc',
+				});
+			});
 		});
 	});
 
-	describe('startPlayback', () => {
-		it.todo('TODO');
+	describe('stopPlayback', () => {
+		describe('when shuffle is off', () => {
+			it('stops playback', async () => {
+				expect(reducer({
+					currentQueueIndex: 1,
+					currentSongId: 2,
+					isPlaying: true,
+					queue: [1, 2, 4, 5],
+					shuffle: false,
+				}, {
+					type: 'app/stopPlayback',
+					payload: {
+						seed: 'testseed',
+						songs: {
+							1: { id: 1, foo: 'b', bar: 'b', checked: true },
+							2: { id: 2, foo: 'c', bar: 'a', checked: true },
+							3: { id: 3, foo: 'd', bar: 'c', checked: false },
+							4: { id: 4, foo: 'a', bar: 'e', checked: true },
+							5: { id: 5, foo: 'e', bar: 'd', checked: true },
+						},
+					},
+				})).toEqual({
+					currentQueueIndex: null,
+					currentSongId: null,
+					isPlaying: false,
+					queue: [1, 2, 4, 5],
+					shuffle: false,
+				});
+			});
+		});
+
+		describe('when shuffle is on', () => {
+			it('stops playback and creates a new queue', async () => {
+				expect(reducer({
+					currentQueueIndex: 1,
+					currentSongId: 2,
+					isPlaying: true,
+					queue: [1, 2, 4, 5],
+					shuffle: true,
+				}, {
+					type: 'app/stopPlayback',
+					payload: {
+						seed: 'testseed',
+						songs: {
+							1: { id: 1, foo: 'b', bar: 'b', checked: true },
+							2: { id: 2, foo: 'c', bar: 'a', checked: true },
+							3: { id: 3, foo: 'd', bar: 'c', checked: false },
+							4: { id: 4, foo: 'a', bar: 'e', checked: true },
+							5: { id: 5, foo: 'e', bar: 'd', checked: true },
+						},
+					},
+				})).toEqual({
+					currentQueueIndex: null,
+					currentSongId: null,
+					isPlaying: false,
+					queue: [4, 2, 5, 1],
+					shuffle: true,
+				});
+			});
+		});
 	});
 
-	describe('stopPlayback', () => {
-		it.todo('TODO');
+	describe('togglePlayback', () => {
+		describe('when a song is playing', () => {
+			it('pauses playback', async () => {
+				expect(reducer({
+					isPlaying: true,
+				}, {
+					type: 'app/togglePlayback',
+				})).toEqual({
+					isPlaying: false,
+				});
+			});
+		});
+
+		describe('when no song is playing', () => {
+			describe('when playback has not started', () => {
+				it('starts playback at the beginning of the queue', async () => {
+					expect(reducer({
+						currentQueueIndex: null,
+						currentSongId: null,
+						isPlaying: false,
+						queue: [2, 3, 1],
+					}, {
+						type: 'app/togglePlayback',
+					})).toEqual({
+						currentQueueIndex: 0,
+						currentSongId: 2,
+						isPlaying: true,
+						queue: [2, 3, 1],
+					});
+				});
+			});
+
+			describe('when playback is paused', () => {
+				it('resumes playback', async () => {
+					expect(reducer({
+						currentQueueIndex: 1,
+						currentSongId: 3,
+						isPlaying: false,
+						queue: [2, 3, 1],
+					}, {
+						type: 'app/togglePlayback',
+					})).toEqual({
+						currentQueueIndex: 1,
+						currentSongId: 3,
+						isPlaying: true,
+						queue: [2, 3, 1],
+					});
+				});
+			});
+		});
 	});
 
 	describe('toggleShuffle', () => {
 		describe('when shuffle is off', () => {
-			it('enables shuffle', async () => {
+			it('enables shuffle; randomizes the queue', async () => {
 				expect(reducer({
 					currentSongId: null,
+					queue: [1, 2, 4, 5],
 					shuffle: false,
 				}, {
 					type: 'app/toggleShuffle',
 					payload: {
-						songs: {},
+						seed: 'testseed',
+						songs: {
+							1: { id: 1, foo: 'b', bar: 'b', checked: true },
+							2: { id: 2, foo: 'c', bar: 'a', checked: true },
+							3: { id: 3, foo: 'd', bar: 'c', checked: false },
+							4: { id: 4, foo: 'a', bar: 'e', checked: true },
+							5: { id: 5, foo: 'e', bar: 'd', checked: true },
+						},
 					},
 				})).toEqual({
 					currentSongId: null,
-					queue: [],
+					queue: [4, 2, 5, 1],
 					shuffle: true,
 				});
 			});
@@ -434,25 +589,25 @@ describe('app', () => {
 			describe('when a song is already playing', () => {
 				it('enables shuffle; randomizes the queue with the current song at the front', async () => {
 					expect(reducer({
-						currentSongId: 3,
-						queue: [1, 2, 3, 4, 5],
+						currentSongId: 2,
+						queue: [1, 2, 4, 5],
 						shuffle: false,
 					}, {
 						type: 'app/toggleShuffle',
 						payload: {
 							seed: 'testseed',
 							songs: {
-								1: { id: 1, checked: true },
-								2: { id: 2, checked: true },
-								3: { id: 3, checked: true },
-								4: { id: 4, checked: true },
-								5: { id: 5, checked: true },
+								1: { id: 1, foo: 'b', bar: 'b', checked: true },
+								2: { id: 2, foo: 'c', bar: 'a', checked: true },
+								3: { id: 3, foo: 'd', bar: 'c', checked: false },
+								4: { id: 4, foo: 'a', bar: 'e', checked: true },
+								5: { id: 5, foo: 'e', bar: 'd', checked: true },
 							},
 						},
 					})).toEqual({
 						currentQueueIndex: 0,
-						currentSongId: 3,
-						queue: [3, 4, 2, 5, 1],
+						currentSongId: 2,
+						queue: [2, 4, 5, 1],
 						shuffle: true,
 					});
 				});
@@ -460,18 +615,25 @@ describe('app', () => {
 		});
 
 		describe('when shuffle is on', () => {
-			it('disables shuffle', async () => {
+			it('disables shuffle; sorts the queue', async () => {
 				expect(reducer({
 					currentSongId: null,
+					queue: [2, 4, 5, 1],
 					shuffle: true,
 				}, {
 					type: 'app/toggleShuffle',
 					payload: {
-						songs: {},
+						songs: {
+							1: { id: 1, foo: 'b', bar: 'b', checked: true },
+							2: { id: 2, foo: 'c', bar: 'a', checked: true },
+							3: { id: 3, foo: 'd', bar: 'c', checked: false },
+							4: { id: 4, foo: 'a', bar: 'e', checked: true },
+							5: { id: 5, foo: 'e', bar: 'd', checked: true },
+						},
 					},
 				})).toEqual({
 					currentSongId: null,
-					queue: [],
+					queue: [1, 2, 4, 5],
 					shuffle: false,
 				});
 			});
@@ -479,24 +641,24 @@ describe('app', () => {
 			describe('when a song is already playing', () => {
 				it('disables shuffle; sorts the queue; moves the queue to the current song', async () => {
 					expect(reducer({
-						currentSongId: 3,
-						queue: [5, 1, 3, 2, 4],
+						currentSongId: 4,
+						queue: [2, 4, 5, 1],
 						shuffle: true,
 					}, {
 						type: 'app/toggleShuffle',
 						payload: {
 							songs: {
-								1: { id: 1, checked: true },
-								2: { id: 2, checked: true },
-								3: { id: 3, checked: true },
-								4: { id: 4, checked: true },
-								5: { id: 5, checked: true },
+								1: { id: 1, foo: 'b', bar: 'b', checked: true },
+								2: { id: 2, foo: 'c', bar: 'a', checked: true },
+								3: { id: 3, foo: 'd', bar: 'c', checked: false },
+								4: { id: 4, foo: 'a', bar: 'e', checked: true },
+								5: { id: 5, foo: 'e', bar: 'd', checked: true },
 							},
 						},
 					})).toEqual({
 						currentQueueIndex: 2,
-						currentSongId: 3,
-						queue: [1, 2, 3, 4, 5],
+						currentSongId: 4,
+						queue: [1, 2, 4, 5],
 						shuffle: false,
 					});
 				});
@@ -518,14 +680,16 @@ describe('app', () => {
 		it('returns the current song', async () => {
 			expect(selectCurrentSong({
 				app: {
-					currentSongId: 456,
+					currentSongId: 2,
 				},
 				songs: {
-					123: { checked: true, id: 123 },
-					456: { checked: false, id: 456 },
-					789: { checked: true, id: 789 },
+					1: { id: 1, foo: 'b', bar: 'b', checked: true },
+					2: { id: 2, foo: 'c', bar: 'a', checked: true },
+					3: { id: 3, foo: 'd', bar: 'c', checked: false },
+					4: { id: 4, foo: 'a', bar: 'e', checked: true },
+					5: { id: 5, foo: 'e', bar: 'd', checked: true },
 				},
-			})).toEqual({ checked: false, id: 456 });
+			})).toEqual({ id: 2, foo: 'c', bar: 'a', checked: true });
 		});
 	});
 
@@ -585,17 +749,19 @@ describe('app', () => {
 		it('returns upcoming songs', async () => {
 			expect(selectUpcomingSongs({
 				app: {
-					currentQueueIndex: 1,
-					queue: [789, 456, 123],
+					currentQueueIndex: 2,
+					queue: [1, 2, 4, 5],
 				},
 				songs: {
-					123: { checked: true, id: 123 },
-					456: { checked: false, id: 456 },
-					789: { checked: true, id: 789 },
+					1: { id: 1, foo: 'b', bar: 'b', checked: true },
+					2: { id: 2, foo: 'c', bar: 'a', checked: true },
+					3: { id: 3, foo: 'd', bar: 'c', checked: false },
+					4: { id: 4, foo: 'a', bar: 'e', checked: true },
+					5: { id: 5, foo: 'e', bar: 'd', checked: true },
 				},
 			})).toEqual([
-				{ checked: false, id: 456 },
-				{ checked: true, id: 123 },
+				{ id: 4, foo: 'a', bar: 'e', checked: true },
+				{ id: 5, foo: 'e', bar: 'd', checked: true },
 			]);
 		});
 	});

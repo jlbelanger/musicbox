@@ -1,9 +1,9 @@
 import seedrandom from 'seedrandom';
 import sort from './sort';
 
-export const getActiveSongs = (songs) => {
-	return Object.values(songs).filter((song) => song.checked);
-};
+export const getActiveSongs = (songs) => (
+	Object.values(songs).filter((song) => song.checked)
+);
 
 export const createShuffledQueue = (songs, seed) => {
 	const pool = getActiveSongs(songs);
@@ -22,7 +22,17 @@ export const createShuffledQueue = (songs, seed) => {
 	return queue;
 };
 
-export const createQueue = (songs, { column, direction, seed, shuffle }) => {
+export const sortSongs = (songs, column, direction) => (
+	sort(songs, column, direction)
+		.map((song) => song.id)
+);
+
+export const createQueue = (songs, {
+	column,
+	direction,
+	seed,
+	shuffle,
+}) => {
 	if (!shuffle) {
 		return sortSongs(getActiveSongs(songs), column, direction);
 	}
@@ -41,8 +51,3 @@ export const moveToFrontOfQueue = (queue, songId) => {
 	queue.unshift(songId);
 	return queue;
 };
-
-export const sortSongs = (songs, column, direction) => (
-	sort(songs, column, direction)
-		.map((song) => song.id)
-);

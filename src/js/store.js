@@ -1,5 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit';
 import appReducer from './slices/app';
+import { configureStore } from '@reduxjs/toolkit';
 import repeatReducer from './slices/repeat';
 import songsReducer from './slices/songs';
 
