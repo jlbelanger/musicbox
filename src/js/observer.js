@@ -13,11 +13,6 @@ export default () => {
 		Storage.set('sortDirection', newVal);
 	}));
 
-	const watchRepeat = watch(store.getState, 'app.repeat');
-	store.subscribe(watchRepeat((newVal) => {
-		Storage.set('repeat', newVal);
-	}));
-
 	const watchShuffle = watch(store.getState, 'app.shuffle');
 	store.subscribe(watchShuffle((newVal) => {
 		Storage.set('shuffle', newVal);
