@@ -1,0 +1,3 @@
+describe('RatingCell', () => {
+	it('TODO');
+});

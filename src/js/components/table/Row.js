@@ -24,9 +24,19 @@ export default function Row(props) {
 	let icon = null;
 	if (props.id === currentSongId) {
 		if (isPlaying) {
-			icon = <VolumeHighIcon height="16" width="16" />;
+			icon = (
+				<div className="row-icon" id={`row-${props.id}-icon`}>
+					<VolumeHighIcon height="16" width="16" />
+					Playing
+				</div>
+			);
 		} else {
-			icon = <VolumeOffIcon height="16" width="16" />;
+			icon = (
+				<div className="row-icon" id={`row-${props.id}-icon`}>
+					<VolumeOffIcon height="16" width="16" />
+					Paused
+				</div>
+			);
 		}
 	}
 

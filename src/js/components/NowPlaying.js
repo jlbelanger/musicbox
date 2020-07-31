@@ -10,8 +10,8 @@ export default function NowPlaying() {
 
 	return (
 		<section>
-			<div>{song.title}</div>
-			<div>{song.artist}</div>
+			<div id="now-playing-title">{song.title}</div>
+			<div id="now-playing-artist">{song.artist}</div>
 		</section>
 	);
 }

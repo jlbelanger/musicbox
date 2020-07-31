@@ -13,7 +13,7 @@ export default function PlayPause() {
 	};
 
 	return (
-		<button className="icon icon--large" onClick={onClick} type="button">
+		<button className="icon icon--large" id="play-pause" onClick={onClick} type="button">
 			<Icon />
 			{isPlaying ? 'Pause' : 'Play'}
 		</button>

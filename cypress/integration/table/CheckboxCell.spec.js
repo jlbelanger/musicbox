@@ -1,0 +1,3 @@
+describe('CheckboxCell', () => {
+	it('TODO');
+});

@@ -21,6 +21,7 @@
 		"lint:css": "node_modules/.bin/stylelint 'src/scss/**/*.scss'",
 		"lint:js": "node_modules/.bin/eslint src/js/*",
 		"test": "react-scripts test",
+		"test:cypress": "yarn cypress open",
 		"eject": "react-scripts eject"
 	},
 	"dependencies": {
@@ -29,6 +30,7 @@
 		"@testing-library/jest-dom": "^4.2.4",
 		"@testing-library/react": "^9.3.2",
 		"@testing-library/user-event": "^7.1.2",
+		"cypress": "^4.11.0",
 		"dateformat": "^3.0.3",
 		"electron": "^9.1.0",
 		"electron-is-dev": "^1.2.0",
@@ -37,6 +39,7 @@
 		"eslint-plugin-import": "^2.18.2",
 		"eslint-plugin-jsx-a11y": "^6.2.3",
 		"eslint-plugin-react": "^7.17.0",
+		"howler": "^2.2.0",
 		"node-sass": "^4.14.1",
 		"normalize.css": "^8.0.1",
 		"plist": "^3.0.1",
