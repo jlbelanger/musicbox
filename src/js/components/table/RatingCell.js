@@ -44,7 +44,7 @@ export default function RatingCell(props) {
 }
 
 RatingCell.propTypes = {
-	id: PropTypes.string.isRequired,
+	id: PropTypes.number.isRequired,
 	value: PropTypes.any,
 };
 

@@ -1,5 +1,5 @@
 [
-	{
+	"47": {
 		"id": 47,
 		"title": "Lucy in the Sky with Diamonds",
 		"artist": "William Shatner",
@@ -9,6 +9,7 @@
 		"rating": 40,
 		"last_played": "2020-06-14T18:03:24Z",
 		"date_added": "2006-03-25T00:11:35Z",
-		"checked": true
+		"checked": true,
+		"path": "/Users/jim/Music/William Shatner/The Transformed Man/Lucy in the Sky with Diamonds.mp3"
 	}
 ]

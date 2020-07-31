@@ -63,5 +63,5 @@ export default function Row(props) {
 }
 
 Row.propTypes = {
-	id: PropTypes.string.isRequired,
+	id: PropTypes.number.isRequired,
 };

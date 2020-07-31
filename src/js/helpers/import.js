@@ -25,10 +25,11 @@ export default (file) => (
 	})
 		.then((xml) => {
 			const json = plist.parse(xml);
-			const output = [];
+			const output = {};
 			Object.values(json.Tracks).forEach((song) => {
-				output.push({
-					id: getStringProperty(song, 'Track ID'),
+				const id = getStringProperty(song, 'Track ID');
+				output[id] = {
+					id,
 					checked: !getBoolProperty(song, 'Disabled'),
 					title: getStringProperty(song, 'Name'),
 					artist: getStringProperty(song, 'Artist'),
@@ -39,7 +40,7 @@ export default (file) => (
 					last_played: getDateProperty(song, 'Play Date UTC'),
 					date_added: getDateProperty(song, 'Date Added'),
 					path: getStringProperty(song, 'Location'),
-				});
+				};
 			});
 			return output;
 		})
