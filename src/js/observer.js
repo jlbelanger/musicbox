@@ -3,6 +3,15 @@ import store from './store';
 import watch from 'redux-watch';
 
 export default () => {
+	const watchCurrentSongId = watch(store.getState, 'app.currentSongId');
+	store.subscribe(watchCurrentSongId((currentSongId) => {
+		const song = store.getState().songs[currentSongId];
+		new Notification(song.title, {
+			body: song.artist,
+			silent: true,
+		});
+	}));
+
 	const watchSortColumn = watch(store.getState, 'app.sortColumn');
 	store.subscribe(watchSortColumn((newVal) => {
 		Storage.set('sortColumn', newVal);
