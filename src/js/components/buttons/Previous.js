@@ -1,8 +1,4 @@
-import {
-	decrementQueueIndex,
-	selectCurrentQueueIndex,
-	stopPlayback,
-} from '../../slices/app';
+import { previousSong, selectCurrentQueueIndex } from '../../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as PreviousIcon } from '../../../svg/previous.svg';
 import React from 'react';
@@ -13,14 +9,7 @@ export default function Previous() {
 	const currentQueueIndex = useSelector(selectCurrentQueueIndex);
 	const songs = useSelector(selectSongs);
 	const onClick = () => {
-		if (currentQueueIndex === null) {
-			return;
-		}
-		if (currentQueueIndex <= 0) {
-			dispatch(stopPlayback({ songs }));
-		} else {
-			dispatch(decrementQueueIndex());
-		}
+		dispatch(previousSong({ songs }));
 	};
 
 	return (

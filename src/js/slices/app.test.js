@@ -357,34 +357,68 @@ describe('app', () => {
 		});
 	});
 
-	describe('decrementQueueIndex', () => {
-		it('decrements the queue index and sets the current song ID', async () => {
-			expect(reducer({
-				currentQueueIndex: 1,
-				currentSongId: 456,
-				queue: [789, 456, 123],
-			}, {
-				type: 'app/decrementQueueIndex',
-			})).toEqual({
-				currentQueueIndex: 0,
-				currentSongId: 789,
-				queue: [789, 456, 123],
+	describe('nextSong', () => {
+		describe('when no song is active', () => {
+			it('does nothing', async () => {
+				expect(reducer({
+					currentQueueIndex: null,
+				}, {
+					type: 'app/nextSong',
+				})).toEqual({
+					currentQueueIndex: null,
+				});
 			});
 		});
-	});
 
-	describe('incrementQueueIndex', () => {
-		it('increments the queue index and sets the current song ID', async () => {
-			expect(reducer({
-				currentQueueIndex: 1,
-				currentSongId: 456,
-				queue: [789, 456, 123],
-			}, {
-				type: 'app/incrementQueueIndex',
-			})).toEqual({
-				currentQueueIndex: 2,
-				currentSongId: 123,
-				queue: [789, 456, 123],
+		describe('when the last song in the queue is playing', () => {
+			it('stops playback and resets the queue', async () => {
+				expect(reducer({
+					currentQueueIndex: 4,
+					currentSongId: 1,
+					isPlaying: true,
+					queue: [5, 4, 2, 1],
+				}, {
+					type: 'app/nextSong',
+					payload: {
+						songs: {
+							1: { id: 1, foo: 'b', bar: 'b', checked: true },
+							2: { id: 2, foo: 'c', bar: 'a', checked: true },
+							3: { id: 3, foo: 'd', bar: 'c', checked: false },
+							4: { id: 4, foo: 'a', bar: 'e', checked: true },
+							5: { id: 5, foo: 'e', bar: 'd', checked: true },
+						},
+					},
+				})).toEqual({
+					currentQueueIndex: null,
+					currentSongId: null,
+					isPlaying: false,
+					queue: [1, 2, 4, 5],
+				});
+			});
+		});
+
+		describe('when a song other than the last song in the queue is playing', () => {
+			it('increments the queue index and sets the current song ID', async () => {
+				expect(reducer({
+					currentQueueIndex: 0,
+					currentSongId: 1,
+					queue: [1, 2, 4, 5],
+				}, {
+					type: 'app/nextSong',
+					payload: {
+						songs: {
+							1: { id: 1, foo: 'b', bar: 'b', checked: true },
+							2: { id: 2, foo: 'c', bar: 'a', checked: true },
+							3: { id: 3, foo: 'd', bar: 'c', checked: false },
+							4: { id: 4, foo: 'a', bar: 'e', checked: true },
+							5: { id: 5, foo: 'e', bar: 'd', checked: true },
+						},
+					},
+				})).toEqual({
+					currentQueueIndex: 1,
+					currentSongId: 2,
+					queue: [1, 2, 4, 5],
+				});
 			});
 		});
 	});
@@ -446,49 +480,29 @@ describe('app', () => {
 		});
 	});
 
-	describe('stopPlayback', () => {
-		describe('when shuffle is off', () => {
-			it('stops playback', async () => {
+	describe('previousSong', () => {
+		describe('when no song is active', () => {
+			it('does nothing', async () => {
 				expect(reducer({
-					currentQueueIndex: 1,
-					currentSongId: 2,
-					isPlaying: true,
-					queue: [1, 2, 4, 5],
-					shuffle: false,
+					currentQueueIndex: null,
 				}, {
-					type: 'app/stopPlayback',
-					payload: {
-						seed: 'testseed',
-						songs: {
-							1: { id: 1, foo: 'b', bar: 'b', checked: true },
-							2: { id: 2, foo: 'c', bar: 'a', checked: true },
-							3: { id: 3, foo: 'd', bar: 'c', checked: false },
-							4: { id: 4, foo: 'a', bar: 'e', checked: true },
-							5: { id: 5, foo: 'e', bar: 'd', checked: true },
-						},
-					},
+					type: 'app/previousSong',
 				})).toEqual({
 					currentQueueIndex: null,
-					currentSongId: null,
-					isPlaying: false,
-					queue: [1, 2, 4, 5],
-					shuffle: false,
 				});
 			});
 		});
 
-		describe('when shuffle is on', () => {
-			it('stops playback and creates a new queue', async () => {
+		describe('when the first song in the queue is playing', () => {
+			it('stops playback and resets the queue', async () => {
 				expect(reducer({
-					currentQueueIndex: 1,
-					currentSongId: 2,
+					currentQueueIndex: 0,
+					currentSongId: 5,
 					isPlaying: true,
-					queue: [1, 2, 4, 5],
-					shuffle: true,
+					queue: [5, 4, 2, 1],
 				}, {
-					type: 'app/stopPlayback',
+					type: 'app/previousSong',
 					payload: {
-						seed: 'testseed',
 						songs: {
 							1: { id: 1, foo: 'b', bar: 'b', checked: true },
 							2: { id: 2, foo: 'c', bar: 'a', checked: true },
@@ -501,8 +515,32 @@ describe('app', () => {
 					currentQueueIndex: null,
 					currentSongId: null,
 					isPlaying: false,
-					queue: [4, 2, 5, 1],
-					shuffle: true,
+					queue: [1, 2, 4, 5],
+				});
+			});
+		});
+
+		describe('when a song other than the first song in the queue is playing', () => {
+			it('decrements the queue index and sets the current song ID', async () => {
+				expect(reducer({
+					currentQueueIndex: 3,
+					currentSongId: 5,
+					queue: [1, 2, 4, 5],
+				}, {
+					type: 'app/previousSong',
+					payload: {
+						songs: {
+							1: { id: 1, foo: 'b', bar: 'b', checked: true },
+							2: { id: 2, foo: 'c', bar: 'a', checked: true },
+							3: { id: 3, foo: 'd', bar: 'c', checked: false },
+							4: { id: 4, foo: 'a', bar: 'e', checked: true },
+							5: { id: 5, foo: 'e', bar: 'd', checked: true },
+						},
+					},
+				})).toEqual({
+					currentQueueIndex: 2,
+					currentSongId: 4,
+					queue: [1, 2, 4, 5],
 				});
 			});
 		});
