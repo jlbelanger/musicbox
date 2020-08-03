@@ -12,6 +12,7 @@ export default function Main() {
 
 	if (!hasQueue) {
 		dispatch(populateQueue({ songs }));
+		return null;
 	}
 
 	return (
