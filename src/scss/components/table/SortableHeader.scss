@@ -1,6 +1,7 @@
 @import '../../utilities/variables';
 
 .sortable-header__button {
+	border-radius: 0;
 	display: flex;
 	justify-content: space-between;
 	margin: -16px;

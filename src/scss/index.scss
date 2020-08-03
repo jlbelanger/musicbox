@@ -22,6 +22,7 @@ button {
 	appearance: none;
 	background: transparent;
 	border: 0;
+	border-radius: 100px;
 	color: $white;
 	cursor: pointer;
 	font-size: $font-size;
@@ -63,14 +64,11 @@ input[type="checkbox"] {
 }
 
 .icon {
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
 	font-size: 0;
-	height: 28px;
-	margin: 8px;
-	padding: 0;
-	width: 28px;
+	height: 40px;
+	margin: 4px;
+	padding: 8px;
+	width: 40px;
 
 	path {
 		fill: $off-white;
@@ -85,13 +83,13 @@ input[type="checkbox"] {
 }
 
 .icon--large {
-	height: 48px;
-	width: 48px;
+	height: 60px;
+	width: 60px;
 }
 
 .icon--small {
-	height: 16px;
-	width: 16px;
+	height: 32px;
+	width: 32px;
 }
 
 .active {
