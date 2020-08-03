@@ -12,7 +12,7 @@
 		"type": "git",
 		"url": "https://github.com/jlbelanger/bessie.git"
 	},
-	"main": "main.js",
+	"main": "public/electron.js",
 	"homepage": "./",
 	"build": {
 		"appId": "com.jennybelanger.bessie",
