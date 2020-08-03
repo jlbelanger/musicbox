@@ -15,7 +15,7 @@
 	"main": "main.js",
 	"scripts": {
 		"start": "react-scripts start",
-		"start:electron": "electron .",
+		"start:electron": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
 		"build": "react-scripts build",
 		"lint": "yarn lint:css && yarn lint:js",
 		"lint:css": "node_modules/.bin/stylelint 'src/scss/**/*.scss'",
@@ -30,6 +30,7 @@
 		"@testing-library/jest-dom": "^4.2.4",
 		"@testing-library/react": "^9.3.2",
 		"@testing-library/user-event": "^7.1.2",
+		"concurrently": "^5.2.0",
 		"cypress": "^4.11.0",
 		"dateformat": "^3.0.3",
 		"electron": "^9.1.0",
@@ -54,7 +55,8 @@
 		"stylelint": "^10.1.0",
 		"stylelint-config-standard-scss": "^1.1.0",
 		"stylelint-order": "^4.1.0",
-		"stylelint-scss": "^3.13.0"
+		"stylelint-scss": "^3.13.0",
+		"wait-on": "^5.1.0"
 	},
 	"browserslist": {
 		"production": [

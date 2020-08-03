@@ -11,15 +11,15 @@ function createWindow() {
 		},
 	});
 	mainWindow.maximize();
-	// mainWindow.loadFile('build/index.html');
 	mainWindow.loadURL(
 		isDev
 			? 'http://localhost:3000'
-			: `file://${path.join(__dirname, '../index.html')}`,
+			: `file://${path.join(__dirname, 'build/index.html')}`,
 	);
 
-	// Open the DevTools.
-	// mainWindow.webContents.openDevTools();
+	if (isDev) {
+		mainWindow.webContents.openDevTools();
+	}
 }
 
 // This method will be called when Electron has finished
@@ -46,5 +46,22 @@ app.on('window-all-closed', () => {
 	}
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+const http = require('http');
+const fs = require('fs');
+
+http.createServer(function(request, response) {
+	const params = new URLSearchParams(request.url.replace(/^\/?/, ''));
+	const filePath = params.get('path');
+	const stat = fs.statSync(filePath);
+	const headers = {
+		'Content-Type': 'audio/mpeg',
+		'Content-Length': stat.size,
+		'Access-Control-Allow-Origin': 'http://localhost:3000',
+	};
+
+	response.writeHead(200, headers);
+
+	var stream = fs.createReadStream(filePath);
+	stream.pipe(response);
+})
+.listen(2000);
