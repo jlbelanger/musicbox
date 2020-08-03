@@ -3,6 +3,7 @@
 .env.production
 .gitcommit
 /build
+/dist
 node_modules
 /src/data/songs.json
 TODO.md
