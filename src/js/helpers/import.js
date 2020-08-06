@@ -37,6 +37,7 @@ export default (file) => (
 					year: getStringProperty(song, 'Year'),
 					genre: getStringProperty(song, 'Genre'),
 					rating: getStringProperty(song, 'Rating'),
+					duration: getStringProperty(song, 'Total Time'),
 					last_played: getDateProperty(song, 'Play Date UTC'),
 					date_added: getDateProperty(song, 'Date Added'),
 					path: getStringProperty(song, 'Location'),

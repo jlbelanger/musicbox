@@ -5,7 +5,7 @@ import {
 } from '../../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import CheckboxCell from './CheckboxCell';
-import prettyDate from '../../helpers/date';
+import { prettyDate } from '../../helpers/datetime';
 import PropTypes from 'prop-types';
 import RatingCell from './RatingCell';
 import React from 'react';
