@@ -12,7 +12,7 @@ export default () => {
 
 		const currentSongId = store.getState().app.currentSongId;
 
-		if (Object.keys(window.sound).includes('' + currentSongId)) {
+		if (Object.keys(window.sound).includes(currentSongId.toString())) {
 			if (isPlaying) {
 				window.sound[currentSongId].play();
 			} else {
@@ -41,7 +41,7 @@ export default () => {
 
 		if (!window.sound[currentSongId]) {
 			window.sound[currentSongId] = new Howl({
-				src: 'http://localhost:2000/?path=' + encodeURIComponent(currentSong.path),
+				src: `http://localhost:2000/?path=${encodeURIComponent(currentSong.path)}`,
 				format: 'mp3',
 			});
 		}

@@ -13,7 +13,7 @@ export default function Next() {
 	};
 
 	return (
-		<button className="icon" disabled={currentQueueIndex === null} onClick={onClick} type="button">
+		<button className="icon" disabled={currentQueueIndex === null} id="next" onClick={onClick} type="button">
 			<NextIcon />
 			Next
 		</button>

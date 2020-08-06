@@ -1,7 +1,4 @@
 .DS_Store
-.env
-.env.production
-.gitcommit
 /build
 /dist
 node_modules

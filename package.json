@@ -30,8 +30,7 @@
 		"lint:js": "node_modules/.bin/eslint src/js/*",
 		"predist": "yarn build",
 		"test": "react-scripts test",
-		"test:cypress": "yarn cypress open",
-		"eject": "react-scripts eject"
+		"test:cypress": "yarn cypress open"
 	},
 	"devDependencies": {
 		"@testing-library/jest-dom": "^4.2.4",
