@@ -63,22 +63,21 @@ export const appSlice = createSlice({
 		},
 		chooseSong: (state, action) => {
 			const { currentSongId } = action.payload;
+			let currentQueueIndex, queue;
 			if (state.shuffle) {
-				const queue = moveToFrontOfQueue(state.queue, currentSongId);
-				return {
-					...state,
-					currentQueueIndex: 0,
-					currentSongId,
-					isPlaying: true,
-					queue,
-				};
+				queue = moveToFrontOfQueue(state.queue, currentSongId);
+				currentQueueIndex = 0;
+			} else {
+				queue = state.queue;
+				currentQueueIndex = findCurrentSongQueueIndex(state.queue, currentSongId);
 			}
 
 			return {
 				...state,
 				currentSongId,
-				currentQueueIndex: findCurrentSongQueueIndex(state.queue, currentSongId),
+				currentQueueIndex,
 				isPlaying: true,
+				queue,
 			};
 		},
 		nextSong: (state, action) => {
@@ -207,20 +206,18 @@ export const appSlice = createSlice({
 				};
 			}
 
+			let currentQueueIndex;
 			if (shuffle) {
 				// TODO: But now the previous button is broken.
 				queue = moveToFrontOfQueue(queue, state.currentSongId);
-				return {
-					...state,
-					currentQueueIndex: 0,
-					queue,
-					shuffle,
-				};
+				currentQueueIndex = 0;
+			} else {
+				currentQueueIndex = findCurrentSongQueueIndex(queue, state.currentSongId);
 			}
 
 			return {
 				...state,
-				currentQueueIndex: findCurrentSongQueueIndex(queue, state.currentSongId),
+				currentQueueIndex,
 				queue,
 				shuffle,
 			};
