@@ -5,7 +5,7 @@ const isDev = require('electron-is-dev');
 function createWindow() {
 	const mainWindow = new BrowserWindow({
 		backgroundColor: '#000',
-		title: 'Bessie',
+		title: 'Musicbox',
 		webPreferences: {
 			preload: path.join(__dirname, 'preload.js'),
 		},

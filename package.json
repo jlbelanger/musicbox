@@ -1,5 +1,5 @@
 {
-	"name": "Bessie",
+	"name": "Musicbox",
 	"version": "1.0.0",
 	"description": "A music library organizer and player.",
 	"author": {
@@ -10,12 +10,12 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/jlbelanger/bessie.git"
+		"url": "https://github.com/jlbelanger/musicbox.git"
 	},
 	"main": "public/electron.js",
 	"homepage": "./",
 	"build": {
-		"appId": "com.jennybelanger.bessie",
+		"appId": "com.jennybelanger.musicbox",
 		"mac": {
 			"category": "public.app-category.music"
 		}
