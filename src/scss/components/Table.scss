@@ -1,51 +1,55 @@
 @import '../utilities/variables';
 
-table {
-	border-spacing: 0;
-	width: 100%;
+$textSize: $font-size;
+$headerBackgroundColor: $darkest-gray;
+$headerTextColor: $white;
+$headerBorderColor: transparent;
+$headerSeperatorColor: transparent;
+
+$rowBackgroundColor: $black;
+$rowAltBackgroundColor: $off-black;
+$rowTextColor: $white;
+$rowSelectedBackground: $focus-color;
+$rowHoverBackground: $dark-gray;
+$rowBorderColor: transparent;
+
+@import './node_modules/tabulator-tables/src/scss/tabulator_simple';
+
+$header-height: 68px;
+
+.tabulator {
+	height: calc(100vh - $header-height);
 }
 
-thead {
-	position: sticky;
-	top: 0;
-	z-index: 1;
-
-	th {
-		background: $darkest-gray;
+.tabulator-row {
+	.tabulator-cell {
+		padding: 16px;
 	}
 }
 
-tbody {
-	tr:nth-of-type(2n) {
-		td,
-		th {
-			background: $off-black;
-		}
-	}
-
-	th {
-		font-weight: normal;
-	}
-}
-
-th {
-	text-align: left;
-}
-
-td,
-th {
-	font-size: $font-size;
+.tabulator .tabulator-header .tabulator-col .tabulator-col-content {
 	padding: 16px;
-	white-space: nowrap;
 }
 
-tr {
-	&:focus {
-		box-shadow: none;
+.tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-arrow {
+	margin-top: -3px;
+	top: 50%;
+}
 
-		td,
-		th {
-			background: $focus-color !important; // stylelint-disable declaration-no-important
-		}
-	}
+.tabulator .tabulator-header {
+	// position: sticky;
+	// top: 0;
+	// z-index: 1;
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable[aria-sort="none"] .tabulator-col-content .tabulator-arrow {
+	border-bottom-color: transparent;
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable[aria-sort="asc"] .tabulator-col-content .tabulator-arrow {
+	border-bottom-color: $white;
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable[aria-sort="desc"] .tabulator-col-content .tabulator-arrow {
+	border-top-color: $white;
 }

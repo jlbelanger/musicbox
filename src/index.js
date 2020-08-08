@@ -7,6 +7,10 @@ import store from './js/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './js/serviceWorker';
 
+// Required for Tabulator.
+const moment = require('moment');
+window.moment = moment;
+
 ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
