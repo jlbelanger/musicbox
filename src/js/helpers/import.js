@@ -36,7 +36,7 @@ export default (file) => (
 					album: getStringProperty(song, 'Album'),
 					year: getStringProperty(song, 'Year'),
 					genre: getStringProperty(song, 'Genre'),
-					rating: getStringProperty(song, 'Rating'),
+					rating: parseInt(getStringProperty(song, 'Rating'), 10) / 20,
 					duration: getStringProperty(song, 'Total Time'),
 					last_played: getDateProperty(song, 'Play Date UTC'),
 					date_added: getDateProperty(song, 'Date Added'),

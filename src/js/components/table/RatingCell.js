@@ -7,19 +7,18 @@ import { useDispatch } from 'react-redux';
 
 export default function RatingCell(props) {
 	const max = 5;
-	const num = props.value / 20;
+	const num = props.value;
 	let i;
 	const stars = [];
 
 	const dispatch = useDispatch();
 	const onClick = (e) => {
-		if (e.target.value === (props.value / 20).toString()) {
+		if (e.target.value === (props.value).toString()) {
 			dispatch(setRating({ id: props.id, value: 0 }));
 		}
 	};
 	const onChange = (e) => {
-		const value = e.target.value * 20;
-		dispatch(setRating({ id: props.id, value }));
+		dispatch(setRating({ id: props.id, value: e.target.value }));
 	};
 
 	for (i = 1; i <= num; i += 1) {
