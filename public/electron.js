@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, globalShortcut } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
 
@@ -22,21 +22,37 @@ function createWindow() {
 	if (isDev) {
 		mainWindow.webContents.openDevTools();
 	}
+
+	return mainWindow;
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-	createWindow();
+	let mainWindow = createWindow();
 
 	app.on('activate', () => {
 		// On macOS it's common to re-create a window in the app when the
 		// dock icon is clicked and there are no other windows open.
 		if (BrowserWindow.getAllWindows().length === 0) {
-			createWindow();
+			mainWindow = createWindow();
 		}
 	});
+
+	globalShortcut.register('MediaNextTrack', () => {
+		mainWindow.webContents.send('shortcut', 'MediaNextTrack');
+	});
+	globalShortcut.register('MediaPreviousTrack', () => {
+		mainWindow.webContents.send('shortcut', 'MediaPreviousTrack');
+	});
+	globalShortcut.register('MediaPlayPause', () => {
+		mainWindow.webContents.send('shortcut', 'MediaPlayPause');
+	});
+});
+
+app.on('will-quit', () => {
+	globalShortcut.unregisterAll();
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
