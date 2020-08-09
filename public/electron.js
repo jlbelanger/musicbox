@@ -6,6 +6,8 @@ function createWindow() {
 	const mainWindow = new BrowserWindow({
 		backgroundColor: '#000',
 		title: 'Musicbox',
+		x: -1920,
+		y: 0,
 		webPreferences: {
 			preload: path.join(__dirname, 'preload.js'),
 		},
@@ -54,14 +56,13 @@ http.createServer(function(request, response) {
 	const filePath = params.get('path');
 	const stat = fs.statSync(filePath);
 	const headers = {
-		'Content-Type': 'audio/mpeg',
-		'Content-Length': stat.size,
 		'Access-Control-Allow-Origin': 'http://localhost:3000',
+		'Content-Length': stat.size,
+		'Content-Type': 'audio/mpeg',
 	};
-
 	response.writeHead(200, headers);
 
-	var stream = fs.createReadStream(filePath);
+	const stream = fs.createReadStream(filePath);
 	stream.pipe(response);
 })
 .listen(2000);
