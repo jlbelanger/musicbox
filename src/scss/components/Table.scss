@@ -15,10 +15,10 @@ $rowBorderColor: transparent;
 
 @import './node_modules/tabulator-tables/src/scss/tabulator_simple';
 
-$header-height: 68px;
+$header-height: 68px; // TODO: Calculate this.
 
 .tabulator {
-	height: calc(100vh - $header-height);
+	height: calc(100vh - #{$header-height});
 }
 
 .tabulator-row {
