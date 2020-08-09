@@ -7,7 +7,7 @@ export default () => {
 	store.subscribe(watchCurrentSongId((currentSongId) => {
 		const songs = store.getState().songs;
 		const currentSong = songs[currentSongId];
-		new Notification(currentSong.title, {
+		new Notification(currentSong.title, { // eslint-disable-line no-new
 			body: currentSong.artist,
 			silent: true,
 		});

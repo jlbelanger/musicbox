@@ -2,8 +2,8 @@ import '../../scss/components/Table.scss';
 import { chooseSong, selectSongIds } from '../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
-import { selectSongs } from '../slices/songs';
 import { ReactTabulator } from 'react-tabulator';
+import { selectSongs } from '../slices/songs';
 
 export default function Table() {
 	const dispatch = useDispatch();
