@@ -1,9 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getActiveSongs } from '../helpers/queue';
 
-const fetchSongs = () => require('../../data/songs.json'); // eslint-disable-line global-require
-
-export const initialState = fetchSongs();
+export const initialState = window.songs;
 
 export const songsSlice = createSlice({
 	name: 'songs',
