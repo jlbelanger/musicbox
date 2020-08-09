@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import { nextSong, selectCurrentSong, selectIsPlaying } from '../slices/app';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { prettyTime } from '../helpers/datetime';
 import { selectSongs } from '../slices/songs';

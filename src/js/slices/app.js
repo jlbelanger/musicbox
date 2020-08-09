@@ -63,7 +63,8 @@ export const appSlice = createSlice({
 		},
 		chooseSong: (state, action) => {
 			const { currentSongId } = action.payload;
-			let currentQueueIndex, queue;
+			let currentQueueIndex;
+			let queue;
 			if (state.shuffle) {
 				queue = moveToFrontOfQueue(state.queue, currentSongId);
 				currentQueueIndex = 0;

@@ -1,14 +1,12 @@
 import '../../scss/components/Table.scss';
-import React from 'react';
-import { chooseSong, selectCurrentSongId, selectIsPlaying, selectSongIds } from '../slices/app';
-import { selectSongs } from '../slices/songs';
+import { chooseSong, selectSongIds } from '../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { selectSongs } from '../slices/songs';
 import { ReactTabulator } from 'react-tabulator';
 
 export default function Table() {
 	const dispatch = useDispatch();
-	const currentSongId = useSelector(selectCurrentSongId);
-	const isPlaying = useSelector(selectIsPlaying);
 	const songs = useSelector(selectSongs);
 	const ids = useSelector(selectSongIds);
 	const data = ids.map((id) => songs[id.toString()]);
@@ -72,12 +70,11 @@ export default function Table() {
 
 	return (
 		<ReactTabulator
-			data={data}
-			resizableColumns="header"
-			movableColumns={true}
 			columns={columns}
+			data={data}
+			movableColumns
+			resizableColumns="header"
 			rowDblClick={onRowDblClick}
-			virtualDom={true}
 		/>
 	);
 }
