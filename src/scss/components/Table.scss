@@ -13,6 +13,8 @@ $rowSelectedBackground: $focus-color;
 $rowHoverBackground: $dark-gray;
 $rowBorderColor: transparent;
 
+$editBoxColor: $primary;
+
 @import './node_modules/tabulator-tables/src/scss/tabulator_simple';
 
 $header-height: 68px; // TODO: Calculate this.
@@ -24,6 +26,31 @@ $header-height: 68px; // TODO: Calculate this.
 .tabulator-row {
 	.tabulator-cell {
 		padding: 16px;
+
+		&.tabulator-editing {
+			border: none;
+			box-shadow: inset 0 0 0 4px $focus-color;
+
+			input {
+				margin-top: -1px;
+				padding: 16px !important;
+			}
+
+			&[tabulator-field="rating"] {
+				box-shadow: none;
+
+				& > div {
+					padding: 16px !important;
+				}
+			}
+		}
+	}
+}
+
+[tabulator-field="rating"] {
+	svg {
+		height: 20px !important;
+		width: 20px !important;
 	}
 }
 
@@ -34,12 +61,6 @@ $header-height: 68px; // TODO: Calculate this.
 .tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-arrow {
 	margin-top: -3px;
 	top: 50%;
-}
-
-.tabulator .tabulator-header {
-	// position: sticky;
-	// top: 0;
-	// z-index: 1;
 }
 
 .tabulator .tabulator-header .tabulator-col.tabulator-sortable[aria-sort="none"] .tabulator-col-content .tabulator-arrow {

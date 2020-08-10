@@ -2,14 +2,17 @@ import { nextSong, selectCurrentQueueIndex } from '../../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as NextIcon } from '../../../svg/next.svg';
 import React from 'react';
-import { selectSongs } from '../../slices/songs';
+import Storage from '../../helpers/Storage';
 
 export default function Next() {
 	const dispatch = useDispatch();
 	const currentQueueIndex = useSelector(selectCurrentQueueIndex);
-	const songs = useSelector(selectSongs);
 	const onClick = () => {
-		dispatch(nextSong({ songs }));
+		dispatch(nextSong({
+			songs: window.songs,
+			sortColumn: Storage.get('sortColumn'),
+			sortDirection: Storage.get('sortDirection'),
+		}));
 	};
 
 	return (

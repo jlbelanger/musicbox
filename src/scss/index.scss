@@ -211,3 +211,48 @@ a {
 .row-icon {
 	font-size: 0;
 }
+
+// Ratings.
+polygon {
+	stroke: none;
+
+	&[fill="#FFEA00"] {
+		fill: $primary !important;
+	}
+
+	&[fill="#D2D2D2"] {
+		fill: $darkest-gray !important;
+	}
+
+	&[fill="#488CE9"] {
+		fill: $primary !important;
+	}
+
+	&[fill="#010155"] {
+		fill: rgba($primary, .15) !important;
+	}
+}
+
+// Checkboxes.
+[tabulator-field="checked"] {
+	svg {
+		background: $darkest-gray;
+		height: 20px !important;
+		padding: 4px;
+		width: 20px !important;
+	}
+
+	path {
+		fill: $white !important;
+	}
+
+	&[aria-checked="false"] {
+		path {
+			fill: none !important;
+		}
+	}
+}
+
+input {
+	color: $white;
+}

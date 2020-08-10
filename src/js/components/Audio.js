@@ -2,12 +2,11 @@ import { nextSong, selectCurrentSong, selectIsPlaying } from '../slices/app';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { prettyTime } from '../helpers/datetime';
-import { selectSongs } from '../slices/songs';
+import Storage from '../helpers/Storage';
 
 export default function Audio() {
 	const dispatch = useDispatch();
 	const song = useSelector(selectCurrentSong);
-	const songs = useSelector(selectSongs);
 	const isPlaying = useSelector(selectIsPlaying);
 	const [currentTime, setCurrentTime] = useState(0);
 	const [audio, setAudio] = useState(null);
@@ -22,7 +21,11 @@ export default function Audio() {
 		setCurrentTime(audio.currentTime * 1000);
 	};
 	const onEnded = () => {
-		dispatch(nextSong({ songs }));
+		dispatch(nextSong({
+			songs: window.songs,
+			sortColumn: Storage.get('sortColumn'),
+			sortDirection: Storage.get('sortDirection'),
+		}));
 	};
 	const prettyDuration = prettyTime(song.duration);
 

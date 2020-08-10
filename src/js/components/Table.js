@@ -3,49 +3,68 @@ import { chooseSong, selectSongIds } from '../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import { ReactTabulator } from 'react-tabulator';
-import { selectSongs } from '../slices/songs';
+import Storage from '../helpers/Storage';
 
 export default function Table() {
 	const dispatch = useDispatch();
-	const songs = useSelector(selectSongs);
 	const ids = useSelector(selectSongIds);
-	const data = ids.map((id) => songs[id.toString()]);
+	let table;
+	const data = ids.map((id) => window.songs[id.toString()]);
 	const columns = [
 		{
+			field: 'state',
+			title: '',
+			formatter: (cell) => {
+				if (!cell.getValue()) {
+					return '';
+				}
+				return cell.getValue();
+			},
+			width: 60,
+			resizable: false,
+		},
+		{
 			field: 'checked',
+			title: '',
 			formatter: 'tickCross',
-			// editor: 'tick',
+			editor: 'tickCross',
+			width: 60,
+			resizable: false,
 		},
 		{
 			field: 'title',
 			title: 'Title',
-			// editor: 'input',
+			editor: 'input',
+			sorterParams: { alignEmptyValues: 'bottom' },
 		},
 		{
 			field: 'artist',
 			title: 'Artist',
-			// editor: 'input',
+			editor: 'input',
+			sorterParams: { alignEmptyValues: 'bottom' },
 		},
 		{
 			field: 'album',
 			title: 'Album',
-			// editor: 'input',
+			editor: 'input',
+			sorterParams: { alignEmptyValues: 'bottom' },
 		},
 		{
 			field: 'year',
 			title: 'Year',
-			// editor: 'input',
+			editor: 'input',
 		},
 		{
 			field: 'genre',
 			title: 'Genre',
-			// editor: 'input',
+			editor: 'input',
+			sorterParams: { alignEmptyValues: 'bottom' },
 		},
 		{
 			field: 'rating',
 			title: 'Rating',
 			formatter: 'star',
-			// editor: 'star',
+			editor: 'star',
 		},
 		{
 			field: 'last_played',
@@ -54,6 +73,7 @@ export default function Table() {
 			formatterParams: {
 				outputFormat: 'YYYY-MM-DD h:mm a',
 			},
+			sorterParams: { alignEmptyValues: 'bottom' },
 		},
 		{
 			field: 'date_added',
@@ -65,14 +85,29 @@ export default function Table() {
 		},
 	];
 	const onRowDblClick = (_e, row) => {
-		dispatch(chooseSong({ currentSongId: row._row.data.id }));
+		const id = row._row.data.id;
+		dispatch(chooseSong({ currentSongId: id }));
+		// TODO: Update previously playing song.
+		table.table.updateData([{ id, state: 1 }]);
 	};
 
 	return (
 		<ReactTabulator
 			columns={columns}
 			data={data}
+			dataSorting={(sorters) => {
+				Storage.set('sortColumn', sorters[0].field);
+				Storage.set('sortDirection', sorters[0].dir);
+			}}
+			initialSort={[
+				{
+					column: Storage.get('sortColumn', 'artist'),
+					dir: Storage.get('sortDirection', 'asc'),
+				},
+			]}
+			layout="fitColumnsStretchdsf"
 			movableColumns
+			ref={(ref) => { table = ref; }}
 			resizableColumns="header"
 			rowDblClick={onRowDblClick}
 		/>

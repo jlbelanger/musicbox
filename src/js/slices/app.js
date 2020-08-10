@@ -16,51 +16,12 @@ export const initialState = {
 	isPlaying: false,
 	queue: [],
 	shuffle: Storage.get('shuffle', false),
-	sortColumn: Storage.get('sortColumn', 'artist'),
-	sortDirection: Storage.get('sortDirection', 'asc'),
 };
 
 export const appSlice = createSlice({
 	name: 'app',
 	initialState,
 	reducers: {
-		changeSort: (state, action) => {
-			const { songs, sortColumn } = action.payload;
-
-			let sortDirection;
-			if (state.sortColumn === sortColumn) {
-				sortDirection = state.sortDirection === 'asc' ? 'desc' : 'asc';
-			} else {
-				sortDirection = 'asc';
-			}
-
-			const sortedSongs = sort(Object.values(songs), sortColumn, sortDirection);
-			const ids = sortedSongs.map((song) => song.id);
-
-			if (state.shuffle) {
-				return {
-					...state,
-					ids,
-					sortColumn,
-					sortDirection,
-				};
-			}
-
-			const queue = getActiveSongs(sortedSongs).map((song) => song.id);
-			let currentQueueIndex = state.currentQueueIndex;
-			if (state.currentSongId) {
-				currentQueueIndex = findCurrentSongQueueIndex(queue, state.currentSongId);
-			}
-
-			return {
-				...state,
-				currentQueueIndex,
-				ids,
-				queue,
-				sortColumn,
-				sortDirection,
-			};
-		},
 		chooseSong: (state, action) => {
 			const { currentSongId } = action.payload;
 			let currentQueueIndex;
@@ -95,12 +56,17 @@ export const appSlice = createSlice({
 				};
 			}
 
-			const { seed, songs } = action.payload;
+			const {
+				seed,
+				songs,
+				sortColumn,
+				sortDirection,
+			} = action.payload;
 			const queue = createQueue(
 				songs,
 				{
-					column: state.sortColumn,
-					direction: state.sortDirection,
+					column: sortColumn,
+					direction: sortDirection,
 					seed,
 					shuffle: state.shuffle,
 				}
@@ -114,8 +80,13 @@ export const appSlice = createSlice({
 			};
 		},
 		populateQueue: (state, action) => {
-			const { seed, songs } = action.payload;
-			const sortedSongs = sort(Object.values(songs), state.sortColumn, state.sortDirection);
+			const {
+				seed,
+				songs,
+				sortColumn,
+				sortDirection,
+			} = action.payload;
+			const sortedSongs = sort(Object.values(songs), sortColumn, sortDirection);
 			const ids = sortedSongs.map((song) => song.id);
 			let queue;
 			if (state.shuffle) {
@@ -143,12 +114,17 @@ export const appSlice = createSlice({
 				};
 			}
 
-			const { seed, songs } = action.payload;
+			const {
+				seed,
+				songs,
+				sortColumn,
+				sortDirection,
+			} = action.payload;
 			const queue = createQueue(
 				songs,
 				{
-					column: state.sortColumn,
-					direction: state.sortDirection,
+					column: sortColumn,
+					direction: sortDirection,
 					seed,
 					shuffle: state.shuffle,
 				}
@@ -187,13 +163,18 @@ export const appSlice = createSlice({
 			};
 		},
 		toggleShuffle: (state, action) => {
-			const { seed, songs } = action.payload;
+			const {
+				seed,
+				songs,
+				sortColumn,
+				sortDirection,
+			} = action.payload;
 			const shuffle = !state.shuffle;
 			let queue = createQueue(
 				songs,
 				{
-					column: state.sortColumn,
-					direction: state.sortDirection,
+					column: sortColumn,
+					direction: sortDirection,
 					seed,
 					shuffle,
 				}
@@ -227,7 +208,6 @@ export const appSlice = createSlice({
 });
 
 export const {
-	changeSort,
 	chooseSong,
 	nextSong,
 	populateQueue,
@@ -237,7 +217,7 @@ export const {
 } = appSlice.actions;
 
 export const selectCurrentQueueIndex = (state) => state.app.currentQueueIndex;
-export const selectCurrentSong = (state) => state.songs[state.app.currentSongId];
+export const selectCurrentSong = (state) => window.songs[state.app.currentSongId];
 export const selectCurrentSongId = (state) => state.app.currentSongId;
 export const selectIsPlaying = (state) => state.app.isPlaying;
 export const selectSongIds = (state) => state.app.ids;
@@ -245,10 +225,8 @@ export const selectHasQueue = (state) => (state.app.queue.length > 0);
 export const selectUpcomingSongs = (state) => {
 	const index = state.app.currentQueueIndex;
 	const q = state.app.queue.slice(index, index + 3);
-	return q.map((id) => state.songs[id]);
+	return q.map((id) => window.songs[id]);
 };
-export const selectSortColumn = (state) => state.app.sortColumn;
-export const selectSortDirection = (state) => state.app.sortDirection;
 export const selectShuffle = (state) => state.app.shuffle;
 
 export default appSlice.reducer;
