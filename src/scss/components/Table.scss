@@ -1,3 +1,4 @@
+// stylelint-disable declaration-no-important
 @import '../utilities/variables';
 
 $textSize: $font-size;
@@ -18,6 +19,7 @@ $editBoxColor: $primary;
 @import './node_modules/tabulator-tables/src/scss/tabulator_simple';
 
 $header-height: 68px; // TODO: Calculate this.
+$cell-padding: 16px;
 
 .tabulator {
 	height: calc(100vh - #{$header-height});
@@ -25,7 +27,11 @@ $header-height: 68px; // TODO: Calculate this.
 
 .tabulator-row {
 	.tabulator-cell {
-		padding: 16px;
+		padding: $cell-padding;
+
+		&[tabulator-field="checked"] {
+			padding: #{$cell-padding - $checkbox-padding} $cell-padding;
+		}
 
 		&.tabulator-editing {
 			border: none;
@@ -37,10 +43,28 @@ $header-height: 68px; // TODO: Calculate this.
 			}
 
 			&[tabulator-field="rating"] {
-				box-shadow: none;
-
 				& > div {
 					padding: 16px !important;
+				}
+			}
+
+			&[tabulator-field="checked"] {
+				input {
+					appearance: none;
+					background-color: $checkbox-background-color;
+					background-position: center;
+					background-repeat: no-repeat;
+					background-size: $font-size;
+					box-shadow: none;
+					cursor: pointer;
+					height: #{$font-size + ($checkbox-padding * 2)};
+					margin-top: 0 !important;
+					padding: 0 !important;
+					width: #{$font-size + ($checkbox-padding * 2)};
+
+					&:checked {
+						background-image: url('../../svg/check.svg');
+					}
 				}
 			}
 		}
@@ -49,8 +73,8 @@ $header-height: 68px; // TODO: Calculate this.
 
 [tabulator-field="rating"] {
 	svg {
-		height: 20px !important;
-		width: 20px !important;
+		height: $font-size !important;
+		width: $font-size !important;
 	}
 }
 
@@ -73,4 +97,39 @@ $header-height: 68px; // TODO: Calculate this.
 
 .tabulator .tabulator-header .tabulator-col.tabulator-sortable[aria-sort="desc"] .tabulator-col-content .tabulator-arrow {
 	border-top-color: $white;
+}
+
+// Ratings.
+polygon {
+	stroke: none;
+
+	&[fill="#FFEA00"],
+	&[fill="#488CE9"] {
+		fill: $primary !important;
+	}
+
+	&[fill="#D2D2D2"],
+	&[fill="#010155"] {
+		fill: $darkest-gray !important;
+	}
+}
+
+// Checkboxes.
+[tabulator-field="checked"] {
+	svg {
+		background: $checkbox-background-color;
+		height: $font-size !important;
+		padding: $checkbox-padding;
+		width: $font-size !important;
+	}
+
+	path {
+		fill: $white !important;
+	}
+
+	&[aria-checked="false"] {
+		path {
+			fill: none !important;
+		}
+	}
 }

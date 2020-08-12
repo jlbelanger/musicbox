@@ -13,7 +13,6 @@ export default function Table() {
 	const columns = [
 		{
 			field: 'state',
-			title: '',
 			formatter: (cell) => {
 				if (!cell.getValue()) {
 					return '';
@@ -22,10 +21,10 @@ export default function Table() {
 			},
 			width: 60,
 			resizable: false,
+			headerSort: false,
 		},
 		{
 			field: 'checked',
-			title: '',
 			formatter: 'tickCross',
 			editor: 'tickCross',
 			width: 60,
@@ -65,6 +64,8 @@ export default function Table() {
 			title: 'Rating',
 			formatter: 'star',
 			editor: 'star',
+			width: 143,
+			resizable: false,
 		},
 		{
 			field: 'last_played',

@@ -1,3 +1,0 @@
-describe('RatingCell', () => {
-	it('TODO');
-});
