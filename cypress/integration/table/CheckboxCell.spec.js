@@ -1,3 +1,0 @@
-describe('CheckboxCell', () => {
-	it('TODO');
-});

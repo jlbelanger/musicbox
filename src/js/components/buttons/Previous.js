@@ -2,14 +2,17 @@ import { previousSong, selectCurrentQueueIndex } from '../../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as PreviousIcon } from '../../../svg/previous.svg';
 import React from 'react';
-import { selectSongs } from '../../slices/songs';
+import Storage from '../../helpers/Storage';
 
 export default function Previous() {
 	const dispatch = useDispatch();
 	const currentQueueIndex = useSelector(selectCurrentQueueIndex);
-	const songs = useSelector(selectSongs);
 	const onClick = () => {
-		dispatch(previousSong({ songs }));
+		dispatch(previousSong({
+			songs: window.songs,
+			sortColumn: Storage.get('sortColumn'),
+			sortDirection: Storage.get('sortDirection'),
+		}));
 	};
 
 	return (

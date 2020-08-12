@@ -1,3 +1,0 @@
-describe('TextCell', () => {
-	it('TODO');
-});

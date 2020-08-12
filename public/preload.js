@@ -1,14 +1,23 @@
-// All of the Node.js APIs are available in the preload process.
-// It has the same sandbox as a Chrome extension.
-window.addEventListener('DOMContentLoaded', () => {
-	const replaceText = (selector, text) => {
-		const element = document.getElementById(selector);
-		if (element) {
-			element.innerText = text;
-		}
-	}
+const fs = require('fs');
+const path = require('path');
 
-	for (const type of ['chrome', 'node', 'electron']) {
-		replaceText(`${type}-version`, process.versions[type]);
+const filePath = path.join(__dirname, '../songs.json');
+const file = fs.readFileSync(filePath, 'utf8');
+window.songs = JSON.parse(file);
+
+const electron = require('electron');
+electron.ipcRenderer.on('shortcut', (e, data) => {
+	switch (data) {
+		case 'MediaPreviousTrack':
+			document.getElementById('previous').click();
+			break;
+
+		case 'MediaPlayPause':
+			document.getElementById('play-pause').click();
+			break;
+
+		case 'MediaNextTrack':
+			document.getElementById('next').click();
+			break;
 	}
 });

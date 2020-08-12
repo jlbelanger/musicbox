@@ -2,5 +2,5 @@
 /build
 /dist
 node_modules
-/src/data/songs.json
+/songs.json
 TODO.md

@@ -2,16 +2,19 @@ import { populateQueue, selectHasQueue } from '../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from './Header';
 import React from 'react';
-import { selectSongs } from '../slices/songs';
+import Storage from '../helpers/Storage';
 import Table from './Table';
 
 export default function Main() {
 	const dispatch = useDispatch();
-	const songs = useSelector(selectSongs);
 	const hasQueue = useSelector(selectHasQueue);
 
 	if (!hasQueue) {
-		dispatch(populateQueue({ songs }));
+		dispatch(populateQueue({
+			songs: window.songs,
+			sortColumn: Storage.get('sortColumn'),
+			sortDirection: Storage.get('sortDirection'),
+		}));
 		return null;
 	}
 

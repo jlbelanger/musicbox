@@ -1,3 +1,0 @@
-describe('SortableHeader', () => {
-	it('TODO');
-});

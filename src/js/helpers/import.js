@@ -28,6 +28,10 @@ export default (file) => (
 			const output = {};
 			Object.values(json.Tracks).forEach((song) => {
 				const id = getStringProperty(song, 'Track ID');
+				let path = getStringProperty(song, 'Location');
+				if (path) {
+					path = path.replace('file://', '').replace(/%20/g, ' ');
+				}
 				output[id] = {
 					id,
 					checked: !getBoolProperty(song, 'Disabled'),
@@ -40,7 +44,7 @@ export default (file) => (
 					duration: getStringProperty(song, 'Total Time'),
 					last_played: getDateProperty(song, 'Play Date UTC'),
 					date_added: getDateProperty(song, 'Date Added'),
-					path: getStringProperty(song, 'Location'),
+					path,
 				};
 			});
 			return output;

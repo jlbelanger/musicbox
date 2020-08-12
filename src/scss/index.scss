@@ -36,33 +36,6 @@ button {
 	}
 }
 
-/*
-input {
-	border: 0;
-	color: $white;
-	background: transparent;
-	font-size: 24px;
-	padding: 16px;
-	line-height: 1;
-	width: 100%;
-}
-*/
-
-input[type="checkbox"] {
-	appearance: none;
-	background-color: $dark-gray;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: 20px;
-	cursor: pointer;
-	height: 28px;
-	width: 28px;
-
-	&:checked {
-		background-image: url('../svg/check.svg');
-	}
-}
-
 .icon {
 	font-size: 0;
 	height: 40px;
@@ -210,4 +183,8 @@ a {
 
 .row-icon {
 	font-size: 0;
+}
+
+input {
+	color: $white;
 }
