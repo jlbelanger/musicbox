@@ -43,6 +43,7 @@ export default function Audio() {
 				ref={(element) => { setAudio(element); }}
 				src={`http://localhost:2000/?path=${encodeURIComponent(song.path)}`}
 			/>
+			<progress max={song.duration} value={currentTime} />
 		</>
 	);
 }

@@ -188,3 +188,17 @@ a {
 input {
 	color: $white;
 }
+
+progress {
+	-webkit-appearance: none;
+	height: 8px;
+	width: 100%;
+}
+
+::-webkit-progress-bar {
+	background-color: $dark-gray;
+}
+
+::-webkit-progress-value {
+	background-color: $primary;
+}
