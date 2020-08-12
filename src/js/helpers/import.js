@@ -30,7 +30,7 @@ export default (file) => (
 				const id = getStringProperty(song, 'Track ID');
 				let path = getStringProperty(song, 'Location');
 				if (path) {
-					path = path.replace('file://', '').replace(/%20/g, ' ');
+					path = decodeURI(path.replace('file://', ''));
 				}
 				output[id] = {
 					id,
