@@ -32,6 +32,14 @@ function createWindow() {
 app.whenReady().then(() => {
 	let mainWindow = createWindow();
 
+	mainWindow.on('focus', () => {
+		mainWindow.webContents.send('hasFocus', true);
+	});
+
+	mainWindow.on('blur', () => {
+		mainWindow.webContents.send('hasFocus', false);
+	});
+
 	app.on('activate', () => {
 		// On macOS it's common to re-create a window in the app when the
 		// dock icon is clicked and there are no other windows open.
