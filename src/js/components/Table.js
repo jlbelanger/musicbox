@@ -4,20 +4,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import { ReactTabulator } from 'react-tabulator';
 import Storage from '../helpers/Storage';
+import { ReactComponent as VolumeHighIcon } from '../../svg/volume-high.svg';
+import { ReactComponent as VolumeOffIcon } from '../../svg/volume-off.svg';
+import { renderToString } from 'react-dom/server';
 
 export default function Table() {
 	const dispatch = useDispatch();
 	const ids = useSelector(selectSongIds);
-	let table;
 	const data = ids.map((id) => window.songs[id.toString()]);
 	const columns = [
 		{
 			field: 'state',
 			formatter: (cell) => {
-				if (!cell.getValue()) {
-					return '';
+				const state = cell.getValue();
+				if (state === false) {
+					return renderToString(<VolumeOffIcon height="16" width="16" />);
 				}
-				return cell.getValue();
+				if (state === true) {
+					return renderToString(<VolumeHighIcon height="16" width="16" />);
+				}
+				return '';
 			},
 			width: 60,
 			resizable: false,
@@ -88,8 +94,6 @@ export default function Table() {
 	const onRowDblClick = (_e, row) => {
 		const id = row._row.data.id;
 		dispatch(chooseSong({ currentSongId: id }));
-		// TODO: Update previously playing song.
-		table.table.updateData([{ id, state: 1 }]);
 	};
 
 	return (
@@ -108,7 +112,7 @@ export default function Table() {
 			]}
 			layout="fitColumnsStretchdsf"
 			movableColumns
-			ref={(ref) => { table = ref; }}
+			ref={(ref) => { window.table = ref; }}
 			resizableColumns="header"
 			rowDblClick={onRowDblClick}
 		/>
