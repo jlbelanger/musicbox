@@ -27,7 +27,7 @@ describe('app', () => {
 
 	describe('chooseSong', () => {
 		describe('when shuffle is on', () => {
-			it('moves the song to the front of the queue', async () => {
+			it('moves the song to be next in the queue', async () => {
 				expect(reducer({
 					currentQueueIndex: 1,
 					currentSongId: 5,
@@ -40,10 +40,10 @@ describe('app', () => {
 						currentSongId: 4,
 					},
 				})).toEqual({
-					currentQueueIndex: 0,
+					currentQueueIndex: 2,
 					currentSongId: 4,
 					isPlaying: true,
-					queue: [4, 3, 5, 2, 1],
+					queue: [3, 5, 4, 2, 1],
 					shuffle: true,
 				});
 			});

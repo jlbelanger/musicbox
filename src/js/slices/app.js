@@ -27,8 +27,8 @@ export const appSlice = createSlice({
 			let currentQueueIndex;
 			let queue;
 			if (state.shuffle) {
-				queue = moveToFrontOfQueue(state.queue, currentSongId);
-				currentQueueIndex = 0;
+				queue = moveToFrontOfQueue(state.queue, state.currentQueueIndex, currentSongId);
+				currentQueueIndex = state.currentQueueIndex === null ? 0 : state.currentQueueIndex + 1;
 			} else {
 				queue = state.queue;
 				currentQueueIndex = findCurrentSongQueueIndex(state.queue, currentSongId);
@@ -190,8 +190,7 @@ export const appSlice = createSlice({
 
 			let currentQueueIndex;
 			if (shuffle) {
-				// TODO: But now the previous button is broken.
-				queue = moveToFrontOfQueue(queue, state.currentSongId);
+				queue = moveToFrontOfQueue(queue, -1, state.currentSongId);
 				currentQueueIndex = 0;
 			} else {
 				currentQueueIndex = findCurrentSongQueueIndex(queue, state.currentSongId);
