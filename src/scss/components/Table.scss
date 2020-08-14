@@ -118,9 +118,9 @@ polygon {
 [tabulator-field="checked"] {
 	svg {
 		background: $checkbox-background-color;
-		height: $font-size !important;
+		height: #{$font-size + ($checkbox-padding * 2)} !important;
 		padding: $checkbox-padding;
-		width: $font-size !important;
+		width: #{$font-size + ($checkbox-padding * 2)} !important;
 	}
 
 	path {

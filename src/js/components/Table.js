@@ -3,10 +3,10 @@ import { chooseSong, selectSongIds } from '../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import { ReactTabulator } from 'react-tabulator';
+import { renderToString } from 'react-dom/server';
 import Storage from '../helpers/Storage';
 import { ReactComponent as VolumeHighIcon } from '../../svg/volume-high.svg';
 import { ReactComponent as VolumeOffIcon } from '../../svg/volume-off.svg';
-import { renderToString } from 'react-dom/server';
 
 export default function Table() {
 	const dispatch = useDispatch();

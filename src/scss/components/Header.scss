@@ -5,10 +5,19 @@ header {
 	background: $off-black;
 	display: flex;
 	justify-content: space-between;
-	padding: 0 16px;
+	width: 100%;
+
+	section {
+		flex: 0 0 auto;
+		padding: 16px;
+	}
 }
 
 #controls {
 	align-items: center;
 	display: flex;
+}
+
+#now-playing {
+	flex: 1 1 auto;
 }

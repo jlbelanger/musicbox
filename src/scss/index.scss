@@ -1,6 +1,10 @@
 @import './node_modules/normalize.css/normalize';
 @import 'utilities/variables';
 
+* {
+	box-sizing: border-box;
+}
+
 body {
 	background: $black;
 	color: $white;
@@ -189,16 +193,41 @@ input {
 	color: $white;
 }
 
-progress {
+#now-playing-time {
+	display: flex;
+}
+
+#range {
+	flex: 1 1 auto;
+	margin: 0 8px;
+	position: relative;
+}
+
+#range-input {
 	-webkit-appearance: none;
-	height: 8px;
+	cursor: pointer;
+	height: 10px;
+	opacity: 0;
+	width: 100%;
+
+	&:focus {
+		box-shadow: none;
+	}
+}
+
+#range-slider {
+	height: 10px;
+	left: 0;
+	pointer-events: none;
+	position: absolute;
+	top: 7px;
 	width: 100%;
 }
 
-::-webkit-progress-bar {
-	background-color: $dark-gray;
+#range-slider-before {
+	fill: $dark-gray;
 }
 
-::-webkit-progress-value {
-	background-color: $primary;
+#range-slider-after {
+	fill: $primary;
 }

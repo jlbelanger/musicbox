@@ -79,14 +79,31 @@ http.createServer(function(request, response) {
 	const params = new URLSearchParams(request.url.replace(/^\/?/, ''));
 	const filePath = params.get('path');
 	const stat = fs.statSync(filePath);
+	const fileSize = stat.size;
+	const range = request.headers.range;
 	const headers = {
 		'Access-Control-Allow-Origin': 'http://localhost:3000',
-		'Content-Length': stat.size,
 		'Content-Type': 'audio/mpeg',
 	};
-	response.writeHead(200, headers);
+	let stream;
 
-	const stream = fs.createReadStream(filePath);
+	if (range) {
+		const parts = range.replace(/bytes=/, '').split('-');
+		const start = parseInt(parts[0], 10);
+		const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+		const chunkSize = (end - start) + 1;
+		headers['Accept-Ranges'] = 'bytes';
+		headers['Content-Length'] = chunkSize;
+		headers['Content-Range'] = `bytes ${start}-${end}/${fileSize}`;
+		response.writeHead(206, headers);
+
+		stream = fs.createReadStream(filePath, { start, end });
+	} else {
+		headers['Content-Length'] = fileSize;
+		response.writeHead(200, headers);
+
+		stream = fs.createReadStream(filePath);
+	}
 	stream.pipe(response);
 })
 .listen(2000);

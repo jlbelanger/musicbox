@@ -19,7 +19,9 @@ export default function Header() {
 			</section>
 			<NowPlaying />
 			<Queue />
-			<Import />
+			<section id="secondary-controls">
+				<Import />
+			</section>
 		</header>
 	);
 }
