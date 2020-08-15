@@ -17,7 +17,10 @@ export default () => {
 			{ id: currentSongId, state: store.getState().app.isPlaying },
 			{ id: oldSongId, state: null },
 		]);
-		window.table.table.scrollToRow(currentSongId, 'top', false);
+
+		if (currentSongId) {
+			window.table.table.scrollToRow(currentSongId, 'top', false);
+		}
 	}));
 
 	const watchShuffle = watch(store.getState, 'app.shuffle');

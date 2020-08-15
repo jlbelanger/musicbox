@@ -45,7 +45,9 @@ export const findCurrentSongQueueIndex = (queue, currentSongId) => (
 export const moveToFrontOfQueue = (queue, currentQueueIndex, songId) => {
 	const index = findCurrentSongQueueIndex(queue, songId);
 	queue = [...queue];
-	queue.splice(index, 1);
+	if (index > -1) {
+		queue.splice(index, 1);
+	}
 	const newIndex = currentQueueIndex === null ? 0 : currentQueueIndex + 1;
 	queue.splice(newIndex, 0, songId);
 	return queue;
