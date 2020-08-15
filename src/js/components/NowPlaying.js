@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { prettyTime } from '../helpers/datetime';
 import Storage from '../helpers/Storage';
+import Range from './Range';
 
 export default function NowPlaying() {
 	const dispatch = useDispatch();
@@ -51,13 +52,7 @@ export default function NowPlaying() {
 			<div id="now-playing-artist">{song.artist}</div>
 			<div id="now-playing-time">
 				<div id="now-playing-time-current">{prettyTime(currentTime, song.duration)}</div>
-				<div id="range">
-					<input id="range-input" max={song.duration} onChange={onSeek} type="range" />
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${song.duration} 1`} id="range-slider" preserveAspectRatio="none">
-						<rect width={song.duration} height="1" id="range-slider-before" />
-						<rect width={currentTime} height="1" id="range-slider-after" />
-					</svg>
-				</div>
+				<Range id="position" max={song.duration} onChange={onSeek} step={1} value={currentTime} />
 				<div id="now-playing-time-total">{prettyDuration}</div>
 			</div>
 		</section>
