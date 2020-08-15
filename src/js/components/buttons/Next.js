@@ -10,8 +10,7 @@ export default function Next() {
 	const onClick = () => {
 		dispatch(nextSong({
 			songs: window.songs,
-			sortColumn: Storage.get('sortColumn'),
-			sortDirection: Storage.get('sortDirection'),
+			sort: Storage.get('tabulator--sort'),
 		}));
 	};
 

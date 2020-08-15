@@ -10,8 +10,7 @@ export default function Previous() {
 	const onClick = () => {
 		dispatch(previousSong({
 			songs: window.songs,
-			sortColumn: Storage.get('sortColumn'),
-			sortDirection: Storage.get('sortDirection'),
+			sort: Storage.get('tabulator--sort'),
 		}));
 	};
 

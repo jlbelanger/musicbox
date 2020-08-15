@@ -6,7 +6,7 @@ import {
 	moveToFrontOfQueue,
 } from '../helpers/queue';
 import { createSlice } from '@reduxjs/toolkit';
-import sort from '../helpers/sort';
+import sortRows from '../helpers/sort';
 import Storage from '../helpers/Storage';
 
 export const initialState = {
@@ -59,16 +59,14 @@ export const appSlice = createSlice({
 			const {
 				seed,
 				songs,
-				sortColumn,
-				sortDirection,
+				sort,
 			} = action.payload;
 			const queue = createQueue(
 				songs,
 				{
-					column: sortColumn,
-					direction: sortDirection,
 					seed,
 					shuffle: state.shuffle,
+					sort,
 				}
 			);
 			return {
@@ -83,10 +81,9 @@ export const appSlice = createSlice({
 			const {
 				seed,
 				songs,
-				sortColumn,
-				sortDirection,
+				sort,
 			} = action.payload;
-			const sortedSongs = sort(Object.values(songs), sortColumn, sortDirection);
+			const sortedSongs = sortRows(Object.values(songs), sort[0].column, sort[0].dir);
 			const ids = sortedSongs.map((song) => song.id);
 			let queue;
 			if (state.shuffle) {
@@ -117,16 +114,14 @@ export const appSlice = createSlice({
 			const {
 				seed,
 				songs,
-				sortColumn,
-				sortDirection,
+				sort,
 			} = action.payload;
 			const queue = createQueue(
 				songs,
 				{
-					column: sortColumn,
-					direction: sortDirection,
 					seed,
 					shuffle: state.shuffle,
+					sort,
 				}
 			);
 			return {
@@ -176,17 +171,15 @@ export const appSlice = createSlice({
 			const {
 				seed,
 				songs,
-				sortColumn,
-				sortDirection,
+				sort,
 			} = action.payload;
 			const shuffle = !state.shuffle;
 			let queue = createQueue(
 				songs,
 				{
-					column: sortColumn,
-					direction: sortDirection,
 					seed,
 					shuffle,
+					sort,
 				}
 			);
 

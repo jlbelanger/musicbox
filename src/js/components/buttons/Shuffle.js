@@ -10,8 +10,7 @@ export default function Shuffle() {
 	const onClick = () => {
 		dispatch(toggleShuffle({
 			songs: window.songs,
-			sortColumn: Storage.get('sortColumn'),
-			sortDirection: Storage.get('sortDirection'),
+			sort: Storage.get('tabulator--sort'),
 		}));
 	};
 

@@ -154,8 +154,7 @@ describe('app', () => {
 							4: { id: 4, foo: 'a', bar: 'e', checked: true },
 							5: { id: 5, foo: 'e', bar: 'd', checked: true },
 						},
-						sortColumn: 'foo',
-						sortDirection: 'asc',
+						sort: [{ column: 'foo', dir: 'asc' }],
 					},
 				})).toEqual({
 					ids: [4, 1, 2, 3, 5],
@@ -180,8 +179,7 @@ describe('app', () => {
 							4: { id: 4, foo: 'a', bar: 'e', checked: true },
 							5: { id: 5, foo: 'e', bar: 'd', checked: true },
 						},
-						sortColumn: 'foo',
-						sortDirection: 'asc',
+						sort: [{ column: 'foo', dir: 'asc' }],
 					},
 				})).toEqual({
 					ids: [4, 1, 2, 3, 5],

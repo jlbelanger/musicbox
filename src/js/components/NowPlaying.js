@@ -32,8 +32,7 @@ export default function NowPlaying() {
 	const onEnded = () => {
 		dispatch(nextSong({
 			songs: window.songs,
-			sortColumn: Storage.get('sortColumn'),
-			sortDirection: Storage.get('sortDirection'),
+			sort: Storage.get('tabulator--sort'),
 		}));
 	};
 	const onSeek = (e) => {

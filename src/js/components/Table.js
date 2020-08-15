@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import { ReactTabulator } from 'react-tabulator';
 import { renderToString } from 'react-dom/server';
-import Storage from '../helpers/Storage';
 import { ReactComponent as VolumeHighIcon } from '../../svg/volume-high.svg';
 import { ReactComponent as VolumeOffIcon } from '../../svg/volume-off.svg';
 
@@ -100,20 +99,19 @@ export default function Table() {
 		<ReactTabulator
 			columns={columns}
 			data={data}
-			dataSorting={(sorters) => {
-				Storage.set('sortColumn', sorters[0].field);
-				Storage.set('sortDirection', sorters[0].dir);
-			}}
 			initialSort={[
 				{
-					column: Storage.get('sortColumn', 'artist'),
-					dir: Storage.get('sortDirection', 'asc'),
+					column: 'artist',
+					dir: 'asc',
 				},
 			]}
-			layout="fitColumnsStretchdsf"
 			movableColumns
 			ref={(ref) => { window.table = ref; }}
 			resizableColumns="header"
+			options={{
+				movableColumns: true,
+				persistence: true,
+			}}
 			rowDblClick={onRowDblClick}
 		/>
 	);

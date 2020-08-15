@@ -12,8 +12,7 @@ export default function Main() {
 	if (!hasQueue) {
 		dispatch(populateQueue({
 			songs: window.songs,
-			sortColumn: Storage.get('sortColumn'),
-			sortDirection: Storage.get('sortDirection'),
+			sort: Storage.get('tabulator--sort'),
 		}));
 		return null;
 	}
