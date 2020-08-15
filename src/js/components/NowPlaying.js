@@ -2,8 +2,8 @@ import { nextSong, selectCurrentSong, selectIsPlaying } from '../slices/app';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { prettyTime } from '../helpers/datetime';
-import Storage from '../helpers/Storage';
 import Range from './Range';
+import Storage from '../helpers/Storage';
 import Volume from './Volume';
 
 export default function NowPlaying() {

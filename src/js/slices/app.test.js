@@ -258,7 +258,6 @@ describe('app', () => {
 		});
 	});
 
-
 	describe('removeFromQueue', () => {
 		it('removes the song from the queue', async () => {
 			expect(reducer({
