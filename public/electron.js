@@ -74,13 +74,39 @@ app.on('window-all-closed', () => {
 
 const http = require('http');
 const fs = require('fs');
+const mm = require('music-metadata');
 
 http.createServer(function(request, response) {
-	const params = new URLSearchParams(request.url.replace(/^\/?/, ''));
+	const requestPath = request.url.replace(/\?.*$/, '');
+	const params = new URLSearchParams(request.url.replace(/^.*\?/, ''));
 	const filePath = params.get('path');
+
+	switch (requestPath) {
+		case '/image':
+			returnImage(filePath, response);
+			break;
+
+		case '/audio':
+			returnAudio(filePath, request.headers.range, response);
+			break;
+	}
+})
+.listen(2000);
+
+function returnImage(filePath, response) {
+	return mm.parseFile(filePath)
+		.then((metadata) => {
+			const images = metadata.common.picture;
+			if (images.length > 0) {
+				response.writeHead(200, { 'Content-Type': images[0].format });
+				response.end(images[0].data, 'binary');
+			}
+		});
+}
+
+function returnAudio(filePath, range, response) {
 	const stat = fs.statSync(filePath);
 	const fileSize = stat.size;
-	const range = request.headers.range;
 	const headers = {
 		'Access-Control-Allow-Origin': 'http://localhost:3000',
 		'Content-Type': 'audio/mpeg',
@@ -105,5 +131,4 @@ http.createServer(function(request, response) {
 		stream = fs.createReadStream(filePath);
 	}
 	stream.pipe(response);
-})
-.listen(2000);
+}

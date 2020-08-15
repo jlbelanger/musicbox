@@ -193,6 +193,11 @@ input {
 	color: $white;
 }
 
+#now-playing-img {
+	height: 100px;
+	width: 100px;
+}
+
 #now-playing-time {
 	display: flex;
 }

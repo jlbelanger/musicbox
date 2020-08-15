@@ -39,6 +39,8 @@ export default function NowPlaying() {
 		audio.currentTime = parseFloat(e.target.value) / 1000;
 	};
 	const prettyDuration = prettyTime(song.duration);
+	const audioSrc = `http://localhost:2000/audio?path=${encodeURIComponent(song.path)}`;
+	const imgSrc = `http://localhost:2000/image?path=${encodeURIComponent(song.path)}`;
 
 	return (
 		<section id="now-playing">
@@ -47,9 +49,10 @@ export default function NowPlaying() {
 				onEnded={onEnded}
 				onTimeUpdate={onTimeUpdate}
 				ref={(element) => { setAudio(element); }}
-				src={`http://localhost:2000/?path=${encodeURIComponent(song.path)}`}
+				src={audioSrc}
 				volume={volume}
 			/>
+			<img id="now-playing-img" alt="" src={imgSrc} />
 			<div id="now-playing-title">{song.title}</div>
 			<div id="now-playing-artist">{song.artist}</div>
 			<Volume audio={audio} setVolume={setVolume} volume={volume} />
