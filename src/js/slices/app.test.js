@@ -139,6 +139,23 @@ describe('app', () => {
 		});
 	});
 
+	describe('playNext', () => {
+		it('moves the song to the front of the queue', async () => {
+			expect(reducer({
+				currentQueueIndex: 1,
+				queue: [1, 2, 4, 5],
+			}, {
+				type: 'app/playNext',
+				payload: {
+					id: 5,
+				},
+			})).toEqual({
+				currentQueueIndex: 1,
+				queue: [1, 2, 5, 4],
+			});
+		});
+	});
+
 	describe('populateQueue', () => {
 		describe('when shuffle is off', () => {
 			it('populates ids and queue in order', async () => {

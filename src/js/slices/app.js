@@ -77,6 +77,14 @@ export const appSlice = createSlice({
 				queue,
 			};
 		},
+		playNext: (state, action) => {
+			const { id } = action.payload;
+			const queue = moveToFrontOfQueue(state.queue, state.currentQueueIndex, id);
+			return {
+				...state,
+				queue,
+			};
+		},
 		populateQueue: (state, action) => {
 			const {
 				seed,
@@ -212,6 +220,7 @@ export const appSlice = createSlice({
 export const {
 	chooseSong,
 	nextSong,
+	playNext,
 	populateQueue,
 	previousSong,
 	removeFromQueue,

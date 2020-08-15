@@ -1,5 +1,5 @@
 import '../../scss/components/Table.scss';
-import { chooseSong, selectSongIds } from '../slices/app';
+import { chooseSong, playNext, selectSongIds } from '../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import { ReactTabulator } from 'react-tabulator';
@@ -111,6 +111,14 @@ export default function Table() {
 			options={{
 				movableColumns: true,
 				persistence: true,
+				rowContextMenu: [
+					{
+						label: 'Play next',
+						action: (e, row) => {
+							dispatch(playNext({ id: row._row.data.id }));
+						},
+					},
+				],
 			}}
 			rowDblClick={onRowDblClick}
 		/>
