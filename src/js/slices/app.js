@@ -137,6 +137,16 @@ export const appSlice = createSlice({
 				queue,
 			};
 		},
+		removeFromQueue: (state, action) => {
+			const { id } = action.payload;
+			const queue = [...state.queue];
+			const index = findCurrentSongQueueIndex(queue, id);
+			queue.splice(index, 1);
+			return {
+				...state,
+				queue,
+			};
+		},
 		togglePlayback: (state) => {
 			if (state.isPlaying) {
 				// Pause.
@@ -211,6 +221,7 @@ export const {
 	nextSong,
 	populateQueue,
 	previousSong,
+	removeFromQueue,
 	togglePlayback,
 	toggleShuffle,
 } = appSlice.actions;
@@ -222,8 +233,8 @@ export const selectIsPlaying = (state) => state.app.isPlaying;
 export const selectSongIds = (state) => state.app.ids;
 export const selectHasQueue = (state) => (state.app.queue.length > 0);
 export const selectUpcomingSongs = (state) => {
-	const index = state.app.currentQueueIndex;
-	const q = state.app.queue.slice(index, index + 3);
+	const index = state.app.currentQueueIndex === null ? 0 : state.app.currentQueueIndex + 1;
+	const q = state.app.queue.slice(index, index + 2);
 	return q.map((id) => window.songs[id]);
 };
 export const selectShuffle = (state) => state.app.shuffle;

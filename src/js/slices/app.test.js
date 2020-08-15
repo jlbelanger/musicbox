@@ -258,6 +258,22 @@ describe('app', () => {
 		});
 	});
 
+
+	describe('removeFromQueue', () => {
+		it('removes the song from the queue', async () => {
+			expect(reducer({
+				queue: [1, 2, 4, 5],
+			}, {
+				type: 'app/removeFromQueue',
+				payload: {
+					id: 4,
+				},
+			})).toEqual({
+				queue: [1, 2, 5],
+			});
+		});
+	});
+
 	describe('togglePlayback', () => {
 		describe('when a song is playing', () => {
 			it('pauses playback', async () => {
@@ -428,16 +444,16 @@ describe('app', () => {
 
 	describe('selectCurrentSong', () => {
 		it('returns the current song', async () => {
+			window.songs = {
+				1: { id: 1, foo: 'b', bar: 'b', checked: true },
+				2: { id: 2, foo: 'c', bar: 'a', checked: true },
+				3: { id: 3, foo: 'd', bar: 'c', checked: false },
+				4: { id: 4, foo: 'a', bar: 'e', checked: true },
+				5: { id: 5, foo: 'e', bar: 'd', checked: true },
+			};
 			expect(selectCurrentSong({
 				app: {
 					currentSongId: 2,
-				},
-				songs: {
-					1: { id: 1, foo: 'b', bar: 'b', checked: true },
-					2: { id: 2, foo: 'c', bar: 'a', checked: true },
-					3: { id: 3, foo: 'd', bar: 'c', checked: false },
-					4: { id: 4, foo: 'a', bar: 'e', checked: true },
-					5: { id: 5, foo: 'e', bar: 'd', checked: true },
 				},
 			})).toEqual({ id: 2, foo: 'c', bar: 'a', checked: true });
 		});
@@ -497,17 +513,17 @@ describe('app', () => {
 
 	describe('selectUpcomingSongs', () => {
 		it('returns upcoming songs', async () => {
+			window.songs = {
+				1: { id: 1, foo: 'b', bar: 'b', checked: true },
+				2: { id: 2, foo: 'c', bar: 'a', checked: true },
+				3: { id: 3, foo: 'd', bar: 'c', checked: false },
+				4: { id: 4, foo: 'a', bar: 'e', checked: true },
+				5: { id: 5, foo: 'e', bar: 'd', checked: true },
+			};
 			expect(selectUpcomingSongs({
 				app: {
-					currentQueueIndex: 2,
+					currentQueueIndex: 1,
 					queue: [1, 2, 4, 5],
-				},
-				songs: {
-					1: { id: 1, foo: 'b', bar: 'b', checked: true },
-					2: { id: 2, foo: 'c', bar: 'a', checked: true },
-					3: { id: 3, foo: 'd', bar: 'c', checked: false },
-					4: { id: 4, foo: 'a', bar: 'e', checked: true },
-					5: { id: 5, foo: 'e', bar: 'd', checked: true },
 				},
 			})).toEqual([
 				{ id: 4, foo: 'a', bar: 'e', checked: true },
