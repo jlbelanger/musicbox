@@ -1,3 +1,4 @@
+import '../../scss/components/Queue.scss';
 import { removeFromQueue, selectUpcomingSongs } from '../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
@@ -12,17 +13,17 @@ export default function Queue() {
 
 	return (
 		<section id="queue">
-			<ol style={{ margin: 0, padding: 0 }}>
-				{songs.map((song) => (
+			<ul id="queue-list">
+				{songs.map((song, index) => (
 					<li key={song.id}>
-						{`${song.title} - ${song.artist}`}
 						<button className="icon icon--small" onClick={() => { onRemove(song.id); }} type="button">
 							<XIcon />
 							Remove
 						</button>
+						{`${index + 1}. ${song.title} - ${song.artist}`}
 					</li>
 				))}
-			</ol>
+			</ul>
 		</section>
 	);
 }

@@ -30,7 +30,7 @@ export const createQueue = (songs, {
 	if (!shuffle) {
 		let activeSongs = getActiveSongs(songs);
 		if (sort && sort.length > 0) {
-			activeSongs = sortRows(songs, sort[0].column, sort[0].dir);
+			activeSongs = sortRows(songs, sort);
 		}
 		return activeSongs.map((song) => song.id);
 	}

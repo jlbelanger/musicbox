@@ -91,7 +91,7 @@ export const appSlice = createSlice({
 				songs,
 				sort,
 			} = action.payload;
-			const sortedSongs = sortRows(Object.values(songs), sort[0].column, sort[0].dir);
+			const sortedSongs = sortRows(Object.values(songs), sort);
 			const ids = sortedSongs.map((song) => song.id);
 			let queue;
 			if (state.shuffle) {

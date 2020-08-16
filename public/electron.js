@@ -1,4 +1,4 @@
-const { app, BrowserWindow, globalShortcut } = require('electron');
+const { app, BrowserWindow, globalShortcut, protocol } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
 
@@ -33,11 +33,11 @@ app.whenReady().then(() => {
 	let mainWindow = createWindow();
 
 	mainWindow.on('focus', () => {
-		mainWindow.webContents.send('hasFocus', true);
+		mainWindow.webContents.send('hasFocus', 1);
 	});
 
 	mainWindow.on('blur', () => {
-		mainWindow.webContents.send('hasFocus', false);
+		mainWindow.webContents.send('hasFocus', 0);
 	});
 
 	app.on('activate', () => {
@@ -57,6 +57,12 @@ app.whenReady().then(() => {
 	globalShortcut.register('MediaPlayPause', () => {
 		mainWindow.webContents.send('shortcut', 'MediaPlayPause');
 	});
+
+	// Allow accessing local files on the dev server.
+	protocol.registerFileProtocol('localfile', (request, callback) => {
+		const url = request.url.replace('localfile://', '');
+		return callback(decodeURIComponent(url));
+	});
 });
 
 app.on('will-quit', () => {
@@ -71,64 +77,3 @@ app.on('window-all-closed', () => {
 		app.quit();
 	}
 });
-
-const http = require('http');
-const fs = require('fs');
-const mm = require('music-metadata');
-
-http.createServer(function(request, response) {
-	const requestPath = request.url.replace(/\?.*$/, '');
-	const params = new URLSearchParams(request.url.replace(/^.*\?/, ''));
-	const filePath = params.get('path');
-
-	switch (requestPath) {
-		case '/image':
-			returnImage(filePath, response);
-			break;
-
-		case '/audio':
-			returnAudio(filePath, request.headers.range, response);
-			break;
-	}
-})
-.listen(2000);
-
-function returnImage(filePath, response) {
-	return mm.parseFile(filePath)
-		.then((metadata) => {
-			const images = metadata.common.picture;
-			if (images.length > 0) {
-				response.writeHead(200, { 'Content-Type': images[0].format });
-				response.end(images[0].data, 'binary');
-			}
-		});
-}
-
-function returnAudio(filePath, range, response) {
-	const stat = fs.statSync(filePath);
-	const fileSize = stat.size;
-	const headers = {
-		'Access-Control-Allow-Origin': 'http://localhost:3000',
-		'Content-Type': 'audio/mpeg',
-	};
-	let stream;
-
-	if (range) {
-		const parts = range.replace(/bytes=/, '').split('-');
-		const start = parseInt(parts[0], 10);
-		const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
-		const chunkSize = (end - start) + 1;
-		headers['Accept-Ranges'] = 'bytes';
-		headers['Content-Length'] = chunkSize;
-		headers['Content-Range'] = `bytes ${start}-${end}/${fileSize}`;
-		response.writeHead(206, headers);
-
-		stream = fs.createReadStream(filePath, { start, end });
-	} else {
-		headers['Content-Length'] = fileSize;
-		response.writeHead(200, headers);
-
-		stream = fs.createReadStream(filePath);
-	}
-	stream.pipe(response);
-}

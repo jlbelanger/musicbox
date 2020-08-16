@@ -7,6 +7,7 @@ import Previous from './buttons/Previous';
 import Queue from './Queue';
 import React from 'react';
 import Shuffle from './buttons/Shuffle';
+import Volume from './Volume';
 
 export default function Header() {
 	return (
@@ -17,9 +18,12 @@ export default function Header() {
 				<PlayPause />
 				<Next />
 			</section>
-			<NowPlaying />
+			<section id="now-playing">
+				<NowPlaying />
+			</section>
 			<Queue />
 			<section id="secondary-controls">
+				<Volume />
 				<Import />
 			</section>
 		</header>

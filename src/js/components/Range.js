@@ -14,7 +14,7 @@ export default function Range({
 			<input className="range-input" max={max} onChange={onChange} type="range" step={step} />
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${max} 1`} className="range-slider" preserveAspectRatio="none">
 				<rect width={max} height="1" className="range-slider-before" />
-				<rect width={value} height="1" className="range-slider-after" />
+				<rect width={value} height="1" className="range-slider-after" id={`${id}-after`} />
 			</svg>
 		</div>
 	);

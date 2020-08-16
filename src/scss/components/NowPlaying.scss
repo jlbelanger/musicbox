@@ -1,0 +1,26 @@
+@import '../utilities/variables';
+
+#now-playing {
+	flex: 1 1 auto;
+}
+
+#now-playing-placeholder {
+	background-color: $dark-gray;
+	background-image: url('../../svg/music.svg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 40px;
+	float: left;
+	height: 68px;
+	margin-right: 8px;
+	width: 68px;
+}
+
+#now-playing-img {
+	height: 68px;
+	width: 68px;
+}
+
+#now-playing-time {
+	display: flex;
+}
