@@ -9,7 +9,7 @@ export default function Shuffle() {
 	const shuffle = useSelector(selectShuffle);
 	const onClick = () => {
 		dispatch(toggleShuffle({
-			songs: window.songs,
+			songs: window.musicbox.songs,
 			sort: Storage.get('tabulator--sort'),
 		}));
 	};

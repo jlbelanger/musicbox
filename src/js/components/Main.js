@@ -1,9 +1,9 @@
+import '../../scss/components/Table.scss';
 import { populateQueue, selectHasQueue } from '../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from './Header';
 import React from 'react';
 import Storage from '../helpers/Storage';
-import Table from './Table';
 
 export default function Main() {
 	const dispatch = useDispatch();
@@ -11,7 +11,7 @@ export default function Main() {
 
 	if (!hasQueue) {
 		dispatch(populateQueue({
-			songs: window.songs,
+			songs: window.musicbox.songs,
 			sort: Storage.get('tabulator--sort'),
 		}));
 		return null;
@@ -20,9 +20,7 @@ export default function Main() {
 	return (
 		<main>
 			<Header />
-			<article>
-				<Table />
-			</article>
+			<article id="table" />
 		</main>
 	);
 }

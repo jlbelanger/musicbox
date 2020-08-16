@@ -3,7 +3,7 @@ import Main from './Main';
 import React from 'react';
 
 export default function App() {
-	if (Object.keys(window.songs).length <= 0) {
+	if (!window.musicbox.hasSongs()) {
 		return <ImportModal showClose={false} />;
 	}
 	return (

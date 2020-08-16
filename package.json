@@ -67,9 +67,9 @@
 		"react-dom": "^16.13.1",
 		"react-redux": "^7.1.3",
 		"react-scripts": "3.4.1",
-		"react-tabulator": "^0.13.2",
 		"redux-watch": "^1.1.1",
-		"seedrandom": "^3.0.5"
+		"seedrandom": "^3.0.5",
+		"tabulator-tables": "^4.7.2"
 	},
 	"browserslist": {
 		"production": [

@@ -10,7 +10,7 @@ export default function Volume() {
 	const [volume, setVolume] = useState(Storage.get('volume', 1.0));
 	const onChangeVolume = (e) => {
 		const newVolume = parseFloat(e.target.value);
-		window.audio.volume = newVolume;
+		window.musicbox.setVolume(newVolume);
 		setVolume(newVolume);
 		Storage.set('volume', newVolume);
 	};
