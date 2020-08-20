@@ -1,54 +1,38 @@
 const electron = require('electron');
-const registerShortcuts = require('./preload/shortcut');
-const Musicbox = require('./preload/musicbox');
+const fs = require('fs');
 const MusicboxAudio = require('./preload/audio');
-const MusicboxTable = require('./preload/table');
+const registerShortcuts = require('./preload/shortcut');
 
-registerShortcuts();
+const json = fs.readFileSync('/Users/jenny/Websites/musicbox/songs.json', 'utf8');
+window.audio = new MusicboxAudio();
 
-const musicbox = Musicbox.get();
-const audio = MusicboxAudio.get();
-const table = new MusicboxTable(musicbox.songs);
-
-electron.ipcRenderer.on('hasFocus', (e, data) => {
+electron.ipcRenderer.on('hasFocus', (_e, data) => {
 	audio.hasFocus = data;
 });
 
-electron.contextBridge.exposeInMainWorld('musicbox', {
-	audio: musicbox.audio,
-	hasSongs: () => { return musicbox.hasSongs(); },
-	setCurrentSong: (newSongId, isPlaying) => {
-		const oldSongId = musicbox.currentSongId;
-		const newData = [];
-		if (oldSongId) {
-			newData.push({ id: oldSongId, state: null });
-		}
-		if (newSongId) {
-			newData.push({ id: newSongId, state: isPlaying });
-		}
-
-		musicbox.setCurrentSong(newSongId);
-
-		table.table.updateData(newData);
-		if (newSongId) {
-			table.table.scrollToRow(newSongId, 'top', false);
-		}
-
-		audio.changeSong(musicbox.currentSong);
+electron.contextBridge.exposeInMainWorld('api', {
+	getJson: () => {
+		return json;
+	},
+	hasJson: () => {
+		return !!json;
+	},
+	setSong: (song) => {
+		window.audio.setSong(song);
 	},
 	setTime: (time) => {
-		audio.setTime(time);
+		window.audio.setTime(time);
 	},
 	setVolume: (volume) => {
-		audio.setVolume(volume);
+		window.audio.setVolume(volume);
 	},
-	songs: musicbox.songs,
-	setIsPlaying: (id, isPlaying) => {
-		table.table.updateData([{ id: id, state: isPlaying }]);
+	setIsPlaying: (isPlaying) => {
 		if (isPlaying) {
-			audio.play();
+			window.audio.play();
 		} else {
-			audio.pause();
+			window.audio.pause();
 		}
 	},
 });
+
+registerShortcuts();

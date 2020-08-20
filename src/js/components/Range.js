@@ -29,6 +29,6 @@ Range.propTypes = {
 };
 
 Range.defaultProps = {
-	max: 1,
+	max: 0,
 	step: 1,
 };

@@ -9,7 +9,7 @@ export default function Next() {
 	const currentQueueIndex = useSelector(selectCurrentQueueIndex);
 	const onClick = () => {
 		dispatch(nextSong({
-			songs: window.musicbox.songs,
+			songs: window.songs,
 			sort: Storage.get('tabulator--sort'),
 		}));
 	};

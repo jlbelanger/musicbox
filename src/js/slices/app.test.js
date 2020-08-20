@@ -484,14 +484,12 @@ describe('app', () => {
 
 	describe('selectUpcomingSongs', () => {
 		it('returns upcoming songs', async () => {
-			window.musicbox = {
-				songs: {
-					1: { id: 1, foo: 'b', bar: 'b', checked: true },
-					2: { id: 2, foo: 'c', bar: 'a', checked: true },
-					3: { id: 3, foo: 'd', bar: 'c', checked: false },
-					4: { id: 4, foo: 'a', bar: 'e', checked: true },
-					5: { id: 5, foo: 'e', bar: 'd', checked: true },
-				},
+			window.songs = {
+				1: { id: 1, foo: 'b', bar: 'b', checked: true },
+				2: { id: 2, foo: 'c', bar: 'a', checked: true },
+				3: { id: 3, foo: 'd', bar: 'c', checked: false },
+				4: { id: 4, foo: 'a', bar: 'e', checked: true },
+				5: { id: 5, foo: 'e', bar: 'd', checked: true },
 			};
 			expect(selectUpcomingSongs({
 				app: {

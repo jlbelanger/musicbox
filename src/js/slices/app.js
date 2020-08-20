@@ -231,7 +231,7 @@ export const selectHasQueue = (state) => (state.app.queue.length > 0);
 export const selectUpcomingSongs = (state) => {
 	const index = state.app.currentQueueIndex === null ? 0 : state.app.currentQueueIndex + 1;
 	const q = state.app.queue.slice(index, index + 2);
-	return q.map((id) => window.musicbox.songs[id]);
+	return q.map((id) => window.songs[id]);
 };
 export const selectShuffle = (state) => state.app.shuffle;
 

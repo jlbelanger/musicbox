@@ -1,12 +1,27 @@
+import '../../scss/components/Table.scss';
+import { populateQueue, selectHasQueue } from '../slices/app';
+import { useDispatch, useSelector } from 'react-redux';
+import Header from './Header';
 import ImportModal from './modals/ImportModal';
-import Main from './Main';
 import React from 'react';
+import Storage from '../helpers/Storage';
 
 export default function App() {
-	if (!window.musicbox.hasSongs()) {
-		return <ImportModal showClose={false} />;
+	const dispatch = useDispatch();
+	const hasQueue = useSelector(selectHasQueue);
+
+	if (!hasQueue) {
+		dispatch(populateQueue({
+			songs: window.songs,
+			sort: Storage.get('tabulator--sort'),
+		}));
 	}
+
 	return (
-		<Main />
+		<main>
+			{window.api.hasJson() ? null : <ImportModal showClose={false} />}
+			<Header />
+			<article id="table" />
+		</main>
 	);
 }

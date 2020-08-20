@@ -1,34 +1,37 @@
-const Tabulator = require('tabulator-tables');
+import { chooseSong, playNext } from './slices/app';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import store from './store';
+import Tabulator from 'tabulator-tables';
+import { ReactComponent as VolumeHighIcon } from '../svg/volume-high.svg';
+import { ReactComponent as VolumeOffIcon } from '../svg/volume-off.svg';
 
 // Required for Tabulator.
-const moment = require('moment');
-window.moment = moment;
+window.moment = require('moment');
 
-module.exports = class MusicboxTable {
-	constructor(songs) {
+export default class MusicboxTable {
+	constructor(data) {
 		const int = setInterval(() => {
 			const elem = document.getElementById('table');
 			if (!elem || elem.length <= 0) {
 				return;
 			}
 			clearInterval(int);
-			this.table = this.initialize(songs);
+			this.table = this.initialize(data);
 		}, 100);
 	}
 
-	initialize(songs) {
+	initialize(data) {
 		const columns = [
 			{
 				field: 'state',
 				formatter: (cell) => {
 					const state = cell.getValue();
 					if (state === false) {
-						return '||';
-						// return renderToString(<VolumeOffIcon height="16" width="16" />); // TODO
+						return renderToString(<VolumeOffIcon height="16" width="16" />);
 					}
 					if (state === true) {
-						return '|>';
-						// return renderToString(<VolumeHighIcon height="16" width="16" />); // TODO
+						return renderToString(<VolumeHighIcon height="16" width="16" />);
 					}
 					return '';
 				},
@@ -47,19 +50,25 @@ module.exports = class MusicboxTable {
 				field: 'title',
 				title: 'Title',
 				editor: 'input',
-				sorterParams: { alignEmptyValues: 'bottom' },
+				sorterParams: {
+					alignEmptyValues: 'bottom',
+				},
 			},
 			{
 				field: 'artist',
 				title: 'Artist',
 				editor: 'input',
-				sorterParams: { alignEmptyValues: 'bottom' },
+				sorterParams: {
+					alignEmptyValues: 'bottom',
+				},
 			},
 			{
 				field: 'album',
 				title: 'Album',
 				editor: 'input',
-				sorterParams: { alignEmptyValues: 'bottom' },
+				sorterParams: {
+					alignEmptyValues: 'bottom',
+				},
 			},
 			{
 				field: 'year',
@@ -70,7 +79,9 @@ module.exports = class MusicboxTable {
 				field: 'genre',
 				title: 'Genre',
 				editor: 'input',
-				sorterParams: { alignEmptyValues: 'bottom' },
+				sorterParams: {
+					alignEmptyValues: 'bottom',
+				},
 			},
 			{
 				field: 'rating',
@@ -87,7 +98,9 @@ module.exports = class MusicboxTable {
 				formatterParams: {
 					outputFormat: 'YYYY-MM-DD h:mm a',
 				},
-				sorterParams: { alignEmptyValues: 'bottom' },
+				sorterParams: {
+					alignEmptyValues: 'bottom',
+				},
 			},
 			{
 				field: 'date_added',
@@ -100,7 +113,7 @@ module.exports = class MusicboxTable {
 		];
 		const options = {
 			columns,
-			data: Object.values(songs),
+			data,
 			initialSort: [
 				{
 					column: 'artist',
@@ -115,16 +128,14 @@ module.exports = class MusicboxTable {
 				{
 					label: 'Play next',
 					action: (_e, row) => {
-						console.log('row', row);
-						// dispatch(playNext({ id: row._row.data.id })); // TODO
+						store.dispatch(playNext({ id: row._row.data.id }));
 					},
 				},
 			],
 			rowDblClick: (_e, row) => {
-				console.log('row', row);
-				// dispatch(chooseSong({ currentSongId: row._row.data.id })); // TODO
+				store.dispatch(chooseSong({ currentSongId: row._row.data.id }));
 			},
 		};
 		return new Tabulator('#table', options);
 	}
-};
+}
