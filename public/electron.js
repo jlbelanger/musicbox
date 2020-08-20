@@ -9,6 +9,9 @@ function createWindow() {
 		x: -1920,
 		y: 0,
 		webPreferences: {
+			contextIsolation: true,
+			enableRemoteModule: false,
+			nodeIntegration: false,
 			preload: path.join(__dirname, 'preload.js'),
 		},
 	});
@@ -33,11 +36,11 @@ app.whenReady().then(() => {
 	let mainWindow = createWindow();
 
 	mainWindow.on('focus', () => {
-		mainWindow.webContents.send('hasFocus', 1);
+		mainWindow.webContents.send('hasFocus', true);
 	});
 
 	mainWindow.on('blur', () => {
-		mainWindow.webContents.send('hasFocus', 0);
+		mainWindow.webContents.send('hasFocus', false);
 	});
 
 	app.on('activate', () => {

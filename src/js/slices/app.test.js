@@ -2,12 +2,9 @@
 import reducer, {
 	initialState,
 	selectCurrentQueueIndex,
-	selectCurrentSong,
-	selectCurrentSongId,
 	selectHasQueue,
 	selectIsPlaying,
 	selectShuffle,
-	selectSongIds,
 	selectUpcomingSongs,
 } from './app';
 
@@ -17,7 +14,6 @@ describe('app', () => {
 			expect(initialState).toEqual({
 				currentQueueIndex: null,
 				currentSongId: null,
-				ids: [],
 				isPlaying: false,
 				queue: [],
 				shuffle: false,
@@ -158,7 +154,7 @@ describe('app', () => {
 
 	describe('populateQueue', () => {
 		describe('when shuffle is off', () => {
-			it('populates ids and queue in order', async () => {
+			it('populates queue in order', async () => {
 				expect(reducer({
 					shuffle: false,
 				}, {
@@ -174,7 +170,6 @@ describe('app', () => {
 						sort: [{ column: 'foo', dir: 'asc' }],
 					},
 				})).toEqual({
-					ids: [4, 1, 2, 3, 5],
 					queue: [4, 1, 2, 5],
 					shuffle: false,
 				});
@@ -182,7 +177,7 @@ describe('app', () => {
 		});
 
 		describe('when shuffle is on', () => {
-			it('populates ids in order and randomizes queue', async () => {
+			it('randomizes queue', async () => {
 				expect(reducer({
 					shuffle: true,
 				}, {
@@ -199,7 +194,6 @@ describe('app', () => {
 						sort: [{ column: 'foo', dir: 'asc' }],
 					},
 				})).toEqual({
-					ids: [4, 1, 2, 3, 5],
 					queue: [4, 2, 5, 1],
 					shuffle: true,
 				});
@@ -451,43 +445,6 @@ describe('app', () => {
 			expect(selectCurrentQueueIndex({
 				app: {
 					currentQueueIndex: 'foo',
-				},
-			})).toBe('foo');
-		});
-	});
-
-	describe('selectCurrentSong', () => {
-		it('returns the current song', async () => {
-			window.songs = {
-				1: { id: 1, foo: 'b', bar: 'b', checked: true },
-				2: { id: 2, foo: 'c', bar: 'a', checked: true },
-				3: { id: 3, foo: 'd', bar: 'c', checked: false },
-				4: { id: 4, foo: 'a', bar: 'e', checked: true },
-				5: { id: 5, foo: 'e', bar: 'd', checked: true },
-			};
-			expect(selectCurrentSong({
-				app: {
-					currentSongId: 2,
-				},
-			})).toEqual({ id: 2, foo: 'c', bar: 'a', checked: true });
-		});
-	});
-
-	describe('selectCurrentSongId', () => {
-		it('returns value of currentSongId', async () => {
-			expect(selectCurrentSongId({
-				app: {
-					currentSongId: 'foo',
-				},
-			})).toBe('foo');
-		});
-	});
-
-	describe('selectSongIds', () => {
-		it('returns value of ids', async () => {
-			expect(selectSongIds({
-				app: {
-					ids: 'foo',
 				},
 			})).toBe('foo');
 		});

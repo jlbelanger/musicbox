@@ -8,9 +8,9 @@ import { ReactComponent as VolumeOffIcon } from '../../svg/volume-off.svg';
 
 export default function Volume() {
 	const [volume, setVolume] = useState(Storage.get('volume', 1.0));
-	const onChangeVolume = (e) => {
+	const onChange = (e) => {
 		const newVolume = parseFloat(e.target.value);
-		window.audio.volume = newVolume;
+		window.api.setVolume(newVolume);
 		setVolume(newVolume);
 		Storage.set('volume', newVolume);
 	};
@@ -24,7 +24,7 @@ export default function Volume() {
 	return (
 		<section id="volume">
 			<VolumeIcon id="volume-icon" />
-			<Range id="volume-range" max={1} onChange={onChangeVolume} step={0.1} value={volume} />
+			<Range id="volume-range" max={1} onChange={onChange} step={0.1} value={volume} />
 		</section>
 	);
 }

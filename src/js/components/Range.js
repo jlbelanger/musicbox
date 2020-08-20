@@ -11,9 +11,9 @@ export default function Range({
 }) {
 	return (
 		<div className="range" id={id}>
-			<input className="range-input" max={max} onChange={onChange} type="range" step={step} />
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${max} 1`} className="range-slider" preserveAspectRatio="none">
-				<rect width={max} height="1" className="range-slider-before" />
+			<input className="range-input" id={`${id}-input`} max={max} onChange={onChange} type="range" step={step} />
+			<svg xmlns="http://www.w3.org/2000/svg" className="range-slider" id={`${id}-svg`} preserveAspectRatio="none" viewBox={`0 0 ${max} 1`}>
+				<rect width={max} height="1" className="range-slider-before" id={`${id}-before`} />
 				<rect width={value} height="1" className="range-slider-after" id={`${id}-after`} />
 			</svg>
 		</div>
@@ -22,12 +22,13 @@ export default function Range({
 
 Range.propTypes = {
 	id: PropTypes.string.isRequired,
-	max: PropTypes.number.isRequired,
+	max: PropTypes.number,
 	onChange: PropTypes.func.isRequired,
 	step: PropTypes.number,
 	value: PropTypes.number.isRequired,
 };
 
 Range.defaultProps = {
+	max: 0,
 	step: 1,
 };

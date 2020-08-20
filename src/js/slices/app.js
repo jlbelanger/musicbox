@@ -12,7 +12,6 @@ import Storage from '../helpers/Storage';
 export const initialState = {
 	currentQueueIndex: null,
 	currentSongId: null,
-	ids: [],
 	isPlaying: false,
 	queue: [],
 	shuffle: Storage.get('shuffle', false),
@@ -92,7 +91,6 @@ export const appSlice = createSlice({
 				sort,
 			} = action.payload;
 			const sortedSongs = sortRows(Object.values(songs), sort);
-			const ids = sortedSongs.map((song) => song.id);
 			let queue;
 			if (state.shuffle) {
 				queue = createShuffledQueue(songs, seed);
@@ -101,7 +99,6 @@ export const appSlice = createSlice({
 			}
 			return {
 				...state,
-				ids,
 				queue,
 			};
 		},
@@ -229,10 +226,7 @@ export const {
 } = appSlice.actions;
 
 export const selectCurrentQueueIndex = (state) => state.app.currentQueueIndex;
-export const selectCurrentSong = (state) => window.songs[state.app.currentSongId];
-export const selectCurrentSongId = (state) => state.app.currentSongId;
 export const selectIsPlaying = (state) => state.app.isPlaying;
-export const selectSongIds = (state) => state.app.ids;
 export const selectHasQueue = (state) => (state.app.queue.length > 0);
 export const selectUpcomingSongs = (state) => {
 	const index = state.app.currentQueueIndex === null ? 0 : state.app.currentQueueIndex + 1;
