@@ -117,7 +117,7 @@ section {
 	position: relative;
 	width: 100%;
 
-	h1:first-of-type {
+	& > :first-child {
 		margin-top: 0;
 	}
 }
@@ -196,4 +196,10 @@ input {
 #secondary-controls {
 	align-items: center;
 	display: flex;
+}
+
+.tabs {
+	display: flex;
+	list-style: none;
+	padding: 0;
 }

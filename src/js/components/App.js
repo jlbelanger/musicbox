@@ -19,7 +19,7 @@ export default function App() {
 
 	return (
 		<main>
-			{window.api.hasJson() ? null : <ImportModal showClose={false} />}
+			{window.api.hasJson() ? null : <ImportModal />}
 			<Header />
 			<article id="table" />
 		</main>

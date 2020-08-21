@@ -3,11 +3,20 @@ const fs = require('fs');
 const MusicboxAudio = require('./preload/audio');
 const registerShortcuts = require('./preload/shortcut');
 
-const json = fs.readFileSync('/Users/jenny/Websites/musicbox/songs.json', 'utf8');
+const filePath = window.localStorage.getItem('filePath');
+let json;
+if (filePath) {
+	json = fs.readFileSync(filePath, 'utf8');
+}
 window.audio = new MusicboxAudio();
 
 electron.ipcRenderer.on('hasFocus', (_e, data) => {
 	audio.hasFocus = data;
+});
+
+electron.ipcRenderer.on('setFileLocation', (_e, filePath) => {
+	window.localStorage.setItem('filePath', filePath);
+	window.location.reload();
 });
 
 electron.contextBridge.exposeInMainWorld('api', {
@@ -16,6 +25,13 @@ electron.contextBridge.exposeInMainWorld('api', {
 	},
 	hasJson: () => {
 		return !!json;
+	},
+	saveFile: (fileContents) => {
+		electron.ipcRenderer.send('saveFile', { fileContents });
+	},
+	setPath: (path) => {
+		window.localStorage.setItem('filePath', path);
+		window.location.reload();
 	},
 	setSong: (song) => {
 		window.audio.setSong(song);

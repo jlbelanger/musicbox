@@ -1,6 +1,5 @@
 import '../../scss/components/Header.scss';
 import '../../scss/components/NowPlaying.scss';
-import Import from './buttons/Import';
 import Next from './buttons/Next';
 import PlayPause from './buttons/PlayPause';
 import Previous from './buttons/Previous';
@@ -30,7 +29,6 @@ export default function Header() {
 			<Queue />
 			<section id="secondary-controls">
 				<Volume />
-				<Import />
 			</section>
 		</header>
 	);

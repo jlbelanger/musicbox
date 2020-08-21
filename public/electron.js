@@ -1,5 +1,6 @@
-const { app, BrowserWindow, globalShortcut, protocol } = require('electron');
+const { app, BrowserWindow, dialog, globalShortcut, ipcMain, protocol } = require('electron');
 const path = require('path');
+const fs = require('fs');
 const isDev = require('electron-is-dev');
 
 function createWindow() {
@@ -59,6 +60,18 @@ app.whenReady().then(() => {
 	});
 	globalShortcut.register('MediaPlayPause', () => {
 		mainWindow.webContents.send('shortcut', 'MediaPlayPause');
+	});
+
+	ipcMain.on('saveFile', (_e, { fileContents }) => {
+		dialog.showSaveDialog(null, {
+			title: 'Choose a location to save the Musicbox library file',
+			defaultPath: 'musicbox.json',
+		}).then((result) => {
+			if (result.filePath) {
+				fs.writeFileSync(result.filePath, fileContents, 'utf-8');
+				mainWindow.webContents.send('setFileLocation', result.filePath);
+			}
+		});
 	});
 
 	// Allow accessing local files on the dev server.
