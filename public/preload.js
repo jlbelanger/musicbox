@@ -33,8 +33,8 @@ electron.contextBridge.exposeInMainWorld('api', {
 		window.localStorage.setItem('filePath', path);
 		window.location.reload();
 	},
-	setSong: (song) => {
-		window.audio.setSong(song);
+	setSong: (song, isPlaying) => {
+		window.audio.setSong(song, isPlaying);
 	},
 	setTime: (time) => {
 		window.audio.setTime(time);

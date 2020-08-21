@@ -20,7 +20,7 @@ export default () => {
 			window.musicboxTable.table.scrollToRow(currentSongId, 'top', false);
 		}
 
-		window.api.setSong(window.songs[currentSongId]);
+		window.api.setSong(window.songs[currentSongId], isPlaying);
 	}));
 
 	const watchShuffle = watch(store.getState, 'app.shuffle');

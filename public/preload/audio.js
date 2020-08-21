@@ -56,7 +56,7 @@ module.exports = class MusicboxAudio {
 		this.audio.pause();
 	}
 
-	setSong(song) {
+	setSong(song, isPlaying) {
 		this.song = song;
 		if (!song) {
 			document.getElementById('now-playing-time-total').innerText = '';
@@ -76,7 +76,9 @@ module.exports = class MusicboxAudio {
 		const newSrc = `localfile://${filePath}`;
 		if (this.audio.src !== newSrc) {
 			this.audio.src = newSrc;
-			this.audio.play();
+			if (isPlaying) {
+				this.audio.play();
+			}
 		}
 
 		document.getElementById('now-playing-time-total').innerText = MusicboxAudio.prettyTime(song.duration);
