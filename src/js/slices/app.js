@@ -1,12 +1,9 @@
 import {
 	createQueue,
-	createShuffledQueue,
 	findCurrentSongQueueIndex,
-	getActiveSongs,
 	moveToFrontOfQueue,
 } from '../helpers/queue';
 import { createSlice } from '@reduxjs/toolkit';
-import sortRows from '../helpers/sort';
 import Storage from '../helpers/Storage';
 
 export const initialState = {
@@ -90,15 +87,21 @@ export const appSlice = createSlice({
 				songs,
 				sort,
 			} = action.payload;
-			const sortedSongs = sortRows(Object.values(songs), sort);
-			let queue;
-			if (state.shuffle) {
-				queue = createShuffledQueue(songs, seed);
-			} else {
-				queue = getActiveSongs(sortedSongs).map((song) => song.id);
+			const queue = createQueue(
+				songs,
+				{
+					seed,
+					shuffle: state.shuffle,
+					sort,
+				}
+			);
+			let currentQueueIndex = state.currentQueueIndex;
+			if (currentQueueIndex !== null) {
+				currentQueueIndex = findCurrentSongQueueIndex(queue, state.currentSongId);
 			}
 			return {
 				...state,
+				currentQueueIndex,
 				queue,
 			};
 		},

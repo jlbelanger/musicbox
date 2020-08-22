@@ -10,7 +10,7 @@ export default function Next() {
 	const onClick = () => {
 		dispatch(nextSong({
 			songs: window.songs,
-			sort: Storage.get('tabulator--sort'),
+			sort: Storage.get('tabulator-table-sort'),
 		}));
 	};
 

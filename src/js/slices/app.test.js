@@ -156,6 +156,7 @@ describe('app', () => {
 		describe('when shuffle is off', () => {
 			it('populates queue in order', async () => {
 				expect(reducer({
+					currentQueueIndex: null,
 					shuffle: false,
 				}, {
 					type: 'app/populateQueue',
@@ -170,6 +171,7 @@ describe('app', () => {
 						sort: [{ column: 'foo', dir: 'asc' }],
 					},
 				})).toEqual({
+					currentQueueIndex: null,
 					queue: [4, 1, 2, 5],
 					shuffle: false,
 				});
@@ -179,6 +181,7 @@ describe('app', () => {
 		describe('when shuffle is on', () => {
 			it('randomizes queue', async () => {
 				expect(reducer({
+					currentQueueIndex: null,
 					shuffle: true,
 				}, {
 					type: 'app/populateQueue',
@@ -194,6 +197,7 @@ describe('app', () => {
 						sort: [{ column: 'foo', dir: 'asc' }],
 					},
 				})).toEqual({
+					currentQueueIndex: null,
 					queue: [4, 2, 5, 1],
 					shuffle: true,
 				});

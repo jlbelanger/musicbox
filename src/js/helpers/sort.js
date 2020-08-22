@@ -15,7 +15,8 @@ export default (rows, sort) => {
 	if (!sort || sort.length <= 0) {
 		return rows;
 	}
-	const { key, direction } = sort[0];
+	const key = sort[0].column;
+	const direction = sort[0].dir;
 	const sortType = sortTypes[key];
 	return rows.sort((a, b) => {
 		const defaultVal = sortType === 'bool' ? false : '';

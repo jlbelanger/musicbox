@@ -1,6 +1,7 @@
-import { chooseSong, playNext } from './slices/app';
+import { chooseSong, playNext, populateQueue } from './slices/app';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
+import Storage from './helpers/Storage';
 import store from './store';
 import Tabulator from 'tabulator-tables';
 import { ReactComponent as VolumeHighIcon } from '../svg/volume-high.svg';
@@ -115,6 +116,11 @@ export default class MusicboxTable {
 			columns,
 			data,
 			dataSorted: () => {
+				store.dispatch(populateQueue({
+					songs: data,
+					sort: Storage.get('tabulator-table-sort'),
+				}));
+
 				// Calling scrollToRow immediately doesn't seem to work.
 				// Maybe related to this: https://github.com/olifolkerd/tabulator/issues/917#issuecomment-368207644
 				setTimeout(() => {

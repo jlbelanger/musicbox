@@ -10,7 +10,7 @@ export default function Previous() {
 	const onClick = () => {
 		dispatch(previousSong({
 			songs: window.songs,
-			sort: Storage.get('tabulator--sort'),
+			sort: Storage.get('tabulator-table-sort'),
 		}));
 	};
 
