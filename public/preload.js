@@ -23,6 +23,9 @@ electron.contextBridge.exposeInMainWorld('api', {
 	getJson: () => {
 		return json;
 	},
+	getTime: () => {
+		return window.audio.audio.currentTime;
+	},
 	hasJson: () => {
 		return !!json;
 	},

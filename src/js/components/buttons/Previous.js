@@ -8,10 +8,14 @@ export default function Previous() {
 	const dispatch = useDispatch();
 	const currentQueueIndex = useSelector(selectCurrentQueueIndex);
 	const onClick = () => {
-		dispatch(previousSong({
-			songs: window.songs,
-			sort: Storage.get('tabulator-table-sort'),
-		}));
+		if (window.api.getTime() >= 5) {
+			window.api.setTime(0);
+		} else {
+			dispatch(previousSong({
+				songs: window.songs,
+				sort: Storage.get('tabulator-table-sort'),
+			}));
+		}
 	};
 
 	return (
