@@ -94,6 +94,11 @@ module.exports = class MusicboxAudio {
 
 		mm.parseFile(filePath)
 			.then((metadata) => {
+				if (this.audio.src !== newSrc) {
+					// A different song has started playing while the metadata was being parsed.
+					return;
+				}
+
 				const pictures = metadata.common.picture;
 				let src;
 				if (pictures && pictures.length > 0) {
