@@ -33,5 +33,10 @@ export default () => {
 		const currentSongId = store.getState().app.currentSongId;
 		window.musicboxTable.table.updateData([{ id: currentSongId, state: isPlaying }]);
 		window.api.setIsPlaying(isPlaying);
+		if (isPlaying) {
+			window.api.preventSuspension();
+		} else {
+			window.api.allowSuspension();
+		}
 	}));
 };

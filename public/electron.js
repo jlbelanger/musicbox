@@ -1,4 +1,12 @@
-const { app, BrowserWindow, dialog, globalShortcut, ipcMain, protocol } = require('electron');
+const {
+	app,
+	BrowserWindow,
+	dialog,
+	globalShortcut,
+	ipcMain,
+	powerSaveBlocker,
+	protocol,
+} = require('electron');
 const path = require('path');
 const fs = require('fs');
 const isDev = require('electron-is-dev');
@@ -72,6 +80,16 @@ app.whenReady().then(() => {
 				mainWindow.webContents.send('setFileLocation', result.filePath);
 			}
 		});
+	});
+
+	let powerSaveBlockerId;
+
+	ipcMain.on('preventSuspension', () => {
+		powerSaveBlockerId = powerSaveBlocker.start('prevent-app-suspension');
+	});
+
+	ipcMain.on('allowSuspension', () => {
+		powerSaveBlocker.stop(powerSaveBlockerId);
 	});
 
 	// Allow accessing local files on the dev server.

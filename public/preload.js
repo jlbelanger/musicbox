@@ -20,6 +20,9 @@ electron.ipcRenderer.on('setFileLocation', (_e, filePath) => {
 });
 
 electron.contextBridge.exposeInMainWorld('api', {
+	allowSuspension: () => {
+		electron.ipcRenderer.send('allowSuspension');
+	},
 	getJson: () => {
 		return json;
 	},
@@ -28,6 +31,9 @@ electron.contextBridge.exposeInMainWorld('api', {
 	},
 	hasJson: () => {
 		return !!json;
+	},
+	preventSuspension: () => {
+		electron.ipcRenderer.send('preventSuspension');
 	},
 	saveFile: (fileContents) => {
 		electron.ipcRenderer.send('saveFile', { fileContents });
