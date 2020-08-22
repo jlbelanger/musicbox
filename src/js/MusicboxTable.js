@@ -114,6 +114,16 @@ export default class MusicboxTable {
 		const options = {
 			columns,
 			data,
+			dataSorted: () => {
+				// Calling scrollToRow immediately doesn't seem to work.
+				// Maybe related to this: https://github.com/olifolkerd/tabulator/issues/917#issuecomment-368207644
+				setTimeout(() => {
+					const currentSongId = store.getState().app.currentSongId;
+					if (currentSongId) {
+						this.table.scrollToRow(currentSongId, 'top', false);
+					}
+				});
+			},
 			initialSort: [
 				{
 					column: 'artist',
@@ -122,8 +132,8 @@ export default class MusicboxTable {
 			],
 			layout: 'fitDataFill',
 			movableColumns: true,
-			resizableColumns: 'header',
 			persistence: true,
+			resizableColumns: 'header',
 			rowContextMenu: [
 				{
 					label: 'Play next',
