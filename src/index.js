@@ -5,6 +5,7 @@ import al from './js/observer';
 import App from './js/components/App';
 import store from './js/store';
 import { Provider } from 'react-redux';
+import registerShortcuts from './js/shortcuts';
 import * as serviceWorker from './js/serviceWorker';
 import MusicboxTable from './js/MusicboxTable';
 
@@ -32,3 +33,4 @@ ReactDOM.render(
 serviceWorker.register();
 
 al();
+registerShortcuts();
