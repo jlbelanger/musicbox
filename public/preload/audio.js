@@ -34,12 +34,18 @@ module.exports = class MusicboxAudio {
 			return;
 		}
 
+		const duration = MusicboxAudio.calculateDuration(window.audio.song.duration, window.audio.song.start_time, window.audio.song.end_time);
+		const currentTime = MusicboxAudio.calculateCurrentTime(window.audio.audio.currentTime * 1000, window.audio.song.start_time);
+
 		const label = document.getElementById('now-playing-time-current');
-		const currentTime = window.audio.audio.currentTime * 1000;
-		label.innerText = MusicboxAudio.prettyTime(currentTime, window.audio.song.duration);
+		label.innerText = MusicboxAudio.prettyTime(currentTime, duration);
 
 		const positionAfter = document.getElementById('position-after');
 		positionAfter.setAttribute('width', currentTime);
+
+		if (currentTime > duration) {
+			MusicboxAudio.onEnded();
+		}
 	}
 
 	static onEnded() {
@@ -54,6 +60,14 @@ module.exports = class MusicboxAudio {
 
 	pause() {
 		this.audio.pause();
+	}
+
+	static calculateDuration(duration, startTime, endTime) {
+		return duration - startTime - (endTime ? duration - endTime : 0);
+	}
+
+	static calculateCurrentTime(currentTime, startTime) {
+		return currentTime - startTime;
 	}
 
 	setSong(song, isPlaying) {
@@ -76,18 +90,20 @@ module.exports = class MusicboxAudio {
 		const newSrc = `localfile://${filePath}`;
 		if (this.audio.src !== newSrc) {
 			this.audio.src = newSrc;
+			this.audio.currentTime = song.start_time / 1000;
 			if (isPlaying) {
 				this.audio.play();
 			}
 		}
 
+		const duration = MusicboxAudio.calculateDuration(song.duration, song.start_time, song.end_time);
 		document.getElementById('now-playing').setAttribute('data-id', song.id);
-		document.getElementById('now-playing-time-total').innerText = MusicboxAudio.prettyTime(song.duration);
-		document.getElementById('now-playing-time-current').innerText = MusicboxAudio.prettyTime(0, song.duration);
+		document.getElementById('now-playing-time-total').innerText = MusicboxAudio.prettyTime(duration);
+		document.getElementById('now-playing-time-current').innerText = MusicboxAudio.prettyTime(0, duration);
 
-		document.getElementById('position-input').setAttribute('max', song.duration);
-		document.getElementById('position-svg').setAttribute('viewBox', `0 0 ${song.duration} 1`);
-		document.getElementById('position-before').setAttribute('width', song.duration);
+		document.getElementById('position-input').setAttribute('max', duration);
+		document.getElementById('position-svg').setAttribute('viewBox', `0 0 ${duration} 1`);
+		document.getElementById('position-before').setAttribute('width', duration);
 
 		document.getElementById('now-playing-img').setAttribute('src', '');
 		document.getElementById('now-playing-title').innerText = song.title;

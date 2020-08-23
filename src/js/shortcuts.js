@@ -21,7 +21,7 @@ function jumpToSong(e) {
 	let rows = window.musicboxTable.table.searchData(sort[0].column, 'starts', keySequence.join(''));
 	rows = sortRows(rows, sort);
 	if (rows.length > 0) {
-		window.musicboxTable.table.scrollToRow(rows[0].id, 'top',);
+		window.musicboxTable.table.scrollToRow(rows[0].id, 'top');
 	}
 }
 

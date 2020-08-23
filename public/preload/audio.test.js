@@ -45,3 +45,12 @@ describe('prettyTime', () => {
 		});
 	});
 });
+
+describe('calculateDuration', () => {
+	it('returns the duration', async () => {
+		expect(MusicboxAudio.calculateDuration(100, 0, 0)).toEqual(100);
+		expect(MusicboxAudio.calculateDuration(100, 10, 0)).toEqual(90);
+		expect(MusicboxAudio.calculateDuration(100, 0, 90)).toEqual(90);
+		expect(MusicboxAudio.calculateDuration(100, 10, 90)).toEqual(80);
+	});
+});

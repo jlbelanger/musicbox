@@ -1,7 +1,7 @@
 import plist from 'plist';
 
-const getStringProperty = (data, key) => (
-	Object.prototype.hasOwnProperty.call(data, key) ? data[key] : null
+const getStringProperty = (data, key, defaultValue = null) => (
+	Object.prototype.hasOwnProperty.call(data, key) ? data[key] : defaultValue
 );
 
 const getDateProperty = (data, key) => (
@@ -48,11 +48,11 @@ export default (file) => (
 					rating: parseInt(getStringProperty(song, 'Rating'), 10) / 20,
 					composer: getStringProperty(song, 'Composer'),
 					grouping: getStringProperty(song, 'Grouping'),
-					duration: getStringProperty(song, 'Total Time'),
-					start_time: getStringProperty(song, 'Start Time'),
-					end_time: getStringProperty(song, 'Stop Time'),
-					num_plays: getStringProperty(song, 'Play Count'),
-					num_skips: getStringProperty(song, 'Skip Count'),
+					duration: getStringProperty(song, 'Total Time', 0),
+					start_time: getStringProperty(song, 'Start Time', 0),
+					end_time: getStringProperty(song, 'Stop Time', 0),
+					num_plays: getStringProperty(song, 'Play Count', 0),
+					num_skips: getStringProperty(song, 'Skip Count', 0),
 					last_played: getDateProperty(song, 'Play Date UTC'),
 					last_skipped: getDateProperty(song, 'Skip Date'),
 					date_added: getDateProperty(song, 'Date Added'),
