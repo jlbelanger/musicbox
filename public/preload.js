@@ -5,7 +5,7 @@ const registerShortcuts = require('./preload/shortcut');
 
 const filePath = window.localStorage.getItem('filePath');
 let json;
-if (filePath) {
+if (filePath && fs.existsSync(filePath)) {
 	json = fs.readFileSync(filePath, 'utf8');
 }
 window.audio = new MusicboxAudio();
