@@ -81,6 +81,7 @@ module.exports = class MusicboxAudio {
 			}
 		}
 
+		document.getElementById('now-playing').setAttribute('data-id', song.id);
 		document.getElementById('now-playing-time-total').innerText = MusicboxAudio.prettyTime(song.duration);
 		document.getElementById('now-playing-time-current').innerText = MusicboxAudio.prettyTime(0, song.duration);
 
