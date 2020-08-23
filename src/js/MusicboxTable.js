@@ -19,6 +19,7 @@ export default class MusicboxTable {
 			}
 			clearInterval(int);
 			this.table = this.initialize(data);
+			document.querySelector('.tabulator-tableHolder').removeAttribute('tabindex');
 		}, 100);
 	}
 
