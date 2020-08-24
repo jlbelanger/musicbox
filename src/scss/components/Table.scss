@@ -19,7 +19,7 @@ $editBoxColor: $primary;
 @import './node_modules/tabulator-tables/src/scss/tabulator_simple';
 
 $header-height: 96px; // TODO: Calculate this.
-$cell-padding: 16px;
+$cell-padding: 12px;
 
 .tabulator {
 	height: calc(100vh - #{$header-height});
