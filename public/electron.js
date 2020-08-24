@@ -6,6 +6,7 @@ const {
 	ipcMain,
 	powerSaveBlocker,
 	protocol,
+	shell,
 } = require('electron');
 const path = require('path');
 const fs = require('fs');
@@ -90,6 +91,10 @@ app.whenReady().then(() => {
 
 	ipcMain.on('allowSuspension', () => {
 		powerSaveBlocker.stop(powerSaveBlockerId);
+	});
+
+	ipcMain.on('openFileLocation', (_e, filePath) => {
+		shell.showItemInFolder(filePath);
 	});
 
 	// Allow accessing local files on the dev server.

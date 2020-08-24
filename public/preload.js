@@ -32,6 +32,9 @@ electron.contextBridge.exposeInMainWorld('api', {
 	hasJson: () => {
 		return !!json;
 	},
+	openFileLocation: (path) => {
+		electron.ipcRenderer.send('openFileLocation', path);
+	},
 	preventSuspension: () => {
 		electron.ipcRenderer.send('preventSuspension');
 	},

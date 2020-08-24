@@ -148,6 +148,12 @@ export default class MusicboxTable {
 						store.dispatch(playNext({ id: row._row.data.id }));
 					},
 				},
+				{
+					label: 'Open file location',
+					action: (_e, row) => {
+						window.api.openFileLocation(row._row.data.path);
+					},
+				},
 			],
 			rowDblClick: (_e, row) => {
 				store.dispatch(chooseSong({ currentSongId: row._row.data.id }));
