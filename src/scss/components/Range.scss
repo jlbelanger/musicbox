@@ -3,6 +3,10 @@
 .range {
 	flex: 1 1 auto;
 	position: relative;
+
+	&:focus-within {
+		box-shadow: 0 0 0 4px $focus-color;
+	}
 }
 
 .range-input {
@@ -22,7 +26,7 @@
 	left: 0;
 	pointer-events: none;
 	position: absolute;
-	top: 7px;
+	top: 5px;
 	width: 100%;
 }
 

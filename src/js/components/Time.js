@@ -10,7 +10,7 @@ export default function Time() {
 	return (
 		<div id="now-playing-time">
 			<div id="now-playing-time-current" />
-			<Range id="position" onChange={onChange} step={1} value={0} />
+			<Range id="position" onChange={onChange} step={1000} value={0} />
 			<div id="now-playing-time-total" />
 		</div>
 	);

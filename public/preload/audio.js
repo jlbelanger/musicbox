@@ -37,11 +37,9 @@ module.exports = class MusicboxAudio {
 		const duration = MusicboxAudio.calculateDuration(window.audio.song.duration, window.audio.song.start_time, window.audio.song.end_time);
 		const currentTime = MusicboxAudio.calculateCurrentTime(window.audio.audio.currentTime * 1000, window.audio.song.start_time);
 
-		const label = document.getElementById('now-playing-time-current');
-		label.innerText = MusicboxAudio.prettyTime(currentTime, duration);
-
-		const positionAfter = document.getElementById('position-after');
-		positionAfter.setAttribute('width', currentTime);
+		document.getElementById('now-playing-time-current').innerText = MusicboxAudio.prettyTime(currentTime, duration);
+		document.getElementById('position-after').setAttribute('width', currentTime);
+		document.getElementById('position-input').setAttribute('value', currentTime);
 
 		if (currentTime > duration) {
 			MusicboxAudio.onEnded();
@@ -73,10 +71,13 @@ module.exports = class MusicboxAudio {
 	setSong(song, isPlaying) {
 		this.song = song;
 		if (!song) {
+			document.getElementById('now-playing').removeAttribute('data-id');
 			document.getElementById('now-playing-time-total').innerText = '';
 			document.getElementById('now-playing-time-current').innerText = '';
 
-			document.getElementById('position-input').setAttribute('max', 0);
+			const input = document.getElementById('position-input');
+			input.setAttribute('value', 0);
+			input.setAttribute('max', 0);
 			document.getElementById('position-svg').setAttribute('viewBox', '0 0 0 1');
 			document.getElementById('position-before').setAttribute('width', 0);
 
@@ -101,7 +102,9 @@ module.exports = class MusicboxAudio {
 		document.getElementById('now-playing-time-total').innerText = MusicboxAudio.prettyTime(duration);
 		document.getElementById('now-playing-time-current').innerText = MusicboxAudio.prettyTime(0, duration);
 
-		document.getElementById('position-input').setAttribute('max', duration);
+		const input = document.getElementById('position-input');
+		input.setAttribute('value', 0);
+		input.setAttribute('max', duration);
 		document.getElementById('position-svg').setAttribute('viewBox', `0 0 ${duration} 1`);
 		document.getElementById('position-before').setAttribute('width', duration);
 
