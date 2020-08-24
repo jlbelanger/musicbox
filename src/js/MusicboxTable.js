@@ -24,6 +24,14 @@ export default class MusicboxTable {
 	}
 
 	initialize(data) {
+		const headerContextMenu = [
+			{
+				label: 'Hide',
+				action: (_e, column) => {
+					column.toggle();
+				},
+			},
+		];
 		const columns = [
 			{
 				field: 'state',
@@ -44,6 +52,7 @@ export default class MusicboxTable {
 			{
 				field: 'checked',
 				formatter: 'tickCross',
+				headerContextMenu,
 				editor: 'tickCross',
 				width: 60,
 				resizable: false,
@@ -51,6 +60,7 @@ export default class MusicboxTable {
 			{
 				field: 'title',
 				title: 'Title',
+				headerContextMenu,
 				editor: 'input',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
@@ -59,6 +69,7 @@ export default class MusicboxTable {
 			{
 				field: 'artist',
 				title: 'Artist',
+				headerContextMenu,
 				editor: 'input',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
@@ -67,6 +78,7 @@ export default class MusicboxTable {
 			{
 				field: 'album',
 				title: 'Album',
+				headerContextMenu,
 				editor: 'input',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
@@ -75,11 +87,13 @@ export default class MusicboxTable {
 			{
 				field: 'year',
 				title: 'Year',
+				headerContextMenu,
 				editor: 'input',
 			},
 			{
 				field: 'genre',
 				title: 'Genre',
+				headerContextMenu,
 				editor: 'input',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
@@ -88,6 +102,7 @@ export default class MusicboxTable {
 			{
 				field: 'rating',
 				title: 'Rating',
+				headerContextMenu,
 				formatter: 'star',
 				editor: 'star',
 				width: 143,
@@ -96,6 +111,7 @@ export default class MusicboxTable {
 			{
 				field: 'last_played',
 				title: 'Last Played',
+				headerContextMenu,
 				formatter: 'datetime',
 				formatterParams: {
 					outputFormat: 'YYYY-MM-DD h:mm a',
@@ -107,6 +123,7 @@ export default class MusicboxTable {
 			{
 				field: 'date_added',
 				title: 'Date Added',
+				headerContextMenu,
 				formatter: 'datetime',
 				formatterParams: {
 					outputFormat: 'YYYY-MM-DD h:mm a',
