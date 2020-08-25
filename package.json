@@ -21,8 +21,8 @@
 		}
 	},
 	"scripts": {
-		"start": "react-scripts start",
-		"start:electron": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+		"start": "concurrently \"BROWSER=none yarn start:react\" \"wait-on http://localhost:3000 && electron .\"",
+		"start:react": "react-scripts start",
 		"build": "react-scripts build",
 		"dist": "electron-builder",
 		"lint": "yarn lint:css && yarn lint:js",
