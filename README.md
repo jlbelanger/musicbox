@@ -35,6 +35,8 @@ I was sick of my keyboard's media keys not working in my old music player whenev
 - Listening stats/graphs
 - Smart shuffle
 - Themes
+- Name that song and other games
+- Spotify integration
 - Decent test coverage
 
 ## Development
