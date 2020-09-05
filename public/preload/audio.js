@@ -2,6 +2,7 @@ const mm = require('music-metadata');
 
 module.exports = class MusicboxAudio {
 	constructor() {
+		this.albumArtCache = {};
 		this.audio = this.initialize();
 		this.hasFocus = true;
 		this.song = null;
@@ -112,28 +113,43 @@ module.exports = class MusicboxAudio {
 		document.getElementById('now-playing-title').innerText = song.title;
 		document.getElementById('now-playing-artist').innerText = song.artist;
 
-		mm.parseFile(filePath)
-			.then((metadata) => {
-				if (this.audio.src !== newSrc) {
-					// A different song has started playing while the metadata was being parsed.
-					return;
-				}
+		if (this.albumArtCache.hasOwnProperty(filePath)) {
+			const src = this.albumArtCache[filePath];
+			this.displayAlbumArt(src);
+			this.showNotification(song, src);
+		} else {
+			mm.parseFile(filePath)
+				.then((metadata) => {
+					if (this.audio.src !== newSrc) {
+						// A different song has started playing while the metadata was being parsed.
+						return;
+					}
 
-				const pictures = metadata.common.picture;
-				let src;
-				if (pictures && pictures.length > 0) {
-					src = `data:${pictures[0].format};base64,${pictures[0].data.toString('base64')}`;
-					document.getElementById('now-playing-img').setAttribute('src', src);
-				}
+					const pictures = metadata.common.picture;
+					let src;
+					if (pictures && pictures.length > 0) {
+						src = `data:${pictures[0].format};base64,${pictures[0].data.toString('base64')}`;
+						this.displayAlbumArt(src);
+					}
+					this.albumArtCache[filePath] = src;
 
-				if (!this.hasFocus) {
-					new Notification(song.title, { // eslint-disable-line no-new
-						body: song.artist,
-						icon: src,
-						silent: true,
-					});
-				}
+					this.showNotification(song, src);
+				});
+		}
+	}
+
+	displayAlbumArt(src) {
+		document.getElementById('now-playing-img').setAttribute('src', src);
+	}
+
+	showNotification(song, src) {
+		if (!this.hasFocus) {
+			new Notification(song.title, { // eslint-disable-line no-new
+				body: song.artist,
+				icon: src,
+				silent: true,
 			});
+		}
 	}
 
 	static prettyTime(milliseconds, otherMilliseconds = null) {
