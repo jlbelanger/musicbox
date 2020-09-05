@@ -109,7 +109,7 @@ export default class MusicboxTable {
 				resizable: false,
 			},
 			{
-				field: 'last_played',
+				field: 'lastPlayed',
 				title: 'Last Played',
 				headerContextMenu,
 				formatter: 'datetime',
@@ -121,7 +121,7 @@ export default class MusicboxTable {
 				},
 			},
 			{
-				field: 'date_added',
+				field: 'dateAdded',
 				title: 'Date Added',
 				headerContextMenu,
 				formatter: 'datetime',

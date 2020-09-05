@@ -35,8 +35,8 @@ module.exports = class MusicboxAudio {
 			return;
 		}
 
-		const duration = MusicboxAudio.calculateDuration(window.audio.song.duration, window.audio.song.start_time, window.audio.song.end_time);
-		const currentTime = MusicboxAudio.calculateCurrentTime(window.audio.audio.currentTime * 1000, window.audio.song.start_time);
+		const duration = MusicboxAudio.calculateDuration(window.audio.song.duration, window.audio.song.startTime, window.audio.song.endTime);
+		const currentTime = MusicboxAudio.calculateCurrentTime(window.audio.audio.currentTime * 1000, window.audio.song.startTime);
 
 		document.getElementById('now-playing-time-current').innerText = MusicboxAudio.prettyTime(currentTime, duration);
 		document.getElementById('position-after').setAttribute('width', currentTime);
@@ -92,13 +92,13 @@ module.exports = class MusicboxAudio {
 		const newSrc = `localfile://${filePath}`;
 		if (this.audio.src !== newSrc) {
 			this.audio.src = newSrc;
-			this.audio.currentTime = song.start_time / 1000;
+			this.audio.currentTime = song.startTime / 1000;
 			if (isPlaying) {
 				this.audio.play();
 			}
 		}
 
-		const duration = MusicboxAudio.calculateDuration(song.duration, song.start_time, song.end_time);
+		const duration = MusicboxAudio.calculateDuration(song.duration, song.startTime, song.endTime);
 		document.getElementById('now-playing').setAttribute('data-id', song.id);
 		document.getElementById('now-playing-time-total').innerText = MusicboxAudio.prettyTime(duration);
 		document.getElementById('now-playing-time-current').innerText = MusicboxAudio.prettyTime(0, duration);

@@ -5,8 +5,8 @@ const sortTypes = {
 	album: 'string',
 	genre: 'string',
 	year: 'number',
-	date_added: 'string',
-	last_played: 'string',
+	dateAdded: 'string',
+	lastPlayed: 'string',
 	rating: 'number',
 	checked: 'bool',
 };
