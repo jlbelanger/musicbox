@@ -15,7 +15,7 @@ export default function Queue() {
 		<section id="queue">
 			<ul id="queue-list">
 				{songs.map((song, index) => (
-					<li key={song.id}>
+					<li key={song.id} title={`${song.title} - ${song.artist}${song.album ? ` (${song.album})` : ''}`}>
 						<button className="icon icon--small" onClick={() => { onRemove(song.id); }} type="button">
 							<XIcon />
 							Remove
