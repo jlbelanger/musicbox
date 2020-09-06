@@ -34,26 +34,6 @@ electron.contextBridge.exposeInMainWorld('api', {
 	hasJson: () => {
 		return !!json;
 	},
-	incrementPlays: (songId) => {
-		parsedJson[songId].numPlays += 1;
-		parsedJson[songId].lastPlayed = new Date().toISOString();
-		fs.writeFileSync(filePath, JSON.stringify(parsedJson));
-		return {
-			id: songId,
-			numPlays: parsedJson[songId].numPlays,
-			lastPlayed: parsedJson[songId].lastPlayed,
-		};
-	},
-	incrementSkips: (songId) => {
-		parsedJson[songId].numSkips += 1;
-		parsedJson[songId].lastSkipped = new Date().toISOString();
-		fs.writeFileSync(filePath, JSON.stringify(parsedJson));
-		return {
-			id: songId,
-			numSkips: parsedJson[songId].numSkips,
-			lastSkipped: parsedJson[songId].lastSkipped,
-		};
-	},
 	openFileLocation: (path) => {
 		electron.ipcRenderer.send('openFileLocation', path);
 	},
@@ -82,6 +62,12 @@ electron.contextBridge.exposeInMainWorld('api', {
 		} else {
 			window.audio.pause();
 		}
+	},
+	updateJson: (id, data) => {
+		Object.keys(data).forEach((key) => {
+			parsedJson[id][key] = data[key];
+		});
+		fs.writeFileSync(filePath, JSON.stringify(parsedJson));
 	},
 });
 

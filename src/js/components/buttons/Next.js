@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as NextIcon } from '../../../svg/next.svg';
 import React from 'react';
 import Storage from '../../helpers/Storage';
+import update from '../../helpers/update';
 
 export default function Next() {
 	const dispatch = useDispatch();
@@ -13,20 +14,23 @@ export default function Next() {
 		const currentSongId = document.getElementById('now-playing').getAttribute('data-id');
 		const date = new Date().toISOString();
 		let key;
+		let data = {};
 		if (currentTime >= (duration * 0.75)) {
 			key = 'plays';
-			const data = window.api.incrementPlays(currentSongId);
-			window.musicboxTable.table.updateData([data]);
+			data.lastPlayed = new Date().toISOString();
+			data.numPlays = window.songs[currentSongId].numPlays + 1;
 		} else {
 			key = 'skips';
-			const data = window.api.incrementSkips(currentSongId);
-			window.musicboxTable.table.updateData([data]);
+			data.lastSkipped = new Date().toISOString();
+			data.numSkips = window.songs[currentSongId].numSkips + 1;
 		}
 
 		// Add to play/skip list.
 		const value = Storage.get(key, {});
 		value[date] = currentSongId;
 		Storage.set(key, value);
+
+		update(currentSongId, data);
 
 		dispatch(nextSong({
 			songs: window.songs,
