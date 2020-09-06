@@ -10,15 +10,22 @@ export default function Next() {
 	const onClick = () => {
 		const currentTime = parseFloat(document.getElementById('position-after').getAttribute('width'));
 		const duration = parseFloat(document.getElementById('position-before').getAttribute('width'));
+		const currentSongId = document.getElementById('now-playing').getAttribute('data-id');
 		const date = new Date().toISOString();
 		let key;
 		if (currentTime >= (duration * 0.75)) {
 			key = 'plays';
+			const data = window.api.incrementPlays(currentSongId);
+			window.musicboxTable.table.updateData([data]);
 		} else {
 			key = 'skips';
+			const data = window.api.incrementSkips(currentSongId);
+			window.musicboxTable.table.updateData([data]);
 		}
+
+		// Add to play/skip list.
 		const value = Storage.get(key, {});
-		value[date] = document.getElementById('now-playing').getAttribute('data-id');
+		value[date] = currentSongId;
 		Storage.set(key, value);
 
 		dispatch(nextSong({

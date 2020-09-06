@@ -9,6 +9,7 @@ import { ReactComponent as VolumeOffIcon } from '../svg/volume-off.svg';
 
 // Required for Tabulator.
 window.moment = require('moment');
+window.momentTimezone = require('moment-timezone');
 
 export default class MusicboxTable {
 	constructor(data) {
@@ -32,6 +33,7 @@ export default class MusicboxTable {
 				},
 			},
 		];
+		const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 		const columns = [
 			{
 				field: 'state',
@@ -109,12 +111,38 @@ export default class MusicboxTable {
 				resizable: false,
 			},
 			{
+				field: 'numPlays',
+				title: 'Plays',
+				headerContextMenu,
+				editor: 'input',
+			},
+			{
 				field: 'lastPlayed',
 				title: 'Last Played',
 				headerContextMenu,
 				formatter: 'datetime',
 				formatterParams: {
 					outputFormat: 'YYYY-MM-DD h:mm a',
+					timezone,
+				},
+				sorterParams: {
+					alignEmptyValues: 'bottom',
+				},
+			},
+			{
+				field: 'numSkips',
+				title: 'Skips',
+				headerContextMenu,
+				editor: 'input',
+			},
+			{
+				field: 'lastSkipped',
+				title: 'Last Skipped',
+				headerContextMenu,
+				formatter: 'datetime',
+				formatterParams: {
+					outputFormat: 'YYYY-MM-DD h:mm a',
+					timezone,
 				},
 				sorterParams: {
 					alignEmptyValues: 'bottom',
@@ -127,6 +155,7 @@ export default class MusicboxTable {
 				formatter: 'datetime',
 				formatterParams: {
 					outputFormat: 'YYYY-MM-DD h:mm a',
+					timezone,
 				},
 			},
 		];

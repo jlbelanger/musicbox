@@ -10,8 +10,7 @@ import * as serviceWorker from './js/serviceWorker';
 import MusicboxTable from './js/MusicboxTable';
 
 if (window.api.hasJson()) {
-	window.songs = window.api.getJson();
-	window.songs = JSON.parse(window.songs);
+	window.songs = window.api.getSongs();
 	window.musicboxTable = new MusicboxTable(Object.values(window.songs));
 } else {
 	window.songs = {};
