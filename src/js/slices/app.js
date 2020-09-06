@@ -26,8 +26,8 @@ export const appSlice = createSlice({
 				queue = moveToFrontOfQueue(state.queue, state.currentQueueIndex, currentSongId);
 				currentQueueIndex = state.currentQueueIndex === null ? 0 : state.currentQueueIndex + 1;
 			} else {
-				queue = state.queue;
-				currentQueueIndex = findCurrentSongQueueIndex(state.queue, currentSongId);
+				queue = [...state.queue];
+				currentQueueIndex = findCurrentSongQueueIndex(queue, currentSongId);
 			}
 
 			return {
