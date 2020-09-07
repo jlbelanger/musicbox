@@ -82,7 +82,11 @@ module.exports = class MusicboxAudio {
 			document.getElementById('position-svg').setAttribute('viewBox', '0 0 0 1');
 			document.getElementById('position-before').setAttribute('width', 0);
 
-			document.getElementById('now-playing-img').setAttribute('src', 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=');
+			const img = document.getElementById('now-playing-img');
+			img.setAttribute('src', 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=');
+			img.setAttribute('alt','');
+			img.setAttribute('title','');
+
 			document.getElementById('now-playing-title').innerText = '';
 			document.getElementById('now-playing-artist').innerText = '';
 			return;
@@ -109,7 +113,12 @@ module.exports = class MusicboxAudio {
 		document.getElementById('position-svg').setAttribute('viewBox', `0 0 ${duration} 1`);
 		document.getElementById('position-before').setAttribute('width', duration);
 
-		document.getElementById('now-playing-img').setAttribute('src', '');
+		const img = document.getElementById('now-playing-img');
+		img.setAttribute('src', '');
+		img.style.visibility = 'hidden';
+		img.setAttribute('alt', song.album ? song.album : '');
+		img.setAttribute('title', song.album ? song.album : '');
+
 		document.getElementById('now-playing-title').innerText = song.title;
 		document.getElementById('now-playing-artist').innerText = song.artist;
 
@@ -129,8 +138,8 @@ module.exports = class MusicboxAudio {
 					let src;
 					if (pictures && pictures.length > 0) {
 						src = `data:${pictures[0].format};base64,${pictures[0].data.toString('base64')}`;
-						this.displayAlbumArt(src);
 					}
+					this.displayAlbumArt(src);
 					this.albumArtCache[filePath] = src;
 
 					this.showNotification(song, src);
@@ -139,7 +148,13 @@ module.exports = class MusicboxAudio {
 	}
 
 	displayAlbumArt(src) {
-		document.getElementById('now-playing-img').setAttribute('src', src);
+		const img = document.getElementById('now-playing-img');
+		if (src) {
+			img.setAttribute('src', src);
+			img.style.visibility = '';
+		} else {
+			img.style.visibility = 'hidden';
+		}
 	}
 
 	showNotification(song, src) {

@@ -13,8 +13,8 @@ export default function Next() {
 		const duration = parseFloat(document.getElementById('position-before').getAttribute('width'));
 		const currentSongId = document.getElementById('now-playing').getAttribute('data-id');
 		const date = new Date().toISOString();
+		const data = {};
 		let key;
-		let data = {};
 		if (currentTime >= (duration * 0.75)) {
 			key = 'plays';
 			data.lastPlayed = new Date().toISOString();
@@ -39,7 +39,7 @@ export default function Next() {
 	};
 
 	return (
-		<button className="icon" disabled={currentQueueIndex === null} id="next" onClick={onClick} type="button">
+		<button className="icon" disabled={currentQueueIndex === null} id="next" onClick={onClick} title="Next" type="button">
 			<NextIcon />
 			Next
 		</button>

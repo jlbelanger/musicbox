@@ -31,21 +31,28 @@ button {
 	cursor: pointer;
 	font-size: $font-size;
 	line-height: 1;
-	margin: 0;
+	margin: $button-margin;
 	padding: 16px;
+
+	&:hover {
+		background: #000;
+	}
 
 	&[disabled] {
 		cursor: auto;
 		opacity: .5;
+
+		&:hover {
+			background: transparent;
+		}
 	}
 }
 
 .icon {
 	font-size: 0;
-	height: 40px;
-	margin: 4px;
-	padding: 8px;
-	width: 40px;
+	height: 48px;
+	padding: 12px;
+	width: 48px;
 
 	path {
 		fill: $off-white;
@@ -60,32 +67,8 @@ button {
 }
 
 .icon--large {
-	height: 60px;
-	width: 60px;
-}
-
-.icon--small {
-	height: 32px;
-	width: 32px;
-}
-
-.active {
-	path {
-		fill: $primary;
-	}
-
-	&:active,
-	&:focus {
-		path {
-			fill: scale-color($primary, $lightness: 15%);
-		}
-	}
-}
-
-.dimmed {
-	path {
-		opacity: .15;
-	}
+	height: 68px;
+	width: 68px;
 }
 
 :focus {

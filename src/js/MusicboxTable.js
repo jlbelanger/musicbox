@@ -40,10 +40,10 @@ export default class MusicboxTable {
 				formatter: (cell) => {
 					const state = cell.getValue();
 					if (state === false) {
-						return renderToString(<VolumeOffIcon height="16" width="16" />);
+						return renderToString(<VolumeOffIcon title="Paused" height="16" width="16" />);
 					}
 					if (state === true) {
-						return renderToString(<VolumeHighIcon height="16" width="16" />);
+						return renderToString(<VolumeHighIcon title="Playing" height="16" width="16" />);
 					}
 					return '';
 				},
@@ -63,7 +63,6 @@ export default class MusicboxTable {
 				field: 'title',
 				title: 'Title',
 				headerContextMenu,
-				editor: 'input',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
 				},
@@ -72,7 +71,6 @@ export default class MusicboxTable {
 				field: 'artist',
 				title: 'Artist',
 				headerContextMenu,
-				editor: 'input',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
 				},
@@ -81,7 +79,6 @@ export default class MusicboxTable {
 				field: 'album',
 				title: 'Album',
 				headerContextMenu,
-				editor: 'input',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
 				},
@@ -90,13 +87,11 @@ export default class MusicboxTable {
 				field: 'year',
 				title: 'Year',
 				headerContextMenu,
-				editor: 'input',
 			},
 			{
 				field: 'genre',
 				title: 'Genre',
 				headerContextMenu,
-				editor: 'input',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
 				},
@@ -106,7 +101,6 @@ export default class MusicboxTable {
 				title: 'Rating',
 				headerContextMenu,
 				formatter: 'star',
-				editor: 'star',
 				width: 143,
 				resizable: false,
 			},
@@ -114,7 +108,6 @@ export default class MusicboxTable {
 				field: 'numPlays',
 				title: 'Plays',
 				headerContextMenu,
-				editor: 'input',
 			},
 			{
 				field: 'lastPlayed',
@@ -133,7 +126,6 @@ export default class MusicboxTable {
 				field: 'numSkips',
 				title: 'Skips',
 				headerContextMenu,
-				editor: 'input',
 			},
 			{
 				field: 'lastSkipped',
@@ -204,6 +196,7 @@ export default class MusicboxTable {
 			rowDblClick: (_e, row) => {
 				store.dispatch(chooseSong({ currentSongId: row._row.data.id }));
 			},
+			selectable: 1,
 		};
 		return new Tabulator('#table', options);
 	}

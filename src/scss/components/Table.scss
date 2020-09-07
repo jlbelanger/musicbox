@@ -10,18 +10,16 @@ $headerSeperatorColor: transparent;
 $rowBackgroundColor: $black;
 $rowAltBackgroundColor: $off-black;
 $rowTextColor: $white;
-$rowSelectedBackground: $focus-color;
-$rowHoverBackground: $dark-gray;
+$rowSelectedBackground: $dark-gray;
+$rowHoverBackground: $darkest-gray;
 $rowBorderColor: transparent;
 
 $editBoxColor: $primary;
 
 @import './node_modules/tabulator-tables/src/scss/tabulator_simple';
 
-$header-height: 96px; // TODO: Calculate this.
-$cell-padding: 12px;
-
-.tabulator {
+.tabulator,
+#queue {
 	height: calc(100vh - #{$header-height});
 }
 
@@ -69,6 +67,12 @@ $cell-padding: 12px;
 			}
 		}
 	}
+
+	&.tabulator-selected {
+		&:hover {
+			background-color: $light-gray;
+		}
+	}
 }
 
 [tabulator-field="rating"] {
@@ -79,11 +83,12 @@ $cell-padding: 12px;
 }
 
 .tabulator .tabulator-header .tabulator-col .tabulator-col-content {
-	padding: 16px;
+	padding: 16px $cell-padding;
 }
 
 .tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-arrow {
 	margin-top: -3px;
+	right: $cell-padding;
 	top: 50%;
 }
 
@@ -131,5 +136,14 @@ polygon {
 		path {
 			fill: none !important;
 		}
+	}
+}
+
+.tabulator-menu {
+	background: $dark-gray;
+	box-shadow: 2px 2px 8px 0 $shadow;
+
+	.tabulator-menu-item {
+		padding: 12px;
 	}
 }

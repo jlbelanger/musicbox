@@ -1,5 +1,7 @@
+import { chooseSong } from './slices/app';
 import sortRows from './helpers/sort';
 import Storage from './helpers/Storage';
+import store from './store';
 
 // Jump to song.
 let keySequence = [];
@@ -22,10 +24,12 @@ function jumpToSong(e) {
 	rows = sortRows(rows, sort);
 	if (rows.length > 0) {
 		window.musicboxTable.table.scrollToRow(rows[0].id, 'top');
+		window.musicboxTable.table.deselectRow();
+		window.musicboxTable.table.selectRow(rows[0].id);
 	}
 }
 
-function homeEnd(e) {
+function onKeyup(e) {
 	if (e.key === 'Home') {
 		const rows = window.musicboxTable.table.rowManager.activeRows;
 		window.musicboxTable.table.scrollToRow(rows[0].data.id, 'top');
@@ -33,6 +37,15 @@ function homeEnd(e) {
 		const rows = window.musicboxTable.table.rowManager.activeRows;
 		const num = window.musicboxTable.table.rowManager.activeRowsCount - 1;
 		window.musicboxTable.table.scrollToRow(rows[num].data.id, 'bottom');
+	} else if (e.key === 'Enter') {
+		const rows = window.musicboxTable.table.getSelectedRows();
+		if (rows.length > 0) {
+			if (rows[0]._row.data.state) {
+				document.getElementById('play-pause').click();
+			} else {
+				store.dispatch(chooseSong({ currentSongId: rows[0]._row.data.id }));
+			}
+		}
 	}
 }
 
@@ -44,7 +57,7 @@ function onPositionKeyup(e) {
 
 export default () => {
 	window.addEventListener('keyup', jumpToSong, true);
-	window.addEventListener('keyup', homeEnd, true);
+	window.addEventListener('keyup', onKeyup, true);
 
 	document.getElementById('position-input').addEventListener('keyup', onPositionKeyup, true);
 };

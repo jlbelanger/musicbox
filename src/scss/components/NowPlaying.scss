@@ -1,7 +1,10 @@
 @import '../utilities/variables';
 
 #now-playing {
+	align-items: center;
+	display: flex;
 	flex: 1 1 auto;
+	margin: 0 8px;
 }
 
 #now-playing-placeholder {
@@ -10,15 +13,28 @@
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: 40px;
-	float: left;
+	flex: 0 1 auto;
 	height: 68px;
-	margin-right: 8px;
+	margin-right: 12px;
 	width: 68px;
 }
 
 #now-playing-img {
+	font-size: 0;
 	height: 68px;
 	width: 68px;
+}
+
+#now-playing-info {
+	flex: 1 1 auto;
+}
+
+#now-playing-title {
+	margin-bottom: 2px;
+}
+
+#now-playing-artist {
+	margin-bottom: 4px;
 }
 
 #now-playing-time {

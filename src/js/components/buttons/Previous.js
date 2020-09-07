@@ -19,7 +19,7 @@ export default function Previous() {
 	};
 
 	return (
-		<button className="icon" disabled={currentQueueIndex === null} id="previous" onClick={onClick} type="button">
+		<button className="icon" disabled={currentQueueIndex === null} id="previous" onClick={onClick} title="Previous" type="button">
 			<PreviousIcon />
 			Previous
 		</button>

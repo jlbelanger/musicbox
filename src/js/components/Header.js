@@ -3,7 +3,7 @@ import '../../scss/components/NowPlaying.scss';
 import Next from './buttons/Next';
 import PlayPause from './buttons/PlayPause';
 import Previous from './buttons/Previous';
-import Queue from './Queue';
+import Queue from './buttons/Queue';
 import React from 'react';
 import Shuffle from './buttons/Shuffle';
 import Time from './Time';
@@ -13,7 +13,6 @@ export default function Header() {
 	return (
 		<header>
 			<section id="controls">
-				<Shuffle />
 				<Previous />
 				<PlayPause />
 				<Next />
@@ -22,12 +21,15 @@ export default function Header() {
 				<div id="now-playing-placeholder">
 					<img alt="" id="now-playing-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" />
 				</div>
-				<div id="now-playing-title" />
-				<div id="now-playing-artist" />
-				<Time />
+				<div id="now-playing-info">
+					<div id="now-playing-title" />
+					<div id="now-playing-artist" />
+					<Time />
+				</div>
 			</section>
-			<Queue />
 			<section id="secondary-controls">
+				<Shuffle />
+				<Queue />
 				<Volume />
 			</section>
 		</header>

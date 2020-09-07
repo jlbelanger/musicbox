@@ -11,11 +11,12 @@ export default function PlayPause() {
 	const onClick = () => {
 		dispatch(togglePlayback());
 	};
+	const label = isPlaying ? 'Pause' : 'Play';
 
 	return (
-		<button className="icon icon--large" id="play-pause" onClick={onClick} type="button">
+		<button className="icon icon--large" id="play-pause" onClick={onClick} title={label} type="button">
 			<Icon />
-			{isPlaying ? 'Pause' : 'Play'}
+			{label}
 		</button>
 	);
 }

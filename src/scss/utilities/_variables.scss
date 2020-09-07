@@ -1,16 +1,26 @@
 $primary: #3fc;
 $focus-color: #0cf;
 
-$black: #000;
-$off-black: #111;
+$black: #070707;
+$off-black: #101010;
 $darkest-gray: #1c1c1c;
 $dark-gray: #222;
 $light-gray: #333;
+$lighter-gray: #999;
+$lightest-gray: #cfcfcf;
 $off-white: #ddd;
 $white: #fff;
+
+$shadow: #000;
 
 $danger: #f00;
 
 $font-size: 18px;
 $checkbox-padding: 4px;
 $checkbox-background-color: $light-gray;
+
+$header-height: 100px;
+
+$button-margin: 4px;
+
+$cell-padding: 12px;

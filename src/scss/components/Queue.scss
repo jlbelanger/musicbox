@@ -1,5 +1,31 @@
+@import '../utilities/variables';
+
 #queue {
-	width: 25%;
+	background: $off-black;
+	bottom: 0;
+	box-shadow: -2px 0 8px $shadow;
+	color: $lightest-gray;
+	max-width: 300px;
+	overflow: auto;
+	padding: 0;
+	position: fixed;
+	right: -300px;
+	top: $header-height;
+	transition: right 200ms ease-in-out;
+	width: 100%;
+	z-index: 1;
+
+	&.enter {
+		right: 0;
+	}
+}
+
+#queue-title {
+	color: $off-white;
+	font-size: $font-size;
+	font-weight: bold;
+	margin: 0;
+	padding: $cell-padding 16px;
 }
 
 #queue-list {
@@ -8,8 +34,35 @@
 	padding: 0;
 
 	li {
+		border-top: 1px solid $darkest-gray;
+		padding: $cell-padding 16px;
+	}
+}
+
+.queue-item {
+	align-items: center;
+	display: flex;
+}
+
+.queue-info {
+	flex: 1 1 auto;
+	overflow: hidden;
+
+	div {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
+}
+
+.queue-title {
+	margin-bottom: 2px;
+}
+
+.queue-controls {
+	flex: 0 1 auto;
+}
+
+.queue-remove {
+	padding: 16px;
 }

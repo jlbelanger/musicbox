@@ -1,11 +1,66 @@
+@import '../utilities/variables';
+
+$volume-height: 200px;
+$volume-padding: 16px;
+$volume-button-size: 48px;
+
 #volume {
 	display: flex;
-	width: 160px;
+	position: relative;
+
+	&:focus-within {
+		#volume-range {
+			box-shadow: 0 0 0 4px $focus-color;
+		}
+	}
+}
+
+#toggle-volume {
+	&.active {
+		background: $light-gray;
+		border-radius: 32px 32px 0 0;
+
+		&:focus {
+			box-shadow: none;
+
+			& + #volume-range {
+				box-shadow: 0 0 0 4px $focus-color;
+			}
+		}
+	}
 }
 
 #volume-icon {
 	height: 16px;
 	margin-right: 8px;
-	margin-top: 4px;
+	position: relative;
 	width: 16px;
+	z-index: 2;
+}
+
+#volume-range {
+	background: $light-gray;
+	border-radius: 32px;
+	box-shadow: 2px 2px 8px 0 $shadow;
+	height: $volume-height;
+	left: $button-margin;
+	padding: 8px;
+	position: absolute;
+	right: $button-margin;
+	top: $button-margin;
+	width: $volume-button-size;
+	z-index: 1;
+}
+
+#volume-range-input {
+	left: -52px;
+	position: relative;
+	top: 97px;
+	width: 136px;
+	z-index: 1;
+}
+
+#volume-range-svg {
+	height: calc(100% - #{$volume-button-size + $volume-padding});
+	margin-top: $volume-button-size;
 }
