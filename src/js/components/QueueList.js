@@ -8,8 +8,20 @@ import { ReactComponent as XIcon } from '../../svg/x.svg';
 export default function QueueList({ className }) {
 	const dispatch = useDispatch();
 	const songs = useSelector(selectUpcomingSongs);
-	const onRemove = (id) => {
+	const onRemove = (e, id) => {
+		const listItem = e.target.parentNode.parentNode;
+		let nextListItem = listItem.nextSibling;
+		if (!nextListItem) {
+			nextListItem = listItem.previousSibling;
+		}
+		let nextButton;
+		if (nextListItem) {
+			nextButton = nextListItem.querySelector('button');
+		}
 		dispatch(removeFromQueue({ id }));
+		if (nextButton) {
+			nextButton.focus();
+		}
 	};
 
 	return (
@@ -23,7 +35,7 @@ export default function QueueList({ className }) {
 							<div className="queue-artist">{song.artist}</div>
 						</div>
 						<div className="queue-controls">
-							<button className="icon queue-remove" onClick={() => { onRemove(song.id); }} type="button">
+							<button className="icon queue-remove" onClick={(e) => { onRemove(e, song.id); }} tabIndex={className ? null : -1} type="button">
 								<XIcon />
 								Remove
 							</button>

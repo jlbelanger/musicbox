@@ -13,29 +13,29 @@ $volume-button-size: 48px;
 			box-shadow: 0 0 0 4px $focus-color;
 		}
 	}
-}
 
-#toggle-volume {
-	&.active {
-		background: $light-gray;
-		border-radius: 32px 32px 0 0;
-
-		&:focus {
-			box-shadow: none;
-
-			& + #volume-range {
-				box-shadow: 0 0 0 4px $focus-color;
+	&.open {
+		#toggle-volume {
+			&:hover {
+				background: transparent;
 			}
 		}
 	}
 }
 
+#toggle-volume {
+	padding: 16px;
+	position: relative;
+	z-index: 2;
+
+	&:focus {
+		box-shadow: none;
+	}
+}
+
 #volume-icon {
 	height: 16px;
-	margin-right: 8px;
-	position: relative;
 	width: 16px;
-	z-index: 2;
 }
 
 #volume-range {
@@ -44,12 +44,20 @@ $volume-button-size: 48px;
 	box-shadow: 2px 2px 8px 0 $shadow;
 	height: $volume-height;
 	left: $button-margin;
+	opacity: 0;
 	padding: 8px;
+	pointer-events: none;
 	position: absolute;
 	right: $button-margin;
 	top: $button-margin;
 	width: $volume-button-size;
 	z-index: 1;
+
+	.open &,
+	&:focus-within {
+		opacity: 1;
+		pointer-events: all;
+	}
 }
 
 #volume-range-input {

@@ -16,6 +16,7 @@ main {
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
+	overflow: hidden;
 }
 
 article {
@@ -168,10 +169,6 @@ a {
 	}
 }
 
-.row-icon {
-	font-size: 0;
-}
-
 input {
 	color: $white;
 }
@@ -185,4 +182,8 @@ input {
 	display: flex;
 	list-style: none;
 	padding: 0;
+}
+
+::selection {
+	background: rgba($primary, .25);
 }

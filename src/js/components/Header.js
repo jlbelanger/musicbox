@@ -21,7 +21,7 @@ export default function Header() {
 				<div id="now-playing-placeholder">
 					<img alt="" id="now-playing-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" />
 				</div>
-				<div id="now-playing-info">
+				<div id="now-playing-info" style={{ display: 'none' }}>
 					<div id="now-playing-title" />
 					<div id="now-playing-artist" />
 					<Time />

@@ -139,11 +139,27 @@ polygon {
 	}
 }
 
+[tabulator-field="state"].tabulator-cell {
+	text-align: center;
+}
+
 .tabulator-menu {
 	background: $dark-gray;
 	box-shadow: 2px 2px 8px 0 $shadow;
 
 	.tabulator-menu-item {
 		padding: 12px;
+	}
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable[tabulator-field="checked"] {
+	.tabulator-col-title {
+		padding-right: 0;
+		width: 0;
+	}
+
+	.tabulator-arrow {
+		margin-right: -5px;
+		right: 50%;
 	}
 }

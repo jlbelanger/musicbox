@@ -30,6 +30,10 @@ function jumpToSong(e) {
 }
 
 function onKeyup(e) {
+	if (document.activeElement.tagName !== 'BODY') {
+		return;
+	}
+
 	if (e.key === 'Home') {
 		const rows = window.musicboxTable.table.rowManager.activeRows;
 		window.musicboxTable.table.scrollToRow(rows[0].data.id, 'top');

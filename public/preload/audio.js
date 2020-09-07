@@ -72,6 +72,8 @@ module.exports = class MusicboxAudio {
 	setSong(song, isPlaying) {
 		this.song = song;
 		if (!song) {
+			document.getElementById('now-playing-info').style.display = 'none';
+
 			document.getElementById('now-playing').removeAttribute('data-id');
 			document.getElementById('now-playing-time-total').innerText = '';
 			document.getElementById('now-playing-time-current').innerText = '';
@@ -83,9 +85,9 @@ module.exports = class MusicboxAudio {
 			document.getElementById('position-before').setAttribute('width', 0);
 
 			const img = document.getElementById('now-playing-img');
-			img.setAttribute('src', 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=');
-			img.setAttribute('alt','');
-			img.setAttribute('title','');
+			img.setAttribute('src', '');
+			img.setAttribute('alt', '');
+			img.setAttribute('title', '');
 
 			document.getElementById('now-playing-title').innerText = '';
 			document.getElementById('now-playing-artist').innerText = '';
@@ -101,6 +103,8 @@ module.exports = class MusicboxAudio {
 				this.audio.play();
 			}
 		}
+
+		document.getElementById('now-playing-info').style.display = '';
 
 		const duration = MusicboxAudio.calculateDuration(song.duration, song.startTime, song.endTime);
 		document.getElementById('now-playing').setAttribute('data-id', song.id);

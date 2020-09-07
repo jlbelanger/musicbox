@@ -26,14 +26,11 @@ export default function Volume() {
 	}
 
 	return (
-		<section className={showVolume ? 'active' : ''} id="volume">
-			<button className={`icon${showVolume ? ' active' : ''}`} id="toggle-volume" onClick={onClick} title="Toggle volume" type="button">
+		<section className={showVolume ? 'open' : null} id="volume">
+			<button className="icon" id="toggle-volume" onClick={onClick} tabIndex="-1" title="Toggle volume" type="button">
 				<VolumeIcon id="volume-icon" />
-				Toggle volume
 			</button>
-			{showVolume ? (
-				<Range direction="vertical" id="volume-range" max={1} onChange={onChange} step={0.1} value={volume} />
-			) : null}
+			<Range direction="vertical" id="volume-range" max={1} onChange={onChange} step={0.1} value={volume} />
 		</section>
 	);
 }
