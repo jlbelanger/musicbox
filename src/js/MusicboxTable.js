@@ -34,6 +34,8 @@ export default class MusicboxTable {
 			},
 		];
 		const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+		const outputFormat = 'YYYY-MM-DD h:mm a z';
+		const inputFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZ';
 		const columns = [
 			{
 				field: 'state',
@@ -115,7 +117,8 @@ export default class MusicboxTable {
 				headerContextMenu,
 				formatter: 'datetime',
 				formatterParams: {
-					outputFormat: 'YYYY-MM-DD h:mm a',
+					inputFormat,
+					outputFormat,
 					timezone,
 				},
 				sorterParams: {
@@ -133,7 +136,8 @@ export default class MusicboxTable {
 				headerContextMenu,
 				formatter: 'datetime',
 				formatterParams: {
-					outputFormat: 'YYYY-MM-DD h:mm a',
+					inputFormat,
+					outputFormat,
 					timezone,
 				},
 				sorterParams: {
@@ -146,7 +150,8 @@ export default class MusicboxTable {
 				headerContextMenu,
 				formatter: 'datetime',
 				formatterParams: {
-					outputFormat: 'YYYY-MM-DD h:mm a',
+					inputFormat,
+					outputFormat,
 					timezone,
 				},
 			},
