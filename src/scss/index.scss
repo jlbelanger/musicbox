@@ -170,6 +170,21 @@ a {
 }
 
 input {
+	background: $light-gray;
+	border: 0;
+	color: $white;
+	padding: 8px;
+
+	&[readonly] {
+		background: transparent;
+	}
+
+	&:not([size]) {
+		width: 100%;
+	}
+}
+
+input[type="file"] {
 	color: $white;
 }
 
@@ -186,4 +201,37 @@ input {
 
 ::selection {
 	background: rgba($primary, .25);
+}
+
+#song-modal {
+	height: 90vh;
+	max-width: none;
+	overflow: auto;
+	width: 90vw;
+}
+
+.fields {
+	display: flex;
+	flex-direction: column;
+}
+
+.field {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	padding: 4px;
+}
+
+.field--label-wrapper {
+	width: 140px;
+}
+
+.field--label {
+	display: block;
+	margin-right: 8px;
+	text-align: right;
+}
+
+.field--input-wrapper {
+	flex: 1 1 auto;
 }

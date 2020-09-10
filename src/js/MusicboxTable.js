@@ -1,4 +1,9 @@
-import { chooseSong, playNext, populateQueue } from './slices/app';
+import {
+	chooseSong,
+	editSong,
+	playNext,
+	populateQueue,
+} from './slices/app';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import Storage from './helpers/Storage';
@@ -185,6 +190,12 @@ export default class MusicboxTable {
 			persistence: true,
 			resizableColumns: 'header',
 			rowContextMenu: [
+				{
+					label: 'Edit',
+					action: (_e, row) => {
+						store.dispatch(editSong({ id: row._row.data.id }));
+					},
+				},
 				{
 					label: 'Play next',
 					action: (_e, row) => {

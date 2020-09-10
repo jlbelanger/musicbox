@@ -9,6 +9,7 @@ import Storage from '../helpers/Storage';
 export const initialState = {
 	currentQueueIndex: null,
 	currentSongId: null,
+	editSongId: null,
 	isPlaying: false,
 	queue: [],
 	shuffle: Storage.get('shuffle', false),
@@ -36,6 +37,13 @@ export const appSlice = createSlice({
 				currentQueueIndex,
 				isPlaying: true,
 				queue,
+			};
+		},
+		editSong: (state, action) => {
+			const { id } = action.payload;
+			return {
+				...state,
+				editSongId: id,
 			};
 		},
 		nextSong: (state, action) => {
@@ -219,6 +227,7 @@ export const appSlice = createSlice({
 
 export const {
 	chooseSong,
+	editSong,
 	nextSong,
 	playNext,
 	populateQueue,
@@ -229,6 +238,7 @@ export const {
 } = appSlice.actions;
 
 export const selectCurrentQueueIndex = (state) => state.app.currentQueueIndex;
+export const selectEditSongId = (state) => state.app.editSongId;
 export const selectIsPlaying = (state) => state.app.isPlaying;
 export const selectHasQueue = (state) => (state.app.queue.length > 0);
 export const selectUpcomingSongs = (state) => {
