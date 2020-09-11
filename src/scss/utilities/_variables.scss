@@ -1,11 +1,14 @@
 $primary: #3fc;
 $focus-color: #0cf;
 
+$primary-dark: scale-color($primary, $lightness: -25%);
+
 $black: #070707;
 $off-black: #101010;
 $darkest-gray: #1c1c1c;
 $dark-gray: #222;
-$light-gray: #333;
+$gray: #333;
+$medium-gray: #444;
 $lighter-gray: #999;
 $lightest-gray: #cfcfcf;
 $off-white: #ddd;
@@ -17,10 +20,16 @@ $danger: #f00;
 
 $font-size: 18px;
 $checkbox-padding: 4px;
-$checkbox-background-color: $light-gray;
+$checkbox-background-color: $gray;
 
 $header-height: 100px;
 
 $button-margin: 4px;
 
 $cell-padding: 12px;
+
+$tab-background: $dark-gray;
+$tab-border-color: $gray;
+$tab-border-style: solid;
+$tab-border-width: 1px;
+$tab-padding: 32px;

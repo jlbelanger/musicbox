@@ -27,7 +27,6 @@ button {
 	appearance: none;
 	background: transparent;
 	border: 0;
-	border-radius: 100px;
 	color: $white;
 	cursor: pointer;
 	font-size: $font-size;
@@ -49,7 +48,19 @@ button {
 	}
 }
 
+.button--primary {
+	background: $primary;
+	border-radius: 4px;
+	color: $black;
+	padding: 12px 16px;
+
+	&:hover {
+		background: $primary-dark;
+	}
+}
+
 .icon {
+	border-radius: 100px;
 	font-size: 0;
 	height: 48px;
 	padding: 12px;
@@ -67,11 +78,6 @@ button {
 	}
 }
 
-.icon--large {
-	height: 68px;
-	width: 68px;
-}
-
 :focus {
 	box-shadow: 0 0 0 4px $focus-color;
 	outline: none !important; // stylelint-disable declaration-no-important
@@ -83,7 +89,7 @@ section {
 
 .modal-bg {
 	align-items: center;
-	background: rgba($black, .5);
+	background: rgba($black, .75);
 	bottom: 0;
 	display: flex;
 	justify-content: center;
@@ -91,24 +97,23 @@ section {
 	position: fixed;
 	right: 0;
 	top: 0;
-	z-index: 2;
+	z-index: 3;
 }
 
 .modal {
-	background: $dark-gray;
 	max-width: 400px;
-	padding: 32px;
 	position: relative;
-	width: 100%;
-
-	& > :first-child {
-		margin-top: 0;
-	}
+	width: 90vw;
 }
 
-.button--primary {
-	background: $primary;
-	width: 100%;
+.modal__header {
+	color: $primary;
+	padding-bottom: 12px;
+}
+
+.modal__footer {
+	padding-top: 12px;
+	text-align: right;
 }
 
 .loading {
@@ -124,7 +129,7 @@ section {
 	position: fixed;
 	right: 0;
 	top: 0;
-	z-index: 3;
+	z-index: 4;
 
 	path {
 		fill: $primary;
@@ -146,12 +151,6 @@ h1 {
 	font-weight: normal;
 }
 
-#close {
-	position: absolute;
-	right: 16px;
-	top: 16px;
-}
-
 h1,
 ol,
 p {
@@ -170,7 +169,7 @@ a {
 }
 
 input {
-	background: $light-gray;
+	background: $gray;
 	border: 0;
 	color: $white;
 	padding: 8px;
@@ -193,21 +192,8 @@ input[type="file"] {
 	display: flex;
 }
 
-.tabs {
-	display: flex;
-	list-style: none;
-	padding: 0;
-}
-
 ::selection {
-	background: rgba($primary, .25);
-}
-
-#song-modal {
-	height: 90vh;
-	max-width: none;
-	overflow: auto;
-	width: 90vw;
+	background: rgba($focus-color, .25);
 }
 
 .fields {
@@ -222,16 +208,17 @@ input[type="file"] {
 	padding: 4px;
 }
 
-.field--label-wrapper {
+.field__label-wrapper {
 	width: 140px;
 }
 
-.field--label {
+.field__label {
+	cursor: pointer;
 	display: block;
 	margin-right: 8px;
 	text-align: right;
 }
 
-.field--input-wrapper {
+.field__input-wrapper {
 	flex: 1 1 auto;
 }

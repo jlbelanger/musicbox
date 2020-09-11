@@ -30,6 +30,13 @@ function jumpToSong(e) {
 }
 
 function onKeyup(e) {
+	if (e.key === 'Escape') {
+		const close = document.getElementById('close');
+		if (close) {
+			close.click();
+		}
+	}
+
 	if (document.activeElement.tagName !== 'BODY') {
 		return;
 	}

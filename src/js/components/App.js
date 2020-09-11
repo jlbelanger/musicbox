@@ -14,7 +14,7 @@ export default function App() {
 			{window.api.hasJson() ? null : <ImportModal />}
 			<Header />
 			<article id="table" />
-			{editSongId ? <SongModal id={editSongId} /> : null}
+			{editSongId ? <SongModal /> : null}
 		</main>
 	);
 }

@@ -4,6 +4,7 @@ import {
 	playNext,
 	populateQueue,
 } from './slices/app';
+import { getDatetimeFormat, getTimezone } from './helpers/datetime';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import Storage from './helpers/Storage';
@@ -38,8 +39,8 @@ export default class MusicboxTable {
 				},
 			},
 		];
-		const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-		const outputFormat = 'YYYY-MM-DD h:mm a z';
+		const timezone = getTimezone();
+		const outputFormat = getDatetimeFormat();
 		const inputFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZ';
 		const columns = [
 			{
@@ -193,6 +194,7 @@ export default class MusicboxTable {
 				{
 					label: 'Edit',
 					action: (_e, row) => {
+						this.table.selectRow(row._row.data.id);
 						store.dispatch(editSong({ id: row._row.data.id }));
 					},
 				},

@@ -14,6 +14,7 @@ describe('app', () => {
 			expect(initialState).toEqual({
 				currentQueueIndex: null,
 				currentSongId: null,
+				editSongId: null,
 				isPlaying: false,
 				queue: [],
 				shuffle: false,

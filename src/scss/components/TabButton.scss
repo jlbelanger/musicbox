@@ -1,0 +1,44 @@
+@import '../utilities/variables';
+
+.tabs {
+	display: flex;
+	font-size: 0;
+	list-style: none;
+	padding: 0;
+	position: relative;
+	top: 1px;
+}
+
+.tab--button {
+	background: $gray;
+	border: $tab-border-width $tab-border-style $tab-border-color;
+	margin: 0;
+
+	&:hover,
+	&:active,
+	&:focus {
+		background: $medium-gray;
+	}
+
+	&.active {
+		background: $tab-background;
+		border-bottom-color: transparent;
+	}
+
+	&:focus {
+		position: relative;
+		z-index: 1;
+	}
+}
+
+.tab--frame {
+	background: $tab-background;
+	border-color: $tab-border-color;
+	border-style: $tab-border-style;
+	border-width: $tab-border-width;
+	padding: $tab-padding;
+
+	& > :first-child {
+		margin-top: 0;
+	}
+}

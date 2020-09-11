@@ -1,0 +1,43 @@
+@import '../../utilities/variables';
+
+$rating-size: 20px;
+
+.rating-cell {
+	display: flex;
+}
+
+.rating {
+	height: $rating-size;
+	position: relative;
+	width: $rating-size;
+}
+
+.rating__svg {
+	left: 0;
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+
+	path {
+		fill: $medium-gray;
+	}
+
+	.active & {
+		path {
+			fill: $primary;
+		}
+	}
+}
+
+.rating__input {
+	appearance: none;
+	background: transparent;
+	cursor: pointer;
+	height: $rating-size;
+	margin: 0;
+	width: $rating-size;
+}
+
+#field__input-wrapper--rating {
+	display: flex;
+}

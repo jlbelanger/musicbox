@@ -1,3 +1,4 @@
+import '../../../scss/components/buttons/PlayPause.scss';
 import { selectIsPlaying, togglePlayback } from '../../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as PauseIcon } from '../../../svg/pause.svg';
@@ -14,7 +15,7 @@ export default function PlayPause() {
 	const label = isPlaying ? 'Pause' : 'Play';
 
 	return (
-		<button className="icon icon--large" id="play-pause" onClick={onClick} title={label} type="button">
+		<button className="icon" id="play-pause" onClick={onClick} title={label} type="button">
 			<Icon />
 			{label}
 		</button>

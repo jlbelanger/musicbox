@@ -1,30 +1,34 @@
 import React, { useState } from 'react';
 import ImportModalFile from './ImportModalFile';
 import ImportModalItunes from './ImportModalItunes';
+import TabButton from '../TabButton';
+import TabFrame from '../TabFrame';
 
 export default function ImportModal() {
-	const [tab, setTab] = useState('file');
-	const onClickItunes = () => {
-		setTab('itunes');
-	};
-	const onClickFile = () => {
-		setTab('file');
+	const [tab, setTab] = useState('Select Musicbox file');
+	const onClickTab = (e) => {
+		setTab(e.target.getAttribute('data-tab'));
 	};
 
 	return (
 		<section className="modal-bg">
 			<div className="modal">
-				<p>You don&rsquo;t have any songs yet.</p>
+				<div className="modal__header">
+					<p>You don&rsquo;t have any songs yet.</p>
+				</div>
+
 				<ul className="tabs">
-					<li>
-						<button onClick={onClickFile} type="button">Select Musicbox file</button>
-					</li>
-					<li>
-						<button onClick={onClickItunes} type="button">Import from iTunes</button>
-					</li>
+					<TabButton label="Select Musicbox file" onClick={onClickTab} tab={tab} />
+					<TabButton label="Import from iTunes" onClick={onClickTab} tab={tab} />
 				</ul>
-				{tab === 'itunes' ? <ImportModalItunes /> : null}
-				{tab === 'file' ? <ImportModalFile /> : null}
+
+				<TabFrame label="Select Musicbox file" tab={tab}>
+					<ImportModalFile />
+				</TabFrame>
+
+				<TabFrame label="Import from iTunes" tab={tab}>
+					<ImportModalItunes />
+				</TabFrame>
 			</div>
 		</section>
 	);
