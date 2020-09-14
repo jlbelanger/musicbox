@@ -35,6 +35,7 @@ export default function SongModal() {
 		window.musicboxTable.table.deselectRow();
 		window.musicboxTable.table.selectRow(elem);
 		const newId = window.musicboxTable.table.getSelectedRows()[0]._row.data.id;
+		setSong(window.songs[newId]);
 		dispatch(editSong({ id: newId }));
 	};
 	const onPrevious = () => {
@@ -42,6 +43,7 @@ export default function SongModal() {
 		window.musicboxTable.table.deselectRow();
 		window.musicboxTable.table.selectRow(elem);
 		const newId = window.musicboxTable.table.getSelectedRows()[0]._row.data.id;
+		setSong(window.songs[newId]);
 		dispatch(editSong({ id: newId }));
 	};
 
