@@ -43,6 +43,19 @@ I was sick of my keyboard's media keys not working in my old music player whenev
 
 Musicbox uses Electron, React, Redux, Tabulator, music-metadata, and a billion other packages in node_modules.
 
+Dependencies:
+
+- git
+- yarn
+
+Setup:
+
+``` bash
+git clone https://github.com/jlbelanger/musicbox.git
+cd musicbox
+yarn install
+```
+
 Run:
 
 ``` bash
