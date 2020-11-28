@@ -1,6 +1,7 @@
 .DS_Store
 /build
 /dist
+/musicbox.json
 node_modules
 /songs.json
 TODO.md
