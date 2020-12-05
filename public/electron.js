@@ -7,6 +7,7 @@ const {
 	powerSaveBlocker,
 	protocol,
 	shell,
+	systemPreferences,
 } = require('electron');
 const path = require('path');
 const fs = require('fs');
@@ -61,6 +62,7 @@ app.whenReady().then(() => {
 		}
 	});
 
+	systemPreferences.isTrustedAccessibilityClient(true);
 	globalShortcut.register('MediaNextTrack', () => {
 		mainWindow.webContents.send('shortcut', 'MediaNextTrack');
 	});
