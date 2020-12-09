@@ -92,6 +92,14 @@ export default class MusicboxTable {
 				},
 			},
 			{
+				field: 'track',
+				title: 'Track',
+				headerContextMenu,
+				sorterParams: {
+					alignEmptyValues: 'bottom',
+				},
+			},
+			{
 				field: 'year',
 				title: 'Year',
 				headerContextMenu,
