@@ -9,7 +9,7 @@ export default function Shuffle() {
 	const shuffle = useSelector(selectShuffle);
 	const onClick = () => {
 		dispatch(toggleShuffle({
-			songs: window.songs,
+			songs: window.musicboxTable.table.rowManager.activeRows.map((song) => song.data),
 			sort: Storage.get('tabulator-table-sort'),
 		}));
 	};

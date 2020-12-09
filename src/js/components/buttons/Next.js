@@ -33,7 +33,7 @@ export default function Next() {
 		update(currentSongId, data);
 
 		dispatch(nextSong({
-			songs: window.songs,
+			songs: window.musicboxTable.table.rowManager.activeRows.map((song) => song.data),
 			sort: Storage.get('tabulator-table-sort'),
 		}));
 	};

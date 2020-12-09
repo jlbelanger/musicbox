@@ -25,14 +25,9 @@ export const createShuffledQueue = (songs, seed) => {
 export const createQueue = (songs, {
 	seed,
 	shuffle,
-	sort,
 }) => {
 	if (!shuffle) {
-		let activeSongs = getActiveSongs(songs);
-		if (sort && sort.length > 0) {
-			activeSongs = sortRows(activeSongs, sort);
-		}
-		return activeSongs.map((song) => song.id);
+		return getActiveSongs(songs).map((song) => song.id);
 	}
 
 	return createShuffledQueue(songs, seed);

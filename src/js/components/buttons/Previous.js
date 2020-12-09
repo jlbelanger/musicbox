@@ -12,7 +12,7 @@ export default function Previous() {
 			window.api.setTime(0);
 		} else {
 			dispatch(previousSong({
-				songs: window.songs,
+				songs: window.musicboxTable.table.rowManager.activeRows.map((song) => song.data),
 				sort: Storage.get('tabulator-table-sort'),
 			}));
 		}

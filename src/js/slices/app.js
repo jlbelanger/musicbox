@@ -63,14 +63,12 @@ export const appSlice = createSlice({
 			const {
 				seed,
 				songs,
-				sort,
 			} = action.payload;
 			const queue = createQueue(
 				songs,
 				{
 					seed,
 					shuffle: state.shuffle,
-					sort,
 				}
 			);
 			return {
@@ -93,14 +91,12 @@ export const appSlice = createSlice({
 			const {
 				seed,
 				songs,
-				sort,
 			} = action.payload;
 			const queue = createQueue(
 				songs,
 				{
 					seed,
 					shuffle: state.shuffle,
-					sort,
 				}
 			);
 			let currentQueueIndex = state.currentQueueIndex;
@@ -130,14 +126,12 @@ export const appSlice = createSlice({
 			const {
 				seed,
 				songs,
-				sort,
 			} = action.payload;
 			const queue = createQueue(
 				songs,
 				{
 					seed,
 					shuffle: state.shuffle,
-					sort,
 				}
 			);
 			return {
@@ -187,7 +181,6 @@ export const appSlice = createSlice({
 			const {
 				seed,
 				songs,
-				sort,
 			} = action.payload;
 			const shuffle = !state.shuffle;
 			let queue = createQueue(
@@ -195,7 +188,6 @@ export const appSlice = createSlice({
 				{
 					seed,
 					shuffle,
-					sort,
 				}
 			);
 

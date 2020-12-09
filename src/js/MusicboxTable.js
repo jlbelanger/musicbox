@@ -173,9 +173,9 @@ export default class MusicboxTable {
 		const options = {
 			columns,
 			data,
-			dataSorted: () => {
+			dataSorted: (_, rows) => {
 				store.dispatch(populateQueue({
-					songs: data,
+					songs: rows.map((song) => song._row.data),
 					sort: Storage.get('tabulator-table-sort'),
 				}));
 
