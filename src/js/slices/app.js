@@ -24,7 +24,8 @@ export const appSlice = createSlice({
 			let currentQueueIndex;
 			let queue;
 			if (state.shuffle) {
-				queue = moveToFrontOfQueue(state.queue, state.currentQueueIndex, currentSongId);
+				const newData = moveToFrontOfQueue(state.queue, state.currentQueueIndex, currentSongId);
+				queue = newData.queue;
 				currentQueueIndex = state.currentQueueIndex === null ? 0 : state.currentQueueIndex + 1;
 			} else {
 				queue = [...state.queue];
@@ -81,10 +82,11 @@ export const appSlice = createSlice({
 		},
 		playNext: (state, action) => {
 			const { id } = action.payload;
-			const queue = moveToFrontOfQueue(state.queue, state.currentQueueIndex, id);
+			const newData = moveToFrontOfQueue(state.queue, state.currentQueueIndex, id);
 			return {
 				...state,
-				queue,
+				currentQueueIndex: newData.currentQueueIndex,
+				queue: newData.queue,
 			};
 		},
 		populateQueue: (state, action) => {
@@ -201,7 +203,8 @@ export const appSlice = createSlice({
 
 			let currentQueueIndex;
 			if (shuffle) {
-				queue = moveToFrontOfQueue(queue, -1, state.currentSongId);
+				const newData = moveToFrontOfQueue(queue, -1, state.currentSongId);
+				queue = newData.queue;
 				currentQueueIndex = 0;
 			} else {
 				currentQueueIndex = findCurrentSongQueueIndex(queue, state.currentSongId);
