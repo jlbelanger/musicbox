@@ -66,11 +66,13 @@ export default class MusicboxTable {
 				editor: 'tickCross',
 				width: 60,
 				resizable: false,
+				sorter: 'boolean',
 			},
 			{
 				field: 'title',
 				title: 'Title',
 				headerContextMenu,
+				sorter: 'string',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
 				},
@@ -79,6 +81,7 @@ export default class MusicboxTable {
 				field: 'artist',
 				title: 'Artist',
 				headerContextMenu,
+				sorter: 'string',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
 				},
@@ -87,6 +90,7 @@ export default class MusicboxTable {
 				field: 'album',
 				title: 'Album',
 				headerContextMenu,
+				sorter: 'string',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
 				},
@@ -95,6 +99,7 @@ export default class MusicboxTable {
 				field: 'track',
 				title: 'Track',
 				headerContextMenu,
+				sorter: 'number',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
 				},
@@ -103,11 +108,13 @@ export default class MusicboxTable {
 				field: 'year',
 				title: 'Year',
 				headerContextMenu,
+				sorter: 'number',
 			},
 			{
 				field: 'genre',
 				title: 'Genre',
 				headerContextMenu,
+				sorter: 'string',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
 				},
@@ -119,11 +126,13 @@ export default class MusicboxTable {
 				formatter: 'star',
 				width: 143,
 				resizable: false,
+				sorter: 'number',
 			},
 			{
 				field: 'numPlays',
 				title: 'Plays',
 				headerContextMenu,
+				sorter: 'number',
 			},
 			{
 				field: 'lastPlayed',
@@ -135,6 +144,7 @@ export default class MusicboxTable {
 					outputFormat,
 					timezone,
 				},
+				sorter: 'date',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
 				},
@@ -143,6 +153,7 @@ export default class MusicboxTable {
 				field: 'numSkips',
 				title: 'Skips',
 				headerContextMenu,
+				sorter: 'number',
 			},
 			{
 				field: 'lastSkipped',
@@ -154,6 +165,7 @@ export default class MusicboxTable {
 					outputFormat,
 					timezone,
 				},
+				sorter: 'date',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
 				},
@@ -168,6 +180,7 @@ export default class MusicboxTable {
 					outputFormat,
 					timezone,
 				},
+				sorter: 'date',
 			},
 		];
 		const options = {

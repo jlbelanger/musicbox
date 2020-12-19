@@ -1,5 +1,4 @@
 import seedrandom from 'seedrandom';
-import sortRows from './sort';
 
 export const getActiveSongs = (songs) => (
 	Object.values(songs).filter((song) => song.checked)
