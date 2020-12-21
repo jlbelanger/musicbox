@@ -127,6 +127,9 @@ export default class MusicboxTable {
 				width: 143,
 				resizable: false,
 				sorter: 'number',
+				sorterParams: {
+					alignEmptyValues: 'bottom',
+				},
 			},
 			{
 				field: 'numPlays',
@@ -144,7 +147,6 @@ export default class MusicboxTable {
 					outputFormat,
 					timezone,
 				},
-				sorter: 'date',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
 				},
@@ -165,7 +167,6 @@ export default class MusicboxTable {
 					outputFormat,
 					timezone,
 				},
-				sorter: 'date',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
 				},
@@ -180,7 +181,6 @@ export default class MusicboxTable {
 					outputFormat,
 					timezone,
 				},
-				sorter: 'date',
 			},
 		];
 		const options = {
