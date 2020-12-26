@@ -47,7 +47,7 @@ export const moveToFrontOfQueue = (queue, currentQueueIndex, songId) => {
 		newIndex = 0;
 	} else if (previousIndex <= currentQueueIndex) {
 		newIndex = currentQueueIndex;
-		currentQueueIndex = currentQueueIndex - 1;
+		currentQueueIndex -= 1;
 	} else {
 		newIndex = currentQueueIndex + 1;
 	}

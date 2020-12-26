@@ -126,7 +126,7 @@ module.exports = class MusicboxAudio {
 		document.getElementById('now-playing-title').innerText = song.title;
 		document.getElementById('now-playing-artist').innerText = song.artist;
 
-		if (this.albumArtCache.hasOwnProperty(filePath)) {
+		if (Object.prototype.hasOwnProperty.call(this.albumArtCache, filePath)) {
 			const src = this.albumArtCache[filePath];
 			this.displayAlbumArt(src);
 			this.showNotification(song, src);

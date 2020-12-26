@@ -1,13 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import './scss/index.scss';
+import * as serviceWorker from './js/serviceWorker';
 import al from './js/observer';
 import App from './js/components/App';
-import store from './js/store';
-import { Provider } from 'react-redux';
-import registerShortcuts from './js/shortcuts';
-import * as serviceWorker from './js/serviceWorker';
 import MusicboxTable from './js/MusicboxTable';
+import { Provider } from 'react-redux';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import registerShortcuts from './js/shortcuts';
+import store from './js/store';
 
 if (window.api.hasJson()) {
 	window.songs = window.api.getSongs();
