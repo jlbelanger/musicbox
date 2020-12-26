@@ -14,6 +14,9 @@ $rowSelectedBackground: $dark-gray;
 $rowHoverBackground: $darkest-gray;
 $rowBorderColor: transparent;
 
+$sortArrowActive: $white;
+$sortArrowInactive: transparent;
+
 $editBoxColor: $primary;
 
 @import './node_modules/tabulator-tables/src/scss/tabulator_simple';
