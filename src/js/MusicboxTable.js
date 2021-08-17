@@ -187,10 +187,12 @@ export default class MusicboxTable {
 			columns,
 			data,
 			dataSorted: (_, rows) => {
-				store.dispatch(populateQueue({
-					songs: rows.map((song) => song._row.data),
-					sort: Storage.get('tabulator-table-sort'),
-				}));
+				if (store.getState().app.queue.length <= 0 || !store.getState().app.shuffle) {
+					store.dispatch(populateQueue({
+						songs: rows.map((song) => song._row.data),
+						sort: Storage.get('tabulator-table-sort'),
+					}));
+				}
 
 				// Calling scrollToRow immediately doesn't seem to work.
 				// Maybe related to this: https://github.com/olifolkerd/tabulator/issues/917#issuecomment-368207644
