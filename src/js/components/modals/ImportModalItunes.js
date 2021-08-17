@@ -14,7 +14,7 @@ export default function ImportModalItunes() {
 		importItunes(file)
 			.then((json) => {
 				setLoading(false);
-				window.api.saveFile(JSON.stringify(json));
+				window.api.saveFile(JSON.stringify(json, null, '\t'));
 			})
 			.catch((err) => {
 				setError(err.message);

@@ -24,11 +24,11 @@ electron.ipcRenderer.on('setFileLocation', (_e, filePath) => {
 electron.contextBridge.exposeInMainWorld('api', {
 	addJsonPlay: (id, date) => {
 		parsedJson.plays[date] = id;
-		fs.writeFileSync(filePath, JSON.stringify(parsedJson));
+		fs.writeFileSync(filePath, JSON.stringify(parsedJson, null, '\t'));
 	},
 	addJsonSkip: (id, date) => {
 		parsedJson.skips[date] = id;
-		fs.writeFileSync(filePath, JSON.stringify(parsedJson));
+		fs.writeFileSync(filePath, JSON.stringify(parsedJson, null, '\t'));
 	},
 	allowSuspension: () => {
 		electron.ipcRenderer.send('allowSuspension');
@@ -75,7 +75,7 @@ electron.contextBridge.exposeInMainWorld('api', {
 		Object.keys(data).forEach((key) => {
 			parsedJson[id][key] = data[key];
 		});
-		fs.writeFileSync(filePath, JSON.stringify(parsedJson));
+		fs.writeFileSync(filePath, JSON.stringify(parsedJson, null, '\t'));
 	},
 });
 
