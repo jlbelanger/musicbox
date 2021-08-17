@@ -35,7 +35,12 @@ export default function QueueList({ className }) {
 							<div className="queue-artist">{song.artist}</div>
 						</div>
 						<div className="queue-controls">
-							<button className="icon queue-remove" onClick={(e) => { onRemove(e, song.id); }} tabIndex={className ? null : -1} type="button">
+							<button
+								className="icon queue-remove"
+								onClick={(e) => { onRemove(e, song.id); }}
+								tabIndex={className ? null : -1}
+								type="button"
+							>
 								<XIcon />
 								Remove
 							</button>

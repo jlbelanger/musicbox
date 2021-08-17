@@ -29,7 +29,15 @@ export default function Rating({ onChange, value }) {
 			{stars.map((star) => (
 				<div className={`rating ${star.active ? 'active' : 'dimmed'}`} key={star.i}>
 					<StarIcon className="rating__svg" />
-					<input className="rating__input" checked={num === star.i} onClick={onClick} onChange={onInputChange} name="rating" type="radio" value={star.i} />
+					<input
+						className="rating__input"
+						checked={num === star.i}
+						onClick={onClick}
+						onChange={onInputChange}
+						name="rating"
+						type="radio"
+						value={star.i}
+					/>
 				</div>
 			))}
 		</>

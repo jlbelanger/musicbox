@@ -20,6 +20,7 @@
 		"jsx-a11y/label-has-associated-control": 0,
 		"jsx-a11y/media-has-caption": 0,
 		"jsx-a11y/no-autofocus": 0,
+		"max-len": ["error", { "code": 150 }],
 		"no-alert": 0,
 		"no-param-reassign": 0,
 		"no-tabs": 0,
