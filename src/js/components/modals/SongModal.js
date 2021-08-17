@@ -7,7 +7,7 @@ import Field from '../inputs/Field';
 import TabButton from '../TabButton';
 import TabFrame from '../TabFrame';
 import Text from '../inputs/Text';
-import update from '../../helpers/update';
+import { updateSong } from '../../helpers/update';
 import { ReactComponent as XIcon } from '../../../svg/x.svg';
 
 export default function SongModal() {
@@ -27,7 +27,7 @@ export default function SongModal() {
 		setChangedValues({ ...changedValues, [name]: value });
 	};
 	const onSave = () => {
-		update(id, changedValues);
+		updateSong(id, changedValues);
 		onClose();
 	};
 	const onNext = () => {

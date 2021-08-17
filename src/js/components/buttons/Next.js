@@ -1,9 +1,9 @@
+import { addPlay, addSkip, updateSong } from '../../helpers/update';
 import { nextSong, selectCurrentQueueIndex } from '../../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as NextIcon } from '../../../svg/next.svg';
 import React from 'react';
 import Storage from '../../helpers/Storage';
-import update from '../../helpers/update';
 
 export default function Next() {
 	const dispatch = useDispatch();
@@ -14,23 +14,17 @@ export default function Next() {
 		const currentSongId = document.getElementById('now-playing').getAttribute('data-id');
 		const date = new Date().toISOString();
 		const data = {};
-		let key;
 		if (currentTime >= (duration * 0.75)) {
-			key = 'plays';
 			data.lastPlayed = new Date().toISOString();
 			data.numPlays = window.songs[currentSongId].numPlays + 1;
+			addPlay(currentSongId, date);
 		} else {
-			key = 'skips';
 			data.lastSkipped = new Date().toISOString();
 			data.numSkips = window.songs[currentSongId].numSkips + 1;
+			addSkip(currentSongId, date);
 		}
 
-		// Add to play/skip list.
-		const value = Storage.get(key, {});
-		value[date] = currentSongId;
-		Storage.set(key, value);
-
-		update(currentSongId, data);
+		updateSong(currentSongId, data);
 
 		dispatch(nextSong({
 			songs: window.musicboxTable.table.rowManager.activeRows.map((song) => song.data),

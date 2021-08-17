@@ -25,7 +25,10 @@ export default (file) => (
 	})
 		.then((xml) => {
 			const json = plist.parse(xml);
-			const output = {};
+			const output = {
+				plays: {},
+				skips: {},
+			};
 			let id = 1;
 			Object.values(json.Tracks).forEach((song) => {
 				let path = getStringProperty(song, 'Location');
