@@ -19,7 +19,7 @@ export default (row) => {
 	const sig = Object.keys(body).map((key) => (`${key}${body[key]}`)).join('');
 	body.api_sig = md5(`${sig}${auth.apiSecret}`);
 
-	body = Object.keys(body).map((key) => (`${key}=${body[key]}`)).join('&');
+	body = Object.keys(body).map((key) => (`${encodeURIComponent(key)}=${encodeURIComponent(body[key])}`)).join('&');
 
 	const data = {
 		method: 'POST',
