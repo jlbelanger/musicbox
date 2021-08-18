@@ -3,6 +3,7 @@ import { nextSong, selectCurrentQueueIndex } from '../../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as NextIcon } from '../../../svg/next.svg';
 import React from 'react';
+import scrobble from '../../helpers/lastfm';
 import Storage from '../../helpers/Storage';
 
 export default function Next() {
@@ -15,11 +16,12 @@ export default function Next() {
 		const date = new Date().toISOString();
 		const data = {};
 		if (currentTime >= (duration * 0.75)) {
-			data.lastPlayed = new Date().toISOString();
+			data.lastPlayed = date;
 			data.numPlays = window.songs[currentSongId].numPlays + 1;
 			addPlay(currentSongId, date);
+			scrobble(window.songs[currentSongId]);
 		} else {
-			data.lastSkipped = new Date().toISOString();
+			data.lastSkipped = date;
 			data.numSkips = window.songs[currentSongId].numSkips + 1;
 			addSkip(currentSongId, date);
 		}

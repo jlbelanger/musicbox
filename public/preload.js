@@ -33,15 +33,10 @@ electron.contextBridge.exposeInMainWorld('api', {
 	allowSuspension: () => {
 		electron.ipcRenderer.send('allowSuspension');
 	},
-	getSongs: () => {
-		return parsedJson;
-	},
-	getTime: () => {
-		return window.audio.audio.currentTime;
-	},
-	hasJson: () => {
-		return !!json;
-	},
+	getLastFm: () => (parsedJson.lastfm),
+	getSongs: () => (parsedJson.songs),
+	getTime: () => (window.audio.audio.currentTime),
+	hasJson: () => (!!json),
 	openFileLocation: (path) => {
 		electron.ipcRenderer.send('openFileLocation', path);
 	},
@@ -73,7 +68,7 @@ electron.contextBridge.exposeInMainWorld('api', {
 	},
 	updateJsonSong: (id, data) => {
 		Object.keys(data).forEach((key) => {
-			parsedJson[id][key] = data[key];
+			parsedJson.songs[id][key] = data[key];
 		});
 		fs.writeFileSync(filePath, JSON.stringify(parsedJson, null, '\t'));
 	},

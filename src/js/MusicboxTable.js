@@ -14,8 +14,7 @@ import { ReactComponent as VolumeHighIcon } from '../svg/volume-high.svg';
 import { ReactComponent as VolumeOffIcon } from '../svg/volume-off.svg';
 
 // Required for Tabulator.
-window.moment = require('moment');
-window.momentTimezone = require('moment-timezone');
+window.moment = require('moment-timezone');
 
 export default class MusicboxTable {
 	constructor(data) {
