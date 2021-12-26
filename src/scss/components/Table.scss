@@ -30,7 +30,7 @@ $editBoxColor: $primary;
 	.tabulator-cell {
 		padding: $cell-padding;
 
-		&[tabulator-field="checked"] {
+		&[tabulator-field='checked'] {
 			padding: #{$cell-padding - $checkbox-padding} $cell-padding;
 		}
 
@@ -43,13 +43,13 @@ $editBoxColor: $primary;
 				padding: 16px !important;
 			}
 
-			&[tabulator-field="rating"] {
+			&[tabulator-field='rating'] {
 				& > div {
 					padding: 16px !important;
 				}
 			}
 
-			&[tabulator-field="checked"] {
+			&[tabulator-field='checked'] {
 				input {
 					appearance: none;
 					background-color: $checkbox-background-color;
@@ -78,7 +78,7 @@ $editBoxColor: $primary;
 	}
 }
 
-[tabulator-field="rating"] {
+[tabulator-field='rating'] {
 	svg {
 		height: $font-size !important;
 		width: $font-size !important;
@@ -95,15 +95,15 @@ $editBoxColor: $primary;
 	top: 50%;
 }
 
-.tabulator .tabulator-header .tabulator-col.tabulator-sortable[aria-sort="none"] .tabulator-col-content .tabulator-arrow {
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable[aria-sort='none'] .tabulator-col-content .tabulator-arrow {
 	border-bottom-color: transparent;
 }
 
-.tabulator .tabulator-header .tabulator-col.tabulator-sortable[aria-sort="asc"] .tabulator-col-content .tabulator-arrow {
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable[aria-sort='asc'] .tabulator-col-content .tabulator-arrow {
 	border-bottom-color: $white;
 }
 
-.tabulator .tabulator-header .tabulator-col.tabulator-sortable[aria-sort="desc"] .tabulator-col-content .tabulator-arrow {
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable[aria-sort='desc'] .tabulator-col-content .tabulator-arrow {
 	border-top-color: $white;
 }
 
@@ -111,19 +111,19 @@ $editBoxColor: $primary;
 polygon {
 	stroke: none;
 
-	&[fill="#FFEA00"],
-	&[fill="#488CE9"] {
+	&[fill='#FFEA00'],
+	&[fill='#488CE9'] {
 		fill: $primary !important;
 	}
 
-	&[fill="#D2D2D2"],
-	&[fill="#010155"] {
+	&[fill='#D2D2D2'],
+	&[fill='#010155'] {
 		fill: $darkest-gray !important;
 	}
 }
 
 // Checkboxes.
-[tabulator-field="checked"] {
+[tabulator-field='checked'] {
 	svg {
 		background: $checkbox-background-color;
 		height: #{$font-size + ($checkbox-padding * 2)} !important;
@@ -135,14 +135,14 @@ polygon {
 		fill: $white !important;
 	}
 
-	&[aria-checked="false"] {
+	&[aria-checked='false'] {
 		path {
 			fill: none !important;
 		}
 	}
 }
 
-[tabulator-field="state"].tabulator-cell {
+[tabulator-field='state'].tabulator-cell {
 	text-align: center;
 }
 
@@ -155,7 +155,7 @@ polygon {
 	}
 }
 
-.tabulator .tabulator-header .tabulator-col.tabulator-sortable[tabulator-field="checked"] {
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable[tabulator-field='checked'] {
 	.tabulator-col-title {
 		padding-right: 0;
 		width: 0;

@@ -15,7 +15,7 @@
 			"functions": "never"
 		}],
 		"import/order": 0,
-		"indent": ["error", "tab"],
+		"indent": ["error", "tab", { "SwitchCase": 1 }],
 		"jsx-a11y/control-has-associated-label": 0,
 		"jsx-a11y/label-has-associated-control": 0,
 		"jsx-a11y/media-has-caption": 0,
@@ -28,10 +28,12 @@
 		"prefer-destructuring": 0,
 		"react/destructuring-assignment": 0,
 		"react/forbid-prop-types": 0,
+		"react/function-component-definition": 0,
 		"react/jsx-filename-extension": 0,
 		"react/jsx-indent-props": ["error", "tab"],
 		"react/jsx-indent": ["error", "tab"],
 		"react/jsx-props-no-spreading": 0,
+		"react/no-unstable-nested-components": 0,
 		"react/state-in-constructor": ["error", "never"],
 		"react/static-property-placement": ["error", "static public field"],
 		"sort-imports": ["error", {
