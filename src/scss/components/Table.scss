@@ -19,7 +19,7 @@ $sortArrowInactive: transparent;
 
 $editBoxColor: $primary;
 
-@import './node_modules/tabulator-tables/src/scss/tabulator_simple';
+@import './node_modules/tabulator-tables/src/scss/themes/tabulator_simple';
 
 .tabulator,
 #queue {

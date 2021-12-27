@@ -2,26 +2,20 @@
 	"name": "Musicbox",
 	"version": "1.0.0",
 	"description": "A music library organizer and player.",
+	"homepage": "./",
+	"license": "GPL-3.0-only",
 	"author": {
 		"name": "Jenny Belanger",
 		"email": "mail@jennybelanger.com",
 		"url": "https://www.jennybelanger.com/"
 	},
-	"license": "GPL-3.0-only",
+	"main": "public/electron.js",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/jlbelanger/musicbox.git"
 	},
-	"main": "public/electron.js",
-	"homepage": "./",
-	"build": {
-		"appId": "com.jennybelanger.musicbox",
-		"mac": {
-			"category": "public.app-category.music"
-		}
-	},
 	"scripts": {
-		"start": "concurrently \"BROWSER=none yarn start:react\" \"wait-on http://localhost:3000 && electron .\"",
+		"start": "concurrently \"ESLINT_NO_DEV_ERRORS=true BROWSER=none yarn start:react\" \"wait-on http://localhost:3000 && electron .\"",
 		"start:react": "react-scripts start",
 		"build": "react-scripts build",
 		"dist": "electron-builder",
@@ -32,48 +26,51 @@
 		"test": "node_modules/.bin/jest --watch",
 		"test:cypress": "yarn cypress open"
 	},
-	"devDependencies": {
-		"@testing-library/jest-dom": "^5.11.6",
-		"@testing-library/react": "^11.2.2",
-		"@testing-library/user-event": "^12.6.0",
-		"concurrently": "^5.3.0",
-		"cypress": "^6.1.0",
-		"electron": "^11.1.0",
-		"electron-builder": "^22.9.1",
-		"eslint": "^7.16.0",
-		"eslint-config-airbnb": "^18.2.1",
-		"eslint-plugin-import": "^2.22.1",
-		"eslint-plugin-jsx-a11y": "^6.4.1",
-		"eslint-plugin-react": "^7.21.5",
-		"sass-lint": "^1.13.1",
-		"stylelint": "^13.8.0",
-		"stylelint-config-standard-scss": "^1.1.0",
-		"stylelint-order": "^4.1.0",
-		"stylelint-scss": "^3.18.0",
-		"wait-on": "^5.2.0"
-	},
 	"dependencies": {
-		"@babel/plugin-transform-runtime": "^7.12.0",
-		"@babel/preset-env": "^7.12.11",
-		"@reduxjs/toolkit": "^1.5.0",
-		"@svgr/webpack": "^5.5.0",
-		"dateformat": "^4.3.1",
-		"electron-is-dev": "^1.2.0",
+		"@babel/plugin-transform-runtime": "^7.16.5",
+		"@babel/preset-env": "^7.16.5",
+		"@reduxjs/toolkit": "^1.7.1",
+		"@svgr/webpack": "^6.1.2",
+		"dateformat": "^5.0.2",
+		"electron-is-dev": "^2.0.0",
+		"luxon": "^2.2.0",
 		"md5": "^2.3.0",
-		"moment": "^2.29.1",
-		"moment-timezone": "^0.5.32",
-		"music-metadata": "^7.5.2",
-		"node-sass": "^4.14.1",
+		"music-metadata": "^7.11.4",
+		"node-sass": "^7.0.0",
 		"normalize.css": "^8.0.1",
-		"plist": "^3.0.1",
-		"prop-types": "^15.7.2",
-		"react": "^17.0.1",
-		"react-dom": "^17.0.1",
-		"react-redux": "^7.2.2",
-		"react-scripts": "^4.0.1",
+		"plist": "^3.0.4",
+		"prop-types": "^15.8.0",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2",
+		"react-redux": "^7.2.6",
+		"react-scripts": "^5.0.0",
 		"redux-watch": "^1.2.0",
 		"seedrandom": "^3.0.5",
-		"tabulator-tables": "^4.9.3"
+		"tabulator-tables": "^5.0.8"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.16.5",
+		"@babel/eslint-parser": "^7.16.5",
+		"@babel/preset-react": "^7.16.5",
+		"@testing-library/jest-dom": "^5.16.1",
+		"@testing-library/react": "^12.1.2",
+		"@testing-library/user-event": "^13.5.0",
+		"concurrently": "^6.5.1",
+		"cypress": "^9.2.0",
+		"electron": "^16.0.5",
+		"electron-builder": "^22.14.5",
+		"eslint": "^8.5.0",
+		"eslint-config-airbnb": "^19.0.2",
+		"eslint-plugin-import": "^2.25.3",
+		"eslint-plugin-jsx-a11y": "^6.5.1",
+		"eslint-plugin-react": "^7.28.0",
+		"eslint-plugin-react-hooks": "^4.3.0",
+		"sass-lint": "^1.13.1",
+		"stylelint": "^14.2.0",
+		"stylelint-config-standard-scss": "^3.0.0",
+		"stylelint-order": "^5.0.0",
+		"stylelint-scss": "^4.1.0",
+		"wait-on": "^6.0.0"
 	},
 	"browserslist": {
 		"production": [
@@ -86,5 +83,11 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
+	},
+	"build": {
+		"appId": "com.jennybelanger.musicbox",
+		"mac": {
+			"category": "public.app-category.music"
+		}
 	}
 }

@@ -4,17 +4,17 @@ import {
 	playNext,
 	populateQueue,
 } from './slices/app';
-import { getDatetimeFormat, getTimezone } from './helpers/datetime';
+import { getDatetimeFormat } from './helpers/datetime';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import Storage from './helpers/Storage';
 import store from './store';
-import Tabulator from 'tabulator-tables';
+import { TabulatorFull as Tabulator } from 'tabulator-tables';
 import { ReactComponent as VolumeHighIcon } from '../svg/volume-high.svg';
 import { ReactComponent as VolumeOffIcon } from '../svg/volume-off.svg';
 
 // Required for Tabulator.
-window.moment = require('moment-timezone');
+window.luxon = require('luxon');
 
 export default class MusicboxTable {
 	constructor(data) {
@@ -25,7 +25,6 @@ export default class MusicboxTable {
 			}
 			clearInterval(int);
 			this.table = this.initialize(data);
-			document.querySelector('.tabulator-tableHolder').removeAttribute('tabindex');
 		}, 100);
 	}
 
@@ -38,9 +37,19 @@ export default class MusicboxTable {
 				},
 			},
 		];
-		const timezone = getTimezone();
+		data.forEach((d, i) => {
+			if (data[i].lastPlayed) {
+				data[i].lastPlayed = data[i].lastPlayed.replace('Z', '+0');
+			}
+			if (data[i].lastSkipped) {
+				data[i].lastSkipped = data[i].lastSkipped.replace('Z', '+0');
+			}
+			if (data[i].dateAdded) {
+				data[i].dateAdded = data[i].dateAdded.replace('Z', '+0');
+			}
+		});
 		const outputFormat = getDatetimeFormat();
-		const inputFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZ';
+		const inputFormat = 'yyyy-MM-dd\'T\'HH:mm:ss.SSSZ';
 		const columns = [
 			{
 				field: 'state',
@@ -144,7 +153,6 @@ export default class MusicboxTable {
 				formatterParams: {
 					inputFormat,
 					outputFormat,
-					timezone,
 				},
 				sorterParams: {
 					alignEmptyValues: 'bottom',
@@ -164,7 +172,6 @@ export default class MusicboxTable {
 				formatterParams: {
 					inputFormat,
 					outputFormat,
-					timezone,
 				},
 				sorterParams: {
 					alignEmptyValues: 'bottom',
@@ -178,30 +185,15 @@ export default class MusicboxTable {
 				formatterParams: {
 					inputFormat,
 					outputFormat,
-					timezone,
 				},
 			},
 		];
 		const options = {
 			columns,
-			data,
-			dataSorted: (_, rows) => {
-				if (store.getState().app.queue.length <= 0 || !store.getState().app.shuffle) {
-					store.dispatch(populateQueue({
-						songs: rows.map((song) => song._row.data),
-						sort: Storage.get('tabulator-table-sort'),
-					}));
-				}
-
-				// Calling scrollToRow immediately doesn't seem to work.
-				// Maybe related to this: https://github.com/olifolkerd/tabulator/issues/917#issuecomment-368207644
-				setTimeout(() => {
-					const currentSongId = store.getState().app.currentSongId;
-					if (currentSongId) {
-						this.table.scrollToRow(currentSongId, 'top', false);
-					}
-				});
+			columnDefaults: {
+				resizable: 'header',
 			},
+			data,
 			initialSort: [
 				{
 					column: 'artist',
@@ -211,7 +203,6 @@ export default class MusicboxTable {
 			layout: 'fitDataFill',
 			movableColumns: true,
 			persistence: true,
-			resizableColumns: 'header',
 			rowContextMenu: [
 				{
 					label: 'Edit',
@@ -233,11 +224,37 @@ export default class MusicboxTable {
 					},
 				},
 			],
-			rowDblClick: (_e, row) => {
-				store.dispatch(chooseSong({ currentSongId: row._row.data.id }));
-			},
 			selectable: 1,
 		};
-		return new Tabulator('#table', options);
+
+		const table = new Tabulator('#table', options);
+
+		table.on('dataSorted', (_, rows) => {
+			if (store.getState().app.queue.length <= 0 || !store.getState().app.shuffle) {
+				store.dispatch(populateQueue({
+					songs: rows.map((song) => song._row.data),
+					sort: Storage.get('tabulator-table-sort'),
+				}));
+			}
+
+			// Calling scrollToRow immediately doesn't seem to work.
+			// Maybe related to this: https://github.com/olifolkerd/tabulator/issues/917#issuecomment-368207644
+			setTimeout(() => {
+				const currentSongId = store.getState().app.currentSongId;
+				if (currentSongId) {
+					this.table.scrollToRow(currentSongId, 'top', false);
+				}
+			});
+		});
+
+		table.on('rowDblClick', (_e, row) => {
+			store.dispatch(chooseSong({ currentSongId: row._row.data.id }));
+		});
+
+		table.on('tableBuilt', () => {
+			document.querySelector('.tabulator-tableholder').removeAttribute('tabindex');
+		});
+
+		return table;
 	}
 }

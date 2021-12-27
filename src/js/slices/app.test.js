@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 /* eslint-disable object-curly-newline */
 import reducer, {
 	initialState,

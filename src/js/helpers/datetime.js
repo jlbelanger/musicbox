@@ -1,14 +1,14 @@
-import moment from 'moment';
+import { DateTime } from 'luxon';
 
 export const getTimezone = () => Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-export const getDatetimeFormat = () => 'YYYY-MM-DD h:mm a z';
+export const getDatetimeFormat = () => 'yyyy-MM-dd h:mm a ZZZZ';
 
 export const prettyDatetime = (datetime) => {
 	if (!datetime) {
 		return '';
 	}
-	return moment(datetime).tz(getTimezone()).format(getDatetimeFormat());
+	return DateTime.fromISO(datetime.replace('+0', 'Z')).toFormat(getDatetimeFormat());
 };
 
 export const prettyTime = (milliseconds, otherMilliseconds = null) => {
