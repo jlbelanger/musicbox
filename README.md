@@ -40,7 +40,9 @@ I was sick of my keyboard's media keys not working in my old music player whenev
 - Spotify integration
 - Decent test coverage
 
-## last.fm scrobbling
+## Notes
+
+### last.fm scrobbling
 
 Musicbox currently only supports hard-coded last.fm authentication in the library JSON file; you will need to create a last.fm application and an authentication token manually.
 
@@ -67,40 +69,41 @@ Musicbox currently only supports hard-coded last.fm authentication in the librar
 
 ## Development
 
-Musicbox uses Electron, React, Redux, Tabulator, music-metadata, and a billion other packages in node_modules.
+### Requirements
 
-Dependencies:
+- [Git](https://git-scm.com/)
+- [Yarn](https://classic.yarnpkg.com/en/docs/install)
 
-- git
-- yarn
-
-Setup:
+### Setup
 
 ``` bash
+# Clone the repo
 git clone https://github.com/jlbelanger/musicbox.git
 cd musicbox
+
+# Install dependencies
 yarn install
 ```
 
-Run:
+### Run
 
 ``` bash
 yarn start
 ```
 
-Build:
+### Build
 
 ``` bash
 yarn dist
 ```
 
-Lint:
+### Lint
 
 ``` bash
 yarn lint
 ```
 
-Test:
+### Test
 
 ``` bash
 yarn test
