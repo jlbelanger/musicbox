@@ -72,22 +72,16 @@
 		"stylelint-scss": "^4.1.0",
 		"wait-on": "^6.0.0"
 	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	},
 	"build": {
 		"appId": "com.jennybelanger.musicbox",
 		"mac": {
 			"category": "public.app-category.music"
 		}
-	}
+	},
+	"browserslist": [
+		">0.2%",
+		"not dead",
+		"not ie <= 11",
+		"not op_mini all"
+	]
 }
