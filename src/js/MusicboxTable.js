@@ -188,18 +188,19 @@ export default class MusicboxTable {
 				},
 			},
 		];
+		const initialSort = Storage.get('tabulator-table-sort', [
+			{
+				column: 'artist',
+				dir: 'asc',
+			},
+		]);
 		const options = {
 			columns,
 			columnDefaults: {
 				resizable: 'header',
 			},
 			data,
-			initialSort: [
-				{
-					column: 'artist',
-					dir: 'asc',
-				},
-			],
+			initialSort,
 			layout: 'fitDataFill',
 			movableColumns: true,
 			persistence: true,
