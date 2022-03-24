@@ -13,7 +13,7 @@ export default function Next() {
 		const currentTime = parseFloat(document.getElementById('position-after').getAttribute('width'));
 		const duration = parseFloat(document.getElementById('position-before').getAttribute('width'));
 		const currentSongId = document.getElementById('now-playing').getAttribute('data-id');
-		const date = new Date().toISOString();
+		const date = new Date().toISOString().replace(/Z$/, '+0');
 		const data = {};
 		if (currentTime >= (duration * 0.75)) {
 			data.lastPlayed = date;
