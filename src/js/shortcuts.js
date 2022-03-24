@@ -20,7 +20,7 @@ function jumpToSong(e) {
 	lastKeyTime = now;
 
 	const sort = Storage.get('tabulator-table-sort');
-	let rows = window.musicboxTable.table.searchData(sort[0].column, 'starts', keySequence.join(''));
+	let rows = window.musicboxTable.table.searchData(sort[sort.length - 1].column, 'starts', keySequence.join(''));
 	rows = sortRows(rows, sort);
 	if (rows.length > 0) {
 		window.musicboxTable.table.scrollToRow(rows[0].id, 'top');
