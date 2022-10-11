@@ -9,6 +9,8 @@ import ReactDOM from 'react-dom';
 import registerShortcuts from './js/shortcuts';
 import store from './js/store';
 
+console.log('2022-10-11');
+
 if (window.api.hasJson()) {
 	window.songs = window.api.getSongs();
 	window.musicboxTable = new MusicboxTable(Object.values(window.songs));
