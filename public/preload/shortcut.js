@@ -2,7 +2,7 @@ const electron = require('electron');
 
 module.exports = () => {
 	electron.ipcRenderer.on('shortcut', (e, data) => {
-		switch (data) {
+		switch (data) { // eslint-disable-line default-case
 			case 'MediaPreviousTrack':
 				document.getElementById('previous').click();
 				break;

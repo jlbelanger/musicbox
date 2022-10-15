@@ -13,11 +13,11 @@ if (filePath && fs.existsSync(filePath)) {
 window.audio = new MusicboxAudio();
 
 electron.ipcRenderer.on('hasFocus', (_e, data) => {
-	audio.hasFocus = data;
+	window.audio.hasFocus = data;
 });
 
-electron.ipcRenderer.on('setFileLocation', (_e, filePath) => {
-	window.localStorage.setItem('filePath', filePath);
+electron.ipcRenderer.on('setFileLocation', (_e, newFilePath) => {
+	window.localStorage.setItem('filePath', newFilePath);
 	window.location.reload();
 });
 

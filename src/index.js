@@ -9,7 +9,7 @@ import ReactDOM from 'react-dom';
 import registerShortcuts from './js/shortcuts';
 import store from './js/store';
 
-console.log('2022-10-11');
+console.log('2022-10-15'); // eslint-disable-line no-console
 
 if (window.api.hasJson()) {
 	window.songs = window.api.getSongs();
