@@ -1,4 +1,4 @@
-const electron = require('electron');
+const electron = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 const fs = require('fs');
 const MusicboxAudio = require('./preload/audio');
 const registerShortcuts = require('./preload/shortcut');

@@ -8,7 +8,7 @@ const {
 	protocol,
 	shell,
 	systemPreferences,
-} = require('electron');
+} = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 const path = require('path');
 const fs = require('fs');
 const isDev = require('electron-is-dev');
