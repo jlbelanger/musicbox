@@ -57,7 +57,7 @@
 		"@testing-library/user-event": "^13.5.0",
 		"concurrently": "^6.5.1",
 		"cypress": "^12.2.0",
-		"electron": "^16.2.6",
+		"electron": "^18.3.7",
 		"electron-builder": "^23.0.2",
 		"eslint": "^8.5.0",
 		"eslint-config-airbnb": "^19.0.2",
