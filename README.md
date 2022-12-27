@@ -81,6 +81,9 @@ Musicbox currently only supports hard-coded last.fm authentication in the librar
 git clone https://github.com/jlbelanger/musicbox.git
 cd musicbox
 
+# Configure the environment settings
+cp .env.example .env
+
 # Install dependencies
 yarn install
 ```

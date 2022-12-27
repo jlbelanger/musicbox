@@ -1,11 +1,26 @@
 import '../../scss/components/Time.scss';
+import React, { useEffect } from 'react';
 import Range from './Range';
-import React from 'react';
 
 export default function Time() {
 	const onChange = (e) => {
-		window.api.setTime(parseFloat(e.target.value) / 1000);
+		window.audio.setTime(parseFloat(e.target.value) / 1000);
 	};
+
+	const onPositionKeyup = (e) => {
+		if (e.key === ' ' || e.key === 'Enter') {
+			document.getElementById('play-pause').click();
+		}
+	};
+
+	useEffect(() => {
+		const input = document.getElementById('position-input');
+		input.addEventListener('keyup', onPositionKeyup, true);
+
+		return () => {
+			input.removeEventListener('keyup', onPositionKeyup, true);
+		};
+	}, []);
 
 	return (
 		<div id="now-playing-time">

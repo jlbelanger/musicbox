@@ -60,15 +60,7 @@ function onKeyup(e) {
 	}
 }
 
-function onPositionKeyup(e) {
-	if (e.key === ' ' || e.key === 'Enter') {
-		document.getElementById('play-pause').click();
-	}
-}
-
 export default () => {
 	window.addEventListener('keyup', jumpToSong, true);
 	window.addEventListener('keyup', onKeyup, true);
-
-	document.getElementById('position-input').addEventListener('keyup', onPositionKeyup, true);
 };

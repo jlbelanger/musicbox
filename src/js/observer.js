@@ -20,7 +20,7 @@ export default () => {
 			window.musicboxTable.table.scrollToRow(currentSongId, 'top', false);
 		}
 
-		window.api.setSong(window.songs[currentSongId], isPlaying);
+		window.audio.setSong(window.songs[currentSongId], isPlaying);
 	}));
 
 	const watchShuffle = watch(store.getState, 'app.shuffle');
@@ -32,7 +32,7 @@ export default () => {
 	store.subscribe(watchIsPlaying((isPlaying) => {
 		const currentSongId = store.getState().app.currentSongId;
 		window.musicboxTable.table.updateData([{ id: currentSongId, state: isPlaying }]);
-		window.api.setIsPlaying(isPlaying);
+		window.audio.setIsPlaying(isPlaying);
 		if (isPlaying) {
 			window.api.preventSuspension();
 		} else {

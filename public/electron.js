@@ -12,6 +12,7 @@ const {
 const path = require('path');
 const fs = require('fs');
 const isDev = require('electron-is-dev');
+const mm = require('music-metadata');
 
 function createWindow() {
 	const mainWindow = new BrowserWindow({
@@ -73,6 +74,26 @@ app.whenReady().then(() => {
 		mainWindow.webContents.send('shortcut', 'MediaPlayPause');
 	});
 
+	ipcMain.handle('readFile', (_e, filePath) => {
+		if (filePath && fs.existsSync(filePath)) {
+			const json = fs.readFileSync(filePath, 'utf8');
+			return JSON.parse(json);
+		}
+		return '';
+	});
+
+	ipcMain.handle('parseFile', async (_e, filePath) => (
+		mm.parseFile(filePath)
+			.then((metadata) => {
+				const pictures = metadata.common.picture;
+				let src;
+				if (pictures && pictures.length > 0) {
+					src = `data:${pictures[0].format};base64,${pictures[0].data.toString('base64')}`;
+				}
+				return src;
+			})
+	));
+
 	ipcMain.on('saveFile', (_e, { fileContents }) => {
 		dialog.showSaveDialog(null, {
 			title: 'Choose a location to save the Musicbox library file',
@@ -97,6 +118,10 @@ app.whenReady().then(() => {
 
 	ipcMain.on('openFileLocation', (_e, filePath) => {
 		shell.showItemInFolder(filePath);
+	});
+
+	ipcMain.on('writeFile', (_e, filePath, json) => {
+		fs.writeFileSync(filePath, JSON.stringify(json, null, '\t'));
 	});
 
 	// Allow accessing local files on the dev server.

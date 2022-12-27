@@ -8,8 +8,8 @@ export default function Previous() {
 	const dispatch = useDispatch();
 	const currentQueueIndex = useSelector(selectCurrentQueueIndex);
 	const onClick = () => {
-		if (window.api.getTime() >= 5) {
-			window.api.setTime(0);
+		if (window.audio.getTime() >= 5) {
+			window.audio.setTime(0);
 		} else {
 			dispatch(previousSong({
 				songs: window.musicboxTable.table.rowManager.activeRows.map((song) => song.data),

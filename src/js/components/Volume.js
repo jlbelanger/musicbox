@@ -11,7 +11,7 @@ export default function Volume() {
 	const [showVolume, setShowVolume] = useState(false);
 	const onChange = (e) => {
 		const newVolume = parseFloat(e.target.value);
-		window.api.setVolume(newVolume);
+		window.audio.setVolume(newVolume);
 		setVolume(newVolume);
 		Storage.set('volume', newVolume);
 	};

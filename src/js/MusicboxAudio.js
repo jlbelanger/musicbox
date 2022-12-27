@@ -1,10 +1,7 @@
-const mm = require('music-metadata');
-
-module.exports = class MusicboxAudio {
+export default class MusicboxAudio {
 	constructor() {
 		this.albumArtCache = {};
 		this.audio = this.initialize();
-		this.hasFocus = true;
 		this.song = null;
 	}
 
@@ -20,6 +17,18 @@ module.exports = class MusicboxAudio {
 		audio.addEventListener('ended', MusicboxAudio.onEnded);
 
 		return audio;
+	}
+
+	getTime() {
+		return this.audio.currentTime;
+	}
+
+	setIsPlaying(isPlaying) {
+		if (isPlaying) {
+			this.play();
+		} else {
+			this.pause();
+		}
 	}
 
 	setVolume(volume) {
@@ -94,8 +103,7 @@ module.exports = class MusicboxAudio {
 			return;
 		}
 
-		const filePath = song.path;
-		const newSrc = `localfile://${filePath}`;
+		const newSrc = `localfile://${song.path}`;
 		if (this.audio.src !== newSrc) {
 			this.audio.src = newSrc;
 			this.audio.currentTime = song.startTime / 1000;
@@ -126,26 +134,20 @@ module.exports = class MusicboxAudio {
 		document.getElementById('now-playing-title').innerText = song.title;
 		document.getElementById('now-playing-artist').innerText = song.artist;
 
-		if (Object.prototype.hasOwnProperty.call(this.albumArtCache, filePath)) {
-			const src = this.albumArtCache[filePath];
+		if (Object.prototype.hasOwnProperty.call(this.albumArtCache, song.path)) {
+			const src = this.albumArtCache[song.path];
 			this.displayAlbumArt(src);
 			this.showNotification(song, src);
 		} else {
-			mm.parseFile(filePath)
-				.then((metadata) => {
+			window.api.parseFile(song.path, newSrc)
+				.then((src) => {
 					if (this.audio.src !== newSrc) {
 						// A different song has started playing while the metadata was being parsed.
 						return;
 					}
 
-					const pictures = metadata.common.picture;
-					let src;
-					if (pictures && pictures.length > 0) {
-						src = `data:${pictures[0].format};base64,${pictures[0].data.toString('base64')}`;
-					}
 					this.displayAlbumArt(src);
-					this.albumArtCache[filePath] = src;
-
+					this.albumArtCache[song.path] = src;
 					this.showNotification(song, src);
 				});
 		}
@@ -162,7 +164,7 @@ module.exports = class MusicboxAudio {
 	}
 
 	showNotification(song, src) {
-		if (!this.hasFocus) {
+		if (!window.api.hasFocus()) {
 			new Notification(song.title, { // eslint-disable-line no-new
 				body: song.artist,
 				icon: src,
@@ -189,6 +191,6 @@ module.exports = class MusicboxAudio {
 			// xx:xx:xx
 			start = 11;
 		}
-		return date.toISOString().substr(start).replace(/\.\d+Z$/, '');
+		return date.toISOString().substring(start).replace(/\.\d+Z$/, '');
 	}
-};
+}

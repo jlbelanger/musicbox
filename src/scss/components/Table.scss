@@ -85,6 +85,10 @@ $editBoxColor: $primary;
 	}
 }
 
+.tabulator .tabulator-header {
+	border: 0;
+}
+
 .tabulator .tabulator-header .tabulator-col .tabulator-col-content {
 	padding: 16px $cell-padding;
 }

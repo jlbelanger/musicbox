@@ -1,4 +1,4 @@
-import MusicboxAudio from './audio';
+import MusicboxAudio from './MusicboxAudio';
 
 describe('prettyTime', () => {
 	describe('with no minimum length', () => {

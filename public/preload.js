@@ -1,19 +1,10 @@
 const electron = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
-const fs = require('fs');
-const MusicboxAudio = require('./preload/audio');
-const registerShortcuts = require('./preload/shortcut');
 
 const filePath = window.localStorage.getItem('filePath');
-let json;
-let parsedJson;
-if (filePath && fs.existsSync(filePath)) {
-	json = fs.readFileSync(filePath, 'utf8');
-	parsedJson = JSON.parse(json);
-}
-window.audio = new MusicboxAudio();
+const parsedJson = electron.ipcRenderer.invoke('readFile', filePath);
 
 electron.ipcRenderer.on('hasFocus', (_e, data) => {
-	window.audio.hasFocus = data;
+	window.hasFocus = data;
 });
 
 electron.ipcRenderer.on('setFileLocation', (_e, newFilePath) => {
@@ -23,55 +14,55 @@ electron.ipcRenderer.on('setFileLocation', (_e, newFilePath) => {
 
 electron.contextBridge.exposeInMainWorld('api', {
 	addJsonPlay: (id, date) => {
-		parsedJson.plays[date] = id;
-		fs.writeFileSync(filePath, JSON.stringify(parsedJson, null, '\t'));
+		parsedJson.then((json) => {
+			json.plays[date] = id;
+			electron.ipcRenderer.send('writeFile', filePath, json);
+		});
 	},
 	addJsonSkip: (id, date) => {
-		parsedJson.skips[date] = id;
-		fs.writeFileSync(filePath, JSON.stringify(parsedJson, null, '\t'));
+		parsedJson.then((json) => {
+			json.skips[date] = id;
+			electron.ipcRenderer.send('writeFile', filePath, json);
+		});
 	},
 	allowSuspension: () => {
 		electron.ipcRenderer.send('allowSuspension');
 	},
-	getLastFm: () => (parsedJson.lastfm),
-	getSongs: () => (parsedJson.songs),
-	getTime: () => (window.audio.audio.currentTime),
-	hasJson: () => (!!json),
+	getData: async () => (parsedJson),
+	hasFocus: () => (window.hasFocus === undefined ? true : window.hasFocus),
+	hasJson: async () => (!!parsedJson),
 	openFileLocation: (path) => {
 		electron.ipcRenderer.send('openFileLocation', path);
 	},
 	preventSuspension: () => {
 		electron.ipcRenderer.send('preventSuspension');
 	},
+	parseFile: (path) => (electron.ipcRenderer.invoke('parseFile', path)),
 	saveFile: (fileContents) => {
 		electron.ipcRenderer.send('saveFile', { fileContents });
 	},
-	setPath: (path) => {
-		window.localStorage.setItem('filePath', path);
-		window.location.reload();
-	},
-	setSong: (song, isPlaying) => {
-		window.audio.setSong(song, isPlaying);
-	},
-	setTime: (time) => {
-		window.audio.setTime(time);
-	},
-	setVolume: (volume) => {
-		window.audio.setVolume(volume);
-	},
-	setIsPlaying: (isPlaying) => {
-		if (isPlaying) {
-			window.audio.play();
-		} else {
-			window.audio.pause();
-		}
-	},
 	updateJsonSong: (id, data) => {
-		Object.keys(data).forEach((key) => {
-			parsedJson.songs[id][key] = data[key];
+		parsedJson.then((json) => {
+			Object.keys(data).forEach((key) => {
+				json.songs[id][key] = data[key];
+			});
+			electron.ipcRenderer.send('writeFile', filePath, json);
 		});
-		fs.writeFileSync(filePath, JSON.stringify(parsedJson, null, '\t'));
 	},
 });
 
-registerShortcuts();
+electron.ipcRenderer.on('shortcut', (e, data) => {
+	switch (data) { // eslint-disable-line default-case
+		case 'MediaPreviousTrack':
+			document.getElementById('previous').click();
+			break;
+
+		case 'MediaPlayPause':
+			document.getElementById('play-pause').click();
+			break;
+
+		case 'MediaNextTrack':
+			document.getElementById('next').click();
+			break;
+	}
+});
