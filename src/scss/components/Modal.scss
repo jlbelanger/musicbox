@@ -1,0 +1,23 @@
+@import '../utilities/variables';
+
+.modal {
+	background: transparent;
+	border: 0;
+	color: $white;
+	font-size: $font-size;
+	padding: 0;
+
+	&:focus {
+		box-shadow: none;
+	}
+}
+
+.modal::backdrop {
+	background: rgba($black, .75);
+}
+
+.modal__box {
+	max-width: 100%;
+	padding: $focus-width;
+	width: 800px;
+}

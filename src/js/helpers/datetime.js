@@ -29,5 +29,5 @@ export const prettyTime = (milliseconds, otherMilliseconds = null) => {
 		// xx:xx:xx
 		start = 11;
 	}
-	return date.toISOString().substr(start).replace(/\.\d+Z$/, '');
+	return date.toISOString().substring(start).replace(/\.\d+Z$/, '');
 };

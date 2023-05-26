@@ -79,7 +79,7 @@ button {
 }
 
 :focus {
-	box-shadow: 0 0 0 4px $focus-color;
+	box-shadow: 0 0 0 $focus-width $focus-color;
 	outline: none !important; // stylelint-disable declaration-no-important
 }
 
@@ -87,23 +87,9 @@ section {
 	font-size: $font-size;
 }
 
-.modal-bg {
-	align-items: center;
-	background: rgba($black, .75);
-	bottom: 0;
-	display: flex;
-	justify-content: center;
-	left: 0;
-	position: fixed;
-	right: 0;
-	top: 0;
-	z-index: 3;
-}
-
-.modal {
-	max-width: 400px;
-	position: relative;
-	width: 90vw;
+#import-modal {
+	max-width: 100%;
+	width: 400px;
 }
 
 .modal__header {

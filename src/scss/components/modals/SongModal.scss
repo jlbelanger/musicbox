@@ -1,15 +1,11 @@
 @import '../../utilities/variables';
 
-#song-modal {
-	max-width: 800px;
-}
-
 #close {
 	margin: 0;
 	padding: 16px;
 	position: absolute;
-	right: 0;
-	top: 0;
+	right: $focus-width;
+	top: $focus-width;
 	z-index: 1;
 }
 
