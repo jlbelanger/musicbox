@@ -2,6 +2,7 @@ $primary: #3fc;
 
 $focus-color: #0cf;
 $focus-width: 4px;
+$focus: 0 0 0 $focus-width $focus-color;
 
 $primary-dark: scale-color($primary, $lightness: -25%);
 
