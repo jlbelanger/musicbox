@@ -208,20 +208,20 @@ export default class MusicboxTable {
 				{
 					label: 'Edit',
 					action: (_e, row) => {
-						this.table.selectRow(row._row.data.id);
-						store.dispatch(editSong({ id: row._row.data.id }));
+						this.table.selectRow(row._row.data.id); // eslint-disable-line  no-underscore-dangle
+						store.dispatch(editSong({ id: row._row.data.id })); // eslint-disable-line  no-underscore-dangle
 					},
 				},
 				{
 					label: 'Play next',
 					action: (_e, row) => {
-						store.dispatch(playNext({ id: row._row.data.id }));
+						store.dispatch(playNext({ id: row._row.data.id })); // eslint-disable-line  no-underscore-dangle
 					},
 				},
 				{
 					label: 'Open file location',
 					action: (_e, row) => {
-						window.api.openFileLocation(row._row.data.path);
+						window.api.openFileLocation(row._row.data.path); // eslint-disable-line  no-underscore-dangle
 					},
 				},
 			],
@@ -233,7 +233,7 @@ export default class MusicboxTable {
 		table.on('dataSorted', (_, rows) => {
 			if (store.getState().app.queue.length <= 0 || !store.getState().app.shuffle) {
 				store.dispatch(populateQueue({
-					songs: rows.map((song) => song._row.data),
+					songs: rows.map((song) => song._row.data), // eslint-disable-line  no-underscore-dangle
 					sort: Storage.get('tabulator-table-sort'),
 				}));
 			}
@@ -249,7 +249,7 @@ export default class MusicboxTable {
 		});
 
 		table.on('rowDblClick', (_e, row) => {
-			store.dispatch(chooseSong({ currentSongId: row._row.data.id }));
+			store.dispatch(chooseSong({ currentSongId: row._row.data.id })); // eslint-disable-line  no-underscore-dangle
 		});
 
 		table.on('tableBuilt', () => {

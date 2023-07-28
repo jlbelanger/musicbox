@@ -51,10 +51,10 @@ function onKeyup(e) {
 	} else if (e.key === 'Enter') {
 		const rows = window.musicboxTable.table.getSelectedRows();
 		if (rows.length > 0) {
-			if (rows[0]._row.data.state) {
+			if (rows[0]._row.data.state) { // eslint-disable-line  no-underscore-dangle
 				document.getElementById('play-pause').click();
 			} else {
-				store.dispatch(chooseSong({ currentSongId: rows[0]._row.data.id }));
+				store.dispatch(chooseSong({ currentSongId: rows[0]._row.data.id })); // eslint-disable-line  no-underscore-dangle
 			}
 		}
 	}

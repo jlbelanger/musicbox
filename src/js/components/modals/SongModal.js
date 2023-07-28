@@ -35,7 +35,7 @@ export default function SongModal() {
 		const elem = document.querySelector('.tabulator-selected').nextSibling;
 		window.musicboxTable.table.deselectRow();
 		window.musicboxTable.table.selectRow(elem);
-		const newId = window.musicboxTable.table.getSelectedRows()[0]._row.data.id;
+		const newId = window.musicboxTable.table.getSelectedRows()[0]._row.data.id; // eslint-disable-line  no-underscore-dangle
 		setSong(window.songs[newId]);
 		dispatch(editSong({ id: newId }));
 	};
@@ -43,7 +43,7 @@ export default function SongModal() {
 		const elem = document.querySelector('.tabulator-selected').previousSibling;
 		window.musicboxTable.table.deselectRow();
 		window.musicboxTable.table.selectRow(elem);
-		const newId = window.musicboxTable.table.getSelectedRows()[0]._row.data.id;
+		const newId = window.musicboxTable.table.getSelectedRows()[0]._row.data.id; // eslint-disable-line  no-underscore-dangle
 		setSong(window.songs[newId]);
 		dispatch(editSong({ id: newId }));
 	};
