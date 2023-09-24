@@ -15,7 +15,7 @@
 		"url": "https://github.com/jlbelanger/musicbox.git"
 	},
 	"scripts": {
-		"start": "npx browserslist@latest --update-db && concurrently \"yarn start:react\" \"wait-on http://127.0.0.1:3000 -l && yarn start:electron\"",
+		"start": "npx update-browserslist-db@latest && concurrently \"yarn start:react\" \"wait-on http://127.0.0.1:3000 -l && yarn start:electron\"",
 		"start:electron": "node_modules/.bin/electron .",
 		"start:react": "react-scripts start",
 		"build": "react-scripts build",
