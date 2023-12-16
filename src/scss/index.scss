@@ -108,13 +108,10 @@ section {
 	animation-iteration-count: infinite;
 	animation-name: spin;
 	animation-timing-function: linear;
-	bottom: 0;
 	display: flex;
+	inset: 0;
 	justify-content: center;
-	left: 0;
 	position: fixed;
-	right: 0;
-	top: 0;
 	z-index: 4;
 
 	path {
