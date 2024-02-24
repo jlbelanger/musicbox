@@ -28,6 +28,11 @@ export default () => {
 		Storage.set('shuffle', newVal);
 	}));
 
+	const watchSearch = watch(store.getState, 'app.search');
+	store.subscribe(watchSearch((newVal) => {
+		Storage.set('search', newVal);
+	}));
+
 	const watchIsPlaying = watch(store.getState, 'app.isPlaying');
 	store.subscribe(watchIsPlaying((isPlaying) => {
 		const currentSongId = store.getState().app.currentSongId;

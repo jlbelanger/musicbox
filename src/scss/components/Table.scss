@@ -170,3 +170,14 @@ polygon {
 		right: 50%;
 	}
 }
+
+.hide-search {
+	.tabulator-header-filter {
+		display: none;
+	}
+}
+
+.tabulator-headers,
+.tabulator .tabulator-header .tabulator-col {
+	height: auto !important;
+}

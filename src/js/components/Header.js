@@ -5,6 +5,7 @@ import PlayPause from './buttons/PlayPause';
 import Previous from './buttons/Previous';
 import Queue from './buttons/Queue';
 import React from 'react';
+import Search from './buttons/Search';
 import Shuffle from './buttons/Shuffle';
 import Time from './Time';
 import Volume from './Volume';
@@ -28,6 +29,7 @@ export default function Header() {
 				</div>
 			</section>
 			<section id="secondary-controls">
+				<Search />
 				<Shuffle />
 				<Queue />
 				<Volume />

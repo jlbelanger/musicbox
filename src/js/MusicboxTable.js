@@ -80,6 +80,7 @@ export default class MusicboxTable {
 				field: 'title',
 				title: 'Title',
 				headerContextMenu,
+				headerFilter: true,
 				sorter: 'string',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
@@ -89,6 +90,7 @@ export default class MusicboxTable {
 				field: 'artist',
 				title: 'Artist',
 				headerContextMenu,
+				headerFilter: true,
 				sorter: 'string',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
@@ -98,6 +100,7 @@ export default class MusicboxTable {
 				field: 'album',
 				title: 'Album',
 				headerContextMenu,
+				headerFilter: true,
 				sorter: 'string',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
@@ -107,6 +110,7 @@ export default class MusicboxTable {
 				field: 'track',
 				title: 'Track',
 				headerContextMenu,
+				headerFilter: true,
 				sorter: 'number',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
@@ -116,12 +120,14 @@ export default class MusicboxTable {
 				field: 'year',
 				title: 'Year',
 				headerContextMenu,
+				headerFilter: true,
 				sorter: 'number',
 			},
 			{
 				field: 'genre',
 				title: 'Genre',
 				headerContextMenu,
+				headerFilter: true,
 				sorter: 'string',
 				sorterParams: {
 					alignEmptyValues: 'bottom',
@@ -143,6 +149,7 @@ export default class MusicboxTable {
 				field: 'numPlays',
 				title: 'Plays',
 				headerContextMenu,
+				headerFilter: true,
 				sorter: 'number',
 			},
 			{
@@ -162,6 +169,7 @@ export default class MusicboxTable {
 				field: 'numSkips',
 				title: 'Skips',
 				headerContextMenu,
+				headerFilter: true,
 				sorter: 'number',
 			},
 			{

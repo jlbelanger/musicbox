@@ -12,6 +12,7 @@ export const initialState = {
 	editSongId: null,
 	isPlaying: false,
 	queue: [],
+	search: Storage.get('search', false),
 	shuffle: Storage.get('shuffle', false),
 };
 
@@ -179,6 +180,10 @@ export const appSlice = createSlice({
 				isPlaying: true,
 			};
 		},
+		toggleSearch: (state) => ({
+			...state,
+			search: !state.search,
+		}),
 		toggleShuffle: (state, action) => {
 			const {
 				seed,
@@ -229,6 +234,7 @@ export const {
 	previousSong,
 	removeFromQueue,
 	togglePlayback,
+	toggleSearch,
 	toggleShuffle,
 } = appSlice.actions;
 
@@ -241,6 +247,7 @@ export const selectUpcomingSongs = (state) => {
 	const q = state.app.queue.slice(index, index + 15);
 	return q.map((id) => window.songs[id]);
 };
+export const selectSearch = (state) => state.app.search;
 export const selectShuffle = (state) => state.app.shuffle;
 
 export default appSlice.reducer;
