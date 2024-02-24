@@ -10,7 +10,7 @@ import ReactDOM from 'react-dom/client';
 import registerShortcuts from './js/shortcuts';
 import store from './js/store';
 
-console.log('2023-12-16'); // eslint-disable-line no-console
+console.log('2024-02-23'); // eslint-disable-line no-console
 
 function initApp(data) {
 	let hasJson = false;
