@@ -37,6 +37,7 @@ electron.contextBridge.exposeInMainWorld('api', {
 	preventSuspension: () => {
 		electron.ipcRenderer.send('preventSuspension');
 	},
+	fileExists: (path) => (electron.ipcRenderer.invoke('fileExists', path)),
 	parseFile: (path) => (electron.ipcRenderer.invoke('parseFile', path)),
 	saveFile: (fileContents) => {
 		electron.ipcRenderer.send('saveFile', { fileContents });

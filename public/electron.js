@@ -74,6 +74,8 @@ app.whenReady().then(() => {
 		mainWindow.webContents.send('shortcut', 'MediaPlayPause');
 	});
 
+	ipcMain.handle('fileExists', (_e, filePath) => fs.existsSync(filePath));
+
 	ipcMain.handle('readFile', (_e, filePath) => {
 		if (filePath && fs.existsSync(filePath)) {
 			const json = fs.readFileSync(filePath, 'utf8');

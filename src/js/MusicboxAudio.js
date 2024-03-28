@@ -103,54 +103,65 @@ export default class MusicboxAudio {
 			return;
 		}
 
-		const newSrc = `localfile://${song.path}`;
-		if (this.audio.src !== newSrc) {
-			this.audio.src = newSrc;
-			this.audio.currentTime = song.startTime / 1000;
-			if (isPlaying) {
-				this.audio.play();
-			}
-		}
-
-		document.getElementById('now-playing-info').style.display = '';
-
-		const duration = MusicboxAudio.calculateDuration(song.duration, song.startTime, song.endTime);
-		document.getElementById('now-playing').setAttribute('data-id', song.id);
-		document.getElementById('now-playing-time-total').innerText = MusicboxAudio.prettyTime(duration);
-		document.getElementById('now-playing-time-current').innerText = MusicboxAudio.prettyTime(0, duration);
-
-		const input = document.getElementById('position-input');
-		input.setAttribute('value', 0);
-		input.setAttribute('max', duration);
-		document.getElementById('position-svg').setAttribute('viewBox', `0 0 ${duration} 1`);
-		document.getElementById('position-before').setAttribute('width', duration);
-
-		const img = document.getElementById('now-playing-img');
-		img.setAttribute('src', '');
-		img.style.visibility = 'hidden';
-		img.setAttribute('alt', song.album ? song.album : '');
-		img.setAttribute('title', song.album ? song.album : '');
-
-		document.getElementById('now-playing-title').innerText = song.title;
-		document.getElementById('now-playing-artist').innerText = song.artist;
-
-		if (Object.prototype.hasOwnProperty.call(this.albumArtCache, song.path)) {
-			const src = this.albumArtCache[song.path];
-			this.displayAlbumArt(src);
-			this.showNotification(song, src);
-		} else {
-			window.api.parseFile(song.path, newSrc)
-				.then((src) => {
-					if (this.audio.src !== newSrc) {
-						// A different song has started playing while the metadata was being parsed.
-						return;
+		window.api.fileExists(song.path)
+			.then((fileExists) => {
+				if (!fileExists) {
+					if (!isPlaying) {
+						this.audio.play();
 					}
+					document.getElementById('next').click();
+					return;
+				}
 
+				const newSrc = `localfile://${song.path}`;
+				if (this.audio.src !== newSrc) {
+					this.audio.src = newSrc;
+					this.audio.currentTime = song.startTime / 1000;
+					if (isPlaying) {
+						this.audio.play();
+					}
+				}
+
+				document.getElementById('now-playing-info').style.display = '';
+
+				const duration = MusicboxAudio.calculateDuration(song.duration, song.startTime, song.endTime);
+				document.getElementById('now-playing').setAttribute('data-id', song.id);
+				document.getElementById('now-playing-time-total').innerText = MusicboxAudio.prettyTime(duration);
+				document.getElementById('now-playing-time-current').innerText = MusicboxAudio.prettyTime(0, duration);
+
+				const input = document.getElementById('position-input');
+				input.setAttribute('value', 0);
+				input.setAttribute('max', duration);
+				document.getElementById('position-svg').setAttribute('viewBox', `0 0 ${duration} 1`);
+				document.getElementById('position-before').setAttribute('width', duration);
+
+				const img = document.getElementById('now-playing-img');
+				img.setAttribute('src', '');
+				img.style.visibility = 'hidden';
+				img.setAttribute('alt', song.album ? song.album : '');
+				img.setAttribute('title', song.album ? song.album : '');
+
+				document.getElementById('now-playing-title').innerText = song.title;
+				document.getElementById('now-playing-artist').innerText = song.artist;
+
+				if (Object.prototype.hasOwnProperty.call(this.albumArtCache, song.path)) {
+					const src = this.albumArtCache[song.path];
 					this.displayAlbumArt(src);
-					this.albumArtCache[song.path] = src;
 					this.showNotification(song, src);
-				});
-		}
+				} else {
+					window.api.parseFile(song.path, newSrc)
+						.then((src) => {
+							if (this.audio.src !== newSrc) {
+								// A different song has started playing while the metadata was being parsed.
+								return;
+							}
+
+							this.displayAlbumArt(src);
+							this.albumArtCache[song.path] = src;
+							this.showNotification(song, src);
+						});
+				}
+			});
 	}
 
 	displayAlbumArt(src) {
