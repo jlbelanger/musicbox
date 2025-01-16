@@ -79,6 +79,7 @@ export default class MusicboxAudio {
 	}
 
 	setSong(song, isPlaying) {
+		console.log(song);
 		this.song = song;
 		if (!song) {
 			document.getElementById('now-playing-info').style.display = 'none';
@@ -109,7 +110,7 @@ export default class MusicboxAudio {
 					if (!isPlaying) {
 						this.audio.play();
 					}
-					document.getElementById('next').click();
+					// document.getElementById('next').click();
 					return;
 				}
 

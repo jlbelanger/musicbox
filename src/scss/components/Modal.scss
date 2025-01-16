@@ -1,10 +1,10 @@
-@import '../utilities/variables';
+@use '../utilities/variables';
 
 .modal {
 	background: transparent;
 	border: 0;
-	color: $white;
-	font-size: $font-size;
+	color: variables.$white;
+	font-size: variables.$font-size;
 	padding: 0;
 
 	&:focus {
@@ -13,11 +13,11 @@
 }
 
 .modal::backdrop {
-	background: rgba($black, .75);
+	background: rgba(variables.$black, .75);
 }
 
 .modal__box {
 	max-width: 100%;
-	padding: $focus-width;
+	padding: variables.$focus-width;
 	width: 800px;
 }

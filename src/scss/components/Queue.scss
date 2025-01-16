@@ -1,19 +1,19 @@
-@import '../utilities/variables';
+@use '../utilities/variables';
 
 #queue {
-	background: $off-black;
-	border-color: $darkest-gray transparent transparent $darkest-gray;
+	background: variables.$off-black;
+	border-color: variables.$darkest-gray transparent transparent variables.$darkest-gray;
 	border-style: solid;
 	border-width: 1px;
 	bottom: 0;
-	box-shadow: -2px 0 8px $shadow;
-	color: $lightest-gray;
+	box-shadow: -2px 0 8px variables.$shadow;
+	color: variables.$lightest-gray;
 	max-width: 300px;
 	overflow: auto;
 	padding: 0;
 	position: fixed;
 	right: -300px;
-	top: $header-height;
+	top: variables.$header-height;
 	transition: right 200ms ease-in-out;
 	width: 100%;
 	z-index: 1;
@@ -24,22 +24,22 @@
 }
 
 #queue-title {
-	color: $off-white;
-	font-size: $font-size;
+	color: variables.$off-white;
+	font-size: variables.$font-size;
 	font-weight: bold;
 	margin: 0;
-	padding: $cell-padding 16px;
+	padding: variables.$cell-padding 16px;
 }
 
 #queue-list {
-	border-bottom: 1px solid $darkest-gray;
+	border-bottom: 1px solid variables.$darkest-gray;
 	list-style: none;
 	margin: 0;
 	padding: 0;
 
 	li {
-		border-top: 1px solid $darkest-gray;
-		padding: $cell-padding 16px;
+		border-top: 1px solid variables.$darkest-gray;
+		padding: variables.$cell-padding 16px;
 	}
 }
 

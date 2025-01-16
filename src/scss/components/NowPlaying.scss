@@ -1,4 +1,4 @@
-@import '../utilities/variables';
+@use '../utilities/variables';
 
 #now-playing {
 	align-items: center;
@@ -8,7 +8,7 @@
 }
 
 #now-playing-placeholder {
-	background-color: $dark-gray;
+	background-color: variables.$dark-gray;
 	background-image: url('../../svg/music.svg');
 	background-position: center;
 	background-repeat: no-repeat;

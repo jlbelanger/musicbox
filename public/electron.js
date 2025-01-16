@@ -11,8 +11,7 @@ const {
 } = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 const path = require('path');
 const fs = require('fs');
-const isDev = require('electron-is-dev');
-const mm = require('music-metadata');
+const { loadMusicMetadata } = require('music-metadata');
 
 function createWindow() {
 	const mainWindow = new BrowserWindow({
@@ -29,12 +28,12 @@ function createWindow() {
 	});
 	mainWindow.maximize();
 	mainWindow.loadURL(
-		isDev
-			? 'http://localhost:3000'
-			: `file://${path.join(__dirname, 'index.html')}`
+		app.isPackaged
+			? `file://${path.join(__dirname, 'index.html')}`
+			: 'http://localhost:3000'
 	);
 
-	if (isDev) {
+	if (!app.isPackaged) {
 		mainWindow.webContents.openDevTools();
 	}
 
@@ -84,8 +83,9 @@ app.whenReady().then(() => {
 		return '';
 	});
 
-	ipcMain.handle('parseFile', async (_e, filePath) => (
-		mm.parseFile(filePath)
+	ipcMain.handle('parseFile', async (_e, filePath) => {
+		const mm = await loadMusicMetadata();
+		return mm.parseFile(filePath)
 			.then((metadata) => {
 				const pictures = metadata.common.picture;
 				let src;
@@ -94,7 +94,7 @@ app.whenReady().then(() => {
 				}
 				return src;
 			})
-	));
+	});
 
 	ipcMain.on('saveFile', (_e, { fileContents }) => {
 		dialog.showSaveDialog(null, {

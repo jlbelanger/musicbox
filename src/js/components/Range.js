@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function Range({
-	direction,
+	direction = 'horizontal',
 	id,
-	max,
+	max = 0,
 	onChange,
-	step,
+	step = 1,
 	value,
 }) {
 	const horizontal = direction === 'horizontal';
@@ -35,10 +35,4 @@ Range.propTypes = {
 	onChange: PropTypes.func.isRequired,
 	step: PropTypes.number,
 	value: PropTypes.number.isRequired,
-};
-
-Range.defaultProps = {
-	direction: 'horizontal',
-	max: 0,
-	step: 1,
 };

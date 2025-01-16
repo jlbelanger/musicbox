@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { ReactComponent as XIcon } from '../../svg/x.svg';
 
-export default function QueueList({ className }) {
+export default function QueueList({ className = '' }) {
 	const dispatch = useDispatch();
 	const songs = useSelector(selectUpcomingSongs);
 	const onRemove = (e, id) => {
@@ -54,8 +54,4 @@ export default function QueueList({ className }) {
 
 QueueList.propTypes = {
 	className: PropTypes.string,
-};
-
-QueueList.defaultProps = {
-	className: '',
 };

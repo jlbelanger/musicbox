@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { ReactComponent as StarIcon } from '../../../svg/star.svg';
 
-export default function Rating({ onChange, value }) {
+export default function Rating({ onChange, value = 0 }) {
 	const onClick = (e) => {
 		if (e.target.value === value.toString()) {
 			onChange('rating', 0);
@@ -47,8 +47,4 @@ export default function Rating({ onChange, value }) {
 Rating.propTypes = {
 	onChange: PropTypes.func.isRequired,
 	value: PropTypes.any,
-};
-
-Rating.defaultProps = {
-	value: 0,
 };

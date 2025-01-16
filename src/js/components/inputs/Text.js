@@ -4,8 +4,8 @@ import React from 'react';
 export default function Text({
 	onChange,
 	name,
-	type,
-	value,
+	type = 'text',
+	value = '',
 	...otherProps
 }) {
 	return (
@@ -18,9 +18,4 @@ Text.propTypes = {
 	name: PropTypes.string.isRequired,
 	type: PropTypes.string,
 	value: PropTypes.any,
-};
-
-Text.defaultProps = {
-	type: 'text',
-	value: '',
 };

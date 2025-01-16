@@ -1,11 +1,11 @@
-@import '../utilities/variables';
+@use '../utilities/variables';
 
 .range {
 	flex: 1 1 auto;
 	position: relative;
 
 	&:focus-within {
-		box-shadow: 0 0 0 4px $focus-color;
+		box-shadow: 0 0 0 4px variables.$focus-color;
 	}
 }
 
@@ -47,9 +47,9 @@
 }
 
 .range-slider-before {
-	fill: $dark-gray;
+	fill: variables.$dark-gray;
 }
 
 .range-slider-after {
-	fill: $primary;
+	fill: variables.$primary;
 }

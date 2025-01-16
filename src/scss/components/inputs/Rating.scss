@@ -1,4 +1,4 @@
-@import '../../utilities/variables';
+@use '../../utilities/variables';
 
 $rating-size: 20px;
 
@@ -19,12 +19,12 @@ $rating-size: 20px;
 	top: 0;
 
 	path {
-		fill: $medium-gray;
+		fill: variables.$medium-gray;
 	}
 
 	.active & {
 		path {
-			fill: $primary;
+			fill: variables.$primary;
 		}
 	}
 }

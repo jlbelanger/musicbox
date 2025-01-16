@@ -4,12 +4,12 @@ import React from 'react';
 import Text from './Text';
 
 export default function Field({
-	children,
+	children = null,
 	onChange,
 	label,
 	name,
-	type,
-	value,
+	type = 'text',
+	value = '',
 	...otherProps
 }) {
 	const onInputChange = (e) => {
@@ -46,10 +46,4 @@ Field.propTypes = {
 	name: PropTypes.string.isRequired,
 	type: PropTypes.string,
 	value: PropTypes.any,
-};
-
-Field.defaultProps = {
-	children: null,
-	type: 'text',
-	value: '',
 };

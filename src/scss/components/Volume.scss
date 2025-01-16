@@ -1,4 +1,4 @@
-@import '../utilities/variables';
+@use '../utilities/variables';
 
 $volume-height: 200px;
 $volume-padding: 16px;
@@ -10,7 +10,7 @@ $volume-button-size: 48px;
 
 	&:focus-within {
 		#volume-range {
-			box-shadow: 0 0 0 4px $focus-color;
+			box-shadow: 0 0 0 4px variables.$focus-color;
 		}
 	}
 
@@ -39,17 +39,17 @@ $volume-button-size: 48px;
 }
 
 #volume-range {
-	background: $gray;
+	background: variables.$gray;
 	border-radius: 32px;
-	box-shadow: 2px 2px 8px 0 $shadow;
+	box-shadow: 2px 2px 8px 0 variables.$shadow;
 	height: $volume-height;
-	left: $button-margin;
+	left: variables.$button-margin;
 	opacity: 0;
 	padding: 8px;
 	pointer-events: none;
 	position: absolute;
-	right: $button-margin;
-	top: $button-margin;
+	right: variables.$button-margin;
+	top: variables.$button-margin;
 	width: $volume-button-size;
 	z-index: 1;
 

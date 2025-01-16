@@ -233,7 +233,7 @@ export default class MusicboxTable {
 					},
 				},
 			],
-			selectable: 1,
+			selectableRows: 1,
 		};
 
 		const table = new Tabulator('#table', options);
@@ -251,7 +251,7 @@ export default class MusicboxTable {
 			setTimeout(() => {
 				const currentSongId = store.getState().app.currentSongId;
 				if (currentSongId) {
-					this.table.scrollToRow(currentSongId, 'top', false);
+					// this.table.scrollToRow(currentSongId, 'top', false);
 				}
 			});
 		});
