@@ -50,10 +50,6 @@ export default class MusicboxAudio {
 		document.getElementById('now-playing-time-current').innerText = MusicboxAudio.prettyTime(currentTime, duration);
 		document.getElementById('position-after').setAttribute('width', currentTime);
 		document.getElementById('position-input').setAttribute('value', currentTime);
-
-		if (currentTime > duration) {
-			MusicboxAudio.onEnded();
-		}
 	}
 
 	static onEnded() {
