@@ -1,0 +1,42 @@
+.tabs {
+	display: flex;
+	font-size: 0;
+	list-style: none;
+	padding: 0;
+	position: relative;
+	top: 1px;
+}
+
+.tab--button {
+	background: var(--gray);
+	border: var(--tab-border-width) var(--tab-border-style) var(--tab-border-color);
+	margin: 0;
+
+	&:hover,
+	&:active,
+	&:focus {
+		background: var(--medium-gray);
+	}
+
+	&.active {
+		background: var(--tab-background);
+		border-bottom-color: transparent;
+	}
+
+	&:focus {
+		position: relative;
+		z-index: 1;
+	}
+}
+
+.tab--frame {
+	background: var(--tab-background);
+	border-color: var(--tab-border-color);
+	border-style: var(--tab-border-style);
+	border-width: var(--tab-border-width);
+	padding: var(--tab-padding);
+
+	& > :first-child {
+		margin-top: 0;
+	}
+}

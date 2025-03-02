@@ -1,11 +1,9 @@
-@use '../../utilities/variables';
-
 #close {
 	margin: 0;
 	padding: 16px;
 	position: absolute;
-	right: variables.$focus-width;
-	top: variables.$focus-width;
+	right: var(--focus-width);
+	top: var(--focus-width);
 	z-index: 1;
 }
 

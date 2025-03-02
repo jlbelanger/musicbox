@@ -1,4 +1,4 @@
-import '../../scss/components/Range.scss';
+import '../../css/components/Range.css';
 import PropTypes from 'prop-types';
 import React from 'react';
 

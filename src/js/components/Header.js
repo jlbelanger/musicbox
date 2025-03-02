@@ -1,5 +1,5 @@
-import '../../scss/components/Header.scss';
-import '../../scss/components/NowPlaying.scss';
+import '../../css/components/Header.css';
+import '../../css/components/NowPlaying.css';
 import Next from './buttons/Next';
 import PlayPause from './buttons/PlayPause';
 import Previous from './buttons/Previous';

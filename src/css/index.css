@@ -1,13 +1,10 @@
-@use 'utilities/variables';
-@use '~normalize.css/normalize';
-
 * {
 	box-sizing: border-box;
 }
 
 body {
-	background: variables.$black;
-	color: variables.$white;
+	background: var(--black);
+	color: var(--white);
 	font-family: sans-serif;
 	margin: 0;
 }
@@ -27,11 +24,11 @@ button {
 	appearance: none;
 	background: transparent;
 	border: 0;
-	color: variables.$white;
+	color: var(--white);
 	cursor: pointer;
-	font-size: variables.$font-size;
+	font-size: var(--font-size);
 	line-height: 1;
-	margin: variables.$button-margin;
+	margin: var(--button-margin);
 	padding: 16px;
 
 	&:hover {
@@ -49,13 +46,13 @@ button {
 }
 
 .button--primary {
-	background: variables.$primary;
+	background: var(--primary);
 	border-radius: 4px;
-	color: variables.$black;
+	color: var(--black);
 	padding: 12px 16px;
 
 	&:hover {
-		background: variables.$primary-dark;
+		background: var(--primary-dark);
 	}
 }
 
@@ -67,24 +64,24 @@ button {
 	width: 48px;
 
 	path {
-		fill: variables.$off-white;
+		fill: var(--off-white);
 	}
 
 	&:active,
 	&:focus {
 		path {
-			fill: variables.$white;
+			fill: var(--white);
 		}
 	}
 }
 
 :focus {
-	box-shadow: variables.$focus;
+	box-shadow: var(--focus);
 	outline: none !important; /* stylelint-disable declaration-no-important */
 }
 
 section {
-	font-size: variables.$font-size;
+	font-size: var(--font-size);
 }
 
 #import-modal {
@@ -93,7 +90,7 @@ section {
 }
 
 .modal__header {
-	color: variables.$primary;
+	color: var(--primary);
 	padding-bottom: 12px;
 }
 
@@ -115,7 +112,7 @@ section {
 	z-index: 4;
 
 	path {
-		fill: variables.$primary;
+		fill: var(--primary);
 	}
 }
 
@@ -125,7 +122,7 @@ section {
 }
 
 .error {
-	color: variables.$danger;
+	color: var(--danger);
 	font-weight: bold;
 }
 
@@ -142,7 +139,7 @@ p {
 }
 
 a {
-	color: variables.$primary;
+	color: var(--primary);
 
 	&:hover,
 	&:active,
@@ -152,9 +149,9 @@ a {
 }
 
 input {
-	background: variables.$gray;
+	background: var(--gray);
 	border: 0;
-	color: variables.$white;
+	color: var(--white);
 	padding: 8px;
 
 	&[readonly] {
@@ -167,7 +164,7 @@ input {
 }
 
 input[type='file'] {
-	color: variables.$white;
+	color: var(--white);
 }
 
 #secondary-controls {
@@ -176,7 +173,7 @@ input[type='file'] {
 }
 
 ::selection {
-	background: rgba(variables.$focus-color, .25);
+	background: rgba(var(--focus-color), .25);
 }
 
 .fields {

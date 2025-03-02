@@ -1,5 +1,3 @@
-@use '../utilities/variables';
-
 #now-playing {
 	align-items: center;
 	display: flex;
@@ -8,7 +6,7 @@
 }
 
 #now-playing-placeholder {
-	background-color: variables.$dark-gray;
+	background-color: var(--dark-gray);
 	background-image: url('../../svg/music.svg');
 	background-position: center;
 	background-repeat: no-repeat;

@@ -1,0 +1,116 @@
+/* stylelint-disable declaration-no-important */
+.tabulator,
+#queue {
+	height: calc(100vh - var(--header-height));
+}
+
+.tabulator-row {
+	.tabulator-cell {
+		&[tabulator-field='checked'] {
+			padding: calc(var(--cell-padding) - var(--checkbox-padding)) var(--cell-padding);
+		}
+
+		&.tabulator-editing {
+			&[tabulator-field='rating'] {
+				& > div {
+					padding: 16px !important;
+				}
+			}
+
+			&[tabulator-field='checked'] {
+				input {
+					appearance: none;
+					background-color: var(--checkbox-background-color);
+					background-position: center;
+					background-repeat: no-repeat;
+					background-size: var(--font-size);
+					box-shadow: none;
+					cursor: pointer;
+					height: calc(var(--font-size) + (var(--checkbox-padding) * 2));
+					margin-top: 0 !important;
+					padding: 0 !important;
+					width: calc(var(--font-size) + (var(--checkbox-padding) * 2));
+
+					&:checked {
+						background-image: url('../../svg/check.svg');
+					}
+				}
+			}
+		}
+	}
+}
+
+[tabulator-field='rating'] {
+	svg {
+		height: var(--font-size) !important;
+		width: var(--font-size) !important;
+	}
+}
+
+.tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-arrow {
+	margin-top: -3px;
+	right: var(--cell-padding);
+	top: 50%;
+}
+
+/* Ratings. */
+polygon {
+	stroke: none;
+
+	&[fill='#FFEA00'],
+	&[fill='#488CE9'] {
+		fill: var(--primary) !important;
+	}
+
+	&[fill='#D2D2D2'],
+	&[fill='#010155'] {
+		fill: var(--darkest-gray) !important;
+	}
+}
+
+/* Checkboxes. */
+[tabulator-field='checked'] {
+	svg {
+		background: var(--checkbox-background-color);
+		height: calc(var(--font-size) + (var(--checkbox-padding) * 2)) !important;
+		padding: var(--checkbox-padding);
+		width: calc(var(--font-size) + (var(--checkbox-padding) * 2)) !important;
+	}
+
+	path {
+		fill: var(--white) !important;
+	}
+
+	&[aria-checked='false'] {
+		path {
+			fill: none !important;
+		}
+	}
+}
+
+[tabulator-field='state'].tabulator-cell {
+	text-align: center;
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable[tabulator-field='checked'] {
+	.tabulator-col-title {
+		padding-right: 0;
+		width: 0;
+	}
+
+	.tabulator-arrow {
+		margin-right: -5px;
+		right: 50%;
+	}
+}
+
+.hide-search {
+	.tabulator-header-filter {
+		display: none;
+	}
+}
+
+.tabulator-headers,
+.tabulator .tabulator-header .tabulator-col {
+	height: auto !important;
+}

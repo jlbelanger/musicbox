@@ -1,4 +1,4 @@
-import '../../scss/components/Table.scss';
+import '../../css/components/Table.css';
 import { selectEditSongId, selectSearch } from '../slices/app';
 import Header from './Header';
 import ImportModal from './modals/ImportModal';

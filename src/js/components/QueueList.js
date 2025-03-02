@@ -1,4 +1,4 @@
-import '../../scss/components/Queue.scss';
+import '../../css/components/Queue.css';
 import { removeFromQueue, selectUpcomingSongs } from '../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';

@@ -21,7 +21,7 @@
 		"build": "react-scripts build",
 		"dist": "electron-builder",
 		"lint": "yarn lint:css && yarn lint:js",
-		"lint:css": "node_modules/.bin/stylelint 'src/scss/**/*.scss'",
+		"lint:css": "node_modules/.bin/stylelint 'src/css/**/*.css'",
 		"lint:js": "node_modules/.bin/eslint . --ext .js",
 		"predist": "yarn build",
 		"test": "node_modules/.bin/jest --watch",
@@ -44,7 +44,6 @@
 		"react-redux": "^9.2.0",
 		"react-scripts": "^5.0.1",
 		"redux-watch": "^1.2.0",
-		"sass": "^1.83.0",
 		"seedrandom": "^3.0.5",
 		"tabulator-tables": "^6.3.0"
 	},
@@ -66,9 +65,8 @@
 		"eslint-plugin-react": "^7.37.3",
 		"eslint-plugin-react-hooks": "^5.1.0",
 		"stylelint": "^16.12.0",
-		"stylelint-config-standard-scss": "^14.0.0",
+		"stylelint-config-standard": "^37.0.0",
 		"stylelint-order": "^6.0.4",
-		"stylelint-scss": "^6.10.0",
 		"wait-on": "^8.0.1"
 	},
 	"build": {

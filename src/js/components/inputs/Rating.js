@@ -1,4 +1,4 @@
-import '../../../scss/components/inputs/Rating.scss';
+import '../../../css/components/inputs/Rating.css';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ReactComponent as StarIcon } from '../../../svg/star.svg';

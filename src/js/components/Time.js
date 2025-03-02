@@ -1,4 +1,4 @@
-import '../../scss/components/Time.scss';
+import '../../css/components/Time.css';
 import React, { useEffect } from 'react';
 import Range from './Range';
 

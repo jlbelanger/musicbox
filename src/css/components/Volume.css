@@ -1,16 +1,10 @@
-@use '../utilities/variables';
-
-$volume-height: 200px;
-$volume-padding: 16px;
-$volume-button-size: 48px;
-
 #volume {
 	display: flex;
 	position: relative;
 
 	&:focus-within {
 		#volume-range {
-			box-shadow: 0 0 0 4px variables.$focus-color;
+			box-shadow: 0 0 0 4px var(--focus-color);
 		}
 	}
 
@@ -39,18 +33,18 @@ $volume-button-size: 48px;
 }
 
 #volume-range {
-	background: variables.$gray;
+	background: var(--gray);
 	border-radius: 32px;
-	box-shadow: 2px 2px 8px 0 variables.$shadow;
-	height: $volume-height;
-	left: variables.$button-margin;
+	box-shadow: 2px 2px 8px 0 var(--shadow);
+	height: var(--volume-height);
+	left: var(--button-margin);
 	opacity: 0;
 	padding: 8px;
 	pointer-events: none;
 	position: absolute;
-	right: variables.$button-margin;
-	top: variables.$button-margin;
-	width: $volume-button-size;
+	right: var(--button-margin);
+	top: var(--button-margin);
+	width: var(--volume-button-size);
 	z-index: 1;
 
 	.open &,
@@ -69,6 +63,6 @@ $volume-button-size: 48px;
 }
 
 #volume-range-svg {
-	height: calc(100% - #{$volume-button-size + $volume-padding});
-	margin-top: $volume-button-size;
+	height: calc(100% - (var(--volume-button-size) + var(--volume-padding)));
+	margin-top: var(--volume-button-size);
 }

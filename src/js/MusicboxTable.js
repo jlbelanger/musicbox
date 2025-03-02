@@ -251,7 +251,7 @@ export default class MusicboxTable {
 			setTimeout(() => {
 				const currentSongId = store.getState().app.currentSongId;
 				if (currentSongId) {
-					// this.table.scrollToRow(currentSongId, 'top', false);
+					this.table.scrollToRow(currentSongId, 'top', false);
 				}
 			});
 		});

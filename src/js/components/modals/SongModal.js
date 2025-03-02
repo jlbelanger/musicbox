@@ -1,4 +1,4 @@
-import '../../../scss/components/modals/SongModal.scss';
+import '../../../css/components/modals/SongModal.css';
 import { editSong, selectEditSongId } from '../../slices/app';
 import { prettyDatetime, prettyTime } from '../../helpers/datetime';
 import React, { useState } from 'react';

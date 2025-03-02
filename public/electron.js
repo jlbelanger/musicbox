@@ -11,7 +11,7 @@ const {
 } = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 const path = require('path');
 const fs = require('fs');
-const { loadMusicMetadata } = require('music-metadata');
+const { loadMusicMetadata } = require('music-metadata'); // eslint-disable-line import/no-unresolved
 
 function createWindow() {
 	const mainWindow = new BrowserWindow({
@@ -90,10 +90,11 @@ app.whenReady().then(() => {
 				const pictures = metadata.common.picture;
 				let src;
 				if (pictures && pictures.length > 0) {
-					src = `data:${pictures[0].format};base64,${pictures[0].data.toString('base64')}`;
+					const data = Buffer.from(pictures[0].data).toString('base64');
+					src = `data:${pictures[0].format};base64,${data}`;
 				}
 				return src;
-			})
+			});
 	});
 
 	ipcMain.on('saveFile', (_e, { fileContents }) => {

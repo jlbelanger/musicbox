@@ -1,4 +1,4 @@
-import '../../scss/components/Volume.scss';
+import '../../css/components/Volume.css';
 import React, { useState } from 'react';
 import Range from './Range';
 import Storage from '../helpers/Storage';

@@ -1,4 +1,4 @@
-import '../../scss/components/TabButton.scss';
+import '../../css/components/TabButton.css';
 import PropTypes from 'prop-types';
 import React from 'react';
 

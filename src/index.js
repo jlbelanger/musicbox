@@ -1,4 +1,7 @@
-import './scss/index.scss';
+import 'normalize.css/normalize.css';
+import './css/tabulator.css';
+import './css/index.css';
+import './css/utilities/_variables.css';
 import * as serviceWorker from './js/serviceWorker';
 import al from './js/observer';
 import App from './js/components/App';
@@ -10,7 +13,7 @@ import ReactDOM from 'react-dom/client';
 import registerShortcuts from './js/shortcuts';
 import store from './js/store';
 
-console.log('2025-01-12'); // eslint-disable-line no-console
+console.log('2025-02-22'); // eslint-disable-line no-console
 
 function initApp(data) {
 	let hasJson = false;

@@ -75,7 +75,6 @@ export default class MusicboxAudio {
 	}
 
 	setSong(song, isPlaying) {
-		console.log(song);
 		this.song = song;
 		if (!song) {
 			document.getElementById('now-playing-info').style.display = 'none';
@@ -110,7 +109,7 @@ export default class MusicboxAudio {
 					return;
 				}
 
-				const newSrc = `localfile://${song.path}`;
+				const newSrc = `localfile://${song.path.replace(/ /g, '%20')}`;
 				if (this.audio.src !== newSrc) {
 					this.audio.src = newSrc;
 					this.audio.currentTime = song.startTime / 1000;
@@ -173,10 +172,14 @@ export default class MusicboxAudio {
 
 	showNotification(song, src) {
 		if (!window.api.hasFocus()) {
-			new Notification(song.title, { // eslint-disable-line no-new
-				body: song.artist,
-				icon: src,
-				silent: true,
+			Notification.requestPermission().then((permission) => {
+				if (permission === 'granted') {
+					new Notification(song.title, { // eslint-disable-line no-new
+						body: song.artist,
+						icon: src,
+						silent: true,
+					});
+				}
 			});
 		}
 	}

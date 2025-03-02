@@ -1,11 +1,8 @@
-@use 'sass:color';
-@use '../utilities/variables';
-
 header {
 	align-items: center;
-	background: variables.$off-black;
+	background: var(--off-black);
 	display: flex;
-	height: variables.$header-height;
+	height: var(--header-height);
 	justify-content: space-between;
 	padding: 8px 12px 8px 8px;
 	width: 100%;
@@ -27,13 +24,13 @@ header {
 
 .active {
 	path {
-		fill: variables.$primary;
+		fill: var(--primary);
 	}
 
 	&:active,
 	&:focus {
 		path {
-			fill: color.scale(variables.$primary, $lightness: 15%);
+			fill: var(--primary-light);
 		}
 	}
 }

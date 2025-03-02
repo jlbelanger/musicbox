@@ -1,4 +1,4 @@
-import '../../../scss/components/buttons/PlayPause.scss';
+import '../../../css/components/buttons/PlayPause.css';
 import { selectIsPlaying, togglePlayback } from '../../slices/app';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as PauseIcon } from '../../../svg/pause.svg';

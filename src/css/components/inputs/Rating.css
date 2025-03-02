@@ -1,15 +1,11 @@
-@use '../../utilities/variables';
-
-$rating-size: 20px;
-
 .rating-cell {
 	display: flex;
 }
 
 .rating {
-	height: $rating-size;
+	height: var(--rating-size);
 	position: relative;
-	width: $rating-size;
+	width: var(--rating-size);
 }
 
 .rating__svg {
@@ -19,12 +15,12 @@ $rating-size: 20px;
 	top: 0;
 
 	path {
-		fill: variables.$medium-gray;
+		fill: var(--medium-gray);
 	}
 
 	.active & {
 		path {
-			fill: variables.$primary;
+			fill: var(--primary);
 		}
 	}
 }
@@ -33,9 +29,9 @@ $rating-size: 20px;
 	appearance: none;
 	background: transparent;
 	cursor: pointer;
-	height: $rating-size;
+	height: var(--rating-size);
 	margin: 0;
-	width: $rating-size;
+	width: var(--rating-size);
 }
 
 #field__input-wrapper--rating {
