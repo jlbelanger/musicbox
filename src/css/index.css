@@ -37,7 +37,7 @@ button {
 
 	&[disabled] {
 		cursor: auto;
-		opacity: .5;
+		opacity: 0.5;
 
 		&:hover {
 			background: transparent;
@@ -173,7 +173,7 @@ input[type='file'] {
 }
 
 ::selection {
-	background: rgba(var(--focus-color), .25);
+	background: hsl(from var(--focus-color) h s l / 25%);
 }
 
 .fields {

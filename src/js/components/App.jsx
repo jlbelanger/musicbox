@@ -1,10 +1,9 @@
 import '../../css/components/Table.css';
-import { selectEditSongId, selectSearch } from '../slices/app';
-import Header from './Header';
-import ImportModal from './modals/ImportModal';
+import { selectEditSongId, selectSearch } from '../slices/app.js';
+import Header from './Header.jsx';
+import ImportModal from './modals/ImportModal.jsx';
 import PropTypes from 'prop-types';
-import React from 'react';
-import SongModal from './modals/SongModal';
+import SongModal from './modals/SongModal.jsx';
 import { useSelector } from 'react-redux';
 
 export default function App({ hasJson }) {

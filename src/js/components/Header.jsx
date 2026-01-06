@@ -1,14 +1,13 @@
 import '../../css/components/Header.css';
 import '../../css/components/NowPlaying.css';
-import Next from './buttons/Next';
-import PlayPause from './buttons/PlayPause';
-import Previous from './buttons/Previous';
-import Queue from './buttons/Queue';
-import React from 'react';
-import Search from './buttons/Search';
-import Shuffle from './buttons/Shuffle';
-import Time from './Time';
-import Volume from './Volume';
+import Next from './buttons/Next.jsx';
+import PlayPause from './buttons/PlayPause.jsx';
+import Previous from './buttons/Previous.jsx';
+import Queue from './buttons/Queue.jsx';
+import Search from './buttons/Search.jsx';
+import Shuffle from './buttons/Shuffle.jsx';
+import Time from './Time.jsx';
+import Volume from './Volume.jsx';
 
 export default function Header() {
 	return (

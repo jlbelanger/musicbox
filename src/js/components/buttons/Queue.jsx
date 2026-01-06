@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { ReactComponent as QueueIcon } from '../../../svg/queue.svg';
-import QueueList from '../QueueList';
+import QueueIcon from '../../../svg/queue.svg?react'; // eslint-disable-line import/no-unresolved
+import QueueList from '../QueueList.jsx';
+import { useState } from 'react';
 
 export default function Queue() {
 	const [showQueue, setShowQueue] = useState(false);

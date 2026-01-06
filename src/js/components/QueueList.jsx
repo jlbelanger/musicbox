@@ -1,9 +1,8 @@
 import '../../css/components/Queue.css';
-import { removeFromQueue, selectUpcomingSongs } from '../slices/app';
+import { removeFromQueue, selectUpcomingSongs } from '../slices/app.js';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import React from 'react';
-import { ReactComponent as XIcon } from '../../svg/x.svg';
+import XIcon from '../../svg/x.svg?react'; // eslint-disable-line import/no-unresolved
 
 export default function QueueList({ className = '' }) {
 	const dispatch = useDispatch();
@@ -37,7 +36,9 @@ export default function QueueList({ className = '' }) {
 						<div className="queue-controls">
 							<button
 								className="icon queue-remove"
-								onClick={(e) => { onRemove(e, song.id); }}
+								onClick={(e) => {
+									onRemove(e, song.id);
+								}}
 								tabIndex={className ? null : -1}
 								type="button"
 							>

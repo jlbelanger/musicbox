@@ -1,10 +1,10 @@
 import '../../css/components/Volume.css';
-import React, { useState } from 'react';
-import Range from './Range';
-import Storage from '../helpers/Storage';
-import { ReactComponent as VolumeHighIcon } from '../../svg/volume-high.svg';
-import { ReactComponent as VolumeLowIcon } from '../../svg/volume-low.svg';
-import { ReactComponent as VolumeOffIcon } from '../../svg/volume-off.svg';
+import Range from './Range.jsx';
+import Storage from '../helpers/Storage.js';
+import { useState } from 'react';
+import VolumeHighIcon from '../../svg/volume-high.svg?react'; // eslint-disable-line import/no-unresolved
+import VolumeLowIcon from '../../svg/volume-low.svg?react'; // eslint-disable-line import/no-unresolved
+import VolumeOffIcon from '../../svg/volume-off.svg?react'; // eslint-disable-line import/no-unresolved
 
 export default function Volume() {
 	const [volume, setVolume] = useState(Storage.get('volume', 1.0));

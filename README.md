@@ -72,7 +72,7 @@ Musicbox currently only supports hard-coded last.fm authentication in the librar
 ### Requirements
 
 - [Git](https://git-scm.com/)
-- [Yarn](https://classic.yarnpkg.com/en/docs/install)
+- [Node](https://nodejs.org/)
 
 ### Setup
 
@@ -85,30 +85,30 @@ cd musicbox
 cp .env.example .env
 
 # Install dependencies
-yarn install
+npm install
 ```
 
 ### Run
 
 ``` bash
-yarn start
+npm start
 ```
 
 ### Build
 
 ``` bash
-yarn dist
+npm run dist
 ```
 
 ### Lint
 
 ``` bash
-yarn lint
+npm run lint
 ```
 
 ### Test
 
 ``` bash
-yarn test
-yarn test:cypress
+npm run test:watch
+npm run test:cypress
 ```

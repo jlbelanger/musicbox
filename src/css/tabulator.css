@@ -131,7 +131,7 @@
 
 					&:hover {
 						cursor: pointer;
-						opacity: .6;
+						opacity: 0.6;
 					}
 				}
 
@@ -293,7 +293,6 @@
 					}
 				}
 			}
-
 
 			&.tabulator-col-vertical {
 				.tabulator-col-content {
@@ -500,13 +499,13 @@
 				border-bottom-right-radius: 5px;
 				border-top: none;
 				display: inline-block;
-				font-size: .9em;
+				font-size: 0.9em;
 				font-weight: normal;
 				padding: 5px;
 
 				&:hover {
 					cursor: pointer;
-					opacity: .7;
+					opacity: 0.7;
 				}
 
 				&.tabulator-spreadsheet-tab-active {
@@ -534,7 +533,6 @@
 					display: none;
 				}
 			}
-
 
 			&:only-child {
 				border-bottom: none;
@@ -586,7 +584,7 @@
 			}
 
 			&:disabled {
-				opacity: .5;
+				opacity: 0.5;
 			}
 
 			&:not(:disabled) {
@@ -627,8 +625,8 @@
 	.tabulator-col-resize-guide {
 		background-color: var(--tabulator-column-resize-guide-color);
 		height: 100%;
-		margin-left: -.5px;
-		opacity: .5;
+		margin-left: -0.5px;
+		opacity: 0.5;
 		position: absolute;
 		top: 0;
 		width: 4px;
@@ -639,12 +637,11 @@
 		background-color: var(--tabulator-column-resize-guide-color);
 		height: 4px;
 		left: 0;
-		margin-top: -.5px;
-		opacity: .5;
+		margin-top: -0.5px;
+		opacity: 0.5;
 		position: absolute;
 		width: 100%;
 	}
-
 
 	/* holding div that contains loader and covers tabulator element to prevent interaction */
 	.tabulator-alert {
@@ -741,7 +738,6 @@
 			}
 		}
 	}
-
 
 	&.tabulator-range-selected {
 		.tabulator-cell.tabulator-range-row-header {
@@ -971,7 +967,7 @@
 			@media (hover:hover) and (pointer:fine) {
 				&:hover {
 					cursor: pointer;
-					opacity: .7;
+					opacity: 0.7;
 				}
 			}
 
@@ -1130,7 +1126,7 @@
 		user-select: none;
 
 		&.tabulator-menu-item-disabled {
-			opacity: .5;
+			opacity: 0.5;
 		}
 
 		@media (hover:hover) and (pointer:fine) {
@@ -1152,7 +1148,7 @@
 				height: 7px;
 				position: absolute;
 				right: 10px;
-				top: calc(5px + .4em);
+				top: calc(5px + 0.4em);
 				transform: rotate(45deg);
 				vertical-align: top;
 				width: 7px;
@@ -1181,7 +1177,7 @@
 			color: var(--tabulator-row-background-color);
 
 			&.focused {
-				outline: 1px solid rgba(var(--tabulator-row-background-color), .5);
+				outline: 1px solid hsl(from var(--tabulator-row-background-color) h s l / 50%);
 			}
 		}
 

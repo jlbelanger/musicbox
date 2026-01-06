@@ -1,18 +1,14 @@
 import plist from 'plist';
 
-const getStringProperty = (data, key, defaultValue = null) => (
-	Object.prototype.hasOwnProperty.call(data, key) ? data[key] : defaultValue
-);
+// eslint-disable-next-line @stylistic/no-extra-parens
+const getStringProperty = (data, key, defaultValue = null) => (Object.hasOwn(data, key) ? data[key] : defaultValue);
 
-const getDateProperty = (data, key) => (
-	Object.prototype.hasOwnProperty.call(data, key) ? data[key].toISOString() : null
-);
+// eslint-disable-next-line @stylistic/no-extra-parens
+const getDateProperty = (data, key) => (Object.hasOwn(data, key) ? data[key].toISOString() : null);
 
-const getBoolProperty = (data, key) => (
-	Object.prototype.hasOwnProperty.call(data, key)
-);
+const getBoolProperty = (data, key) => Object.hasOwn(data, key);
 
-export default (file) => (
+export default (file) =>
 	new Promise((resolve, reject) => {
 		const reader = new FileReader();
 		reader.onload = () => {
@@ -64,5 +60,4 @@ export default (file) => (
 				id += 1;
 			});
 			return output;
-		})
-);
+		});

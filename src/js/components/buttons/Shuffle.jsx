@@ -1,8 +1,7 @@
-import { selectShuffle, toggleShuffle } from '../../slices/app';
+import { selectShuffle, toggleShuffle } from '../../slices/app.js';
 import { useDispatch, useSelector } from 'react-redux';
-import React from 'react';
-import { ReactComponent as ShuffleIcon } from '../../../svg/shuffle.svg';
-import Storage from '../../helpers/Storage';
+import ShuffleIcon from '../../../svg/shuffle.svg?react'; // eslint-disable-line import/no-unresolved
+import Storage from '../../helpers/Storage.js';
 
 export default function Shuffle() {
 	const dispatch = useDispatch();

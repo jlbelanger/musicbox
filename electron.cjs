@@ -8,10 +8,10 @@ const {
 	protocol,
 	shell,
 	systemPreferences,
-} = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
+} = require('electron');
 const path = require('path');
 const fs = require('fs');
-const { loadMusicMetadata } = require('music-metadata'); // eslint-disable-line import/no-unresolved
+const { parseFile } = require('music-metadata');
 
 function createWindow() {
 	const mainWindow = new BrowserWindow({
@@ -23,13 +23,13 @@ function createWindow() {
 			contextIsolation: true,
 			enableRemoteModule: false,
 			nodeIntegration: false,
-			preload: path.join(__dirname, 'preload.js'),
+			preload: path.join(__dirname, 'preload.cjs'),
 		},
 	});
 	mainWindow.maximize();
 	mainWindow.loadURL(
 		app.isPackaged
-			? `file://${path.join(__dirname, 'index.html')}`
+			? `file://${path.join(__dirname, 'build', 'index.html')}`
 			: 'http://localhost:3000'
 	);
 
@@ -83,9 +83,8 @@ app.whenReady().then(() => {
 		return '';
 	});
 
-	ipcMain.handle('parseFile', async (_e, filePath) => {
-		const mm = await loadMusicMetadata();
-		return mm.parseFile(filePath)
+	ipcMain.handle('parseFile', async (_e, filePath) => (
+		await parseFile(filePath)
 			.then((metadata) => {
 				const pictures = metadata.common.picture;
 				let src;
@@ -94,8 +93,8 @@ app.whenReady().then(() => {
 					src = `data:${pictures[0].format};base64,${data}`;
 				}
 				return src;
-			});
-	});
+			})
+	));
 
 	ipcMain.on('saveFile', (_e, { fileContents }) => {
 		dialog.showSaveDialog(null, {
@@ -104,7 +103,8 @@ app.whenReady().then(() => {
 		}).then((result) => {
 			if (result.filePath) {
 				fs.writeFileSync(result.filePath, fileContents, 'utf-8');
-				mainWindow.webContents.send('setFileLocation', result.filePath);
+				window.localStorage.setItem('filePath', result.filePath);
+				window.location.reload();
 			}
 		});
 	});

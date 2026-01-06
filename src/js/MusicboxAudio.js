@@ -105,7 +105,6 @@ export default class MusicboxAudio {
 					if (!isPlaying) {
 						this.audio.play();
 					}
-					// document.getElementById('next').click();
 					return;
 				}
 
@@ -140,7 +139,7 @@ export default class MusicboxAudio {
 				document.getElementById('now-playing-title').innerText = song.title;
 				document.getElementById('now-playing-artist').innerText = song.artist;
 
-				if (Object.prototype.hasOwnProperty.call(this.albumArtCache, song.path)) {
+				if (Object.hasOwn(this.albumArtCache, song.path)) {
 					const src = this.albumArtCache[song.path];
 					this.displayAlbumArt(src);
 					this.showNotification(song, src);
@@ -190,16 +189,16 @@ export default class MusicboxAudio {
 		let start;
 		const minLength = otherMilliseconds === null ? milliseconds : otherMilliseconds;
 		if (minLength < 600000) {
-			// x:xx
+			// X:XX
 			start = 15;
 		} else if (minLength < 3600000) {
-			// xx:xx
+			// XX:XX
 			start = 14;
 		} else if (minLength < 36000000) {
-			// x:xx:xx
+			// X:XX:XX
 			start = 12;
 		} else {
-			// xx:xx:xx
+			// XX:XX:XX
 			start = 11;
 		}
 		return date.toISOString().substring(start).replace(/\.\d+Z$/, '');

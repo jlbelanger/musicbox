@@ -1,7 +1,7 @@
 import md5 from 'md5';
 
 export default (row) => {
-	window.api.getData()
+	window.api.getData(window.localStorage.getItem('filePath'))
 		.then((data) => {
 			const auth = data.lastfm;
 			if (!auth) {
@@ -18,10 +18,10 @@ export default (row) => {
 				track: row.title || '',
 			};
 
-			const sig = Object.keys(body).map((key) => (`${key}${body[key]}`)).join('');
+			const sig = Object.keys(body).map((key) => `${key}${body[key]}`).join('');
 			body.api_sig = md5(`${sig}${auth.apiSecret}`);
 
-			body = Object.keys(body).map((key) => (`${encodeURIComponent(key)}=${encodeURIComponent(body[key])}`)).join('&');
+			body = Object.keys(body).map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(body[key])}`).join('&');
 
 			const postData = {
 				method: 'POST',

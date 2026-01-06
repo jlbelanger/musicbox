@@ -1,9 +1,8 @@
 import '../../../css/components/buttons/PlayPause.css';
-import { selectIsPlaying, togglePlayback } from '../../slices/app';
+import { selectIsPlaying, togglePlayback } from '../../slices/app.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReactComponent as PauseIcon } from '../../../svg/pause.svg';
-import { ReactComponent as PlayIcon } from '../../../svg/play.svg';
-import React from 'react';
+import PauseIcon from '../../../svg/pause.svg?react'; // eslint-disable-line import/no-unresolved
+import PlayIcon from '../../../svg/play.svg?react'; // eslint-disable-line import/no-unresolved
 
 export default function PlayPause() {
 	const dispatch = useDispatch();

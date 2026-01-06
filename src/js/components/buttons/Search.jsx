@@ -1,7 +1,6 @@
-import { selectSearch, toggleSearch } from '../../slices/app';
+import { selectSearch, toggleSearch } from '../../slices/app.js';
 import { useDispatch, useSelector } from 'react-redux';
-import React from 'react';
-import { ReactComponent as SeachIcon } from '../../../svg/search.svg';
+import SeachIcon from '../../../svg/search.svg?react'; // eslint-disable-line import/no-unresolved
 
 export default function Search() {
 	const dispatch = useDispatch();

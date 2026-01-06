@@ -1,8 +1,7 @@
-import { previousSong, selectCurrentQueueIndex } from '../../slices/app';
+import { previousSong, selectCurrentQueueIndex } from '../../slices/app.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReactComponent as PreviousIcon } from '../../../svg/previous.svg';
-import React from 'react';
-import Storage from '../../helpers/Storage';
+import PreviousIcon from '../../../svg/previous.svg?react'; // eslint-disable-line import/no-unresolved
+import Storage from '../../helpers/Storage.js';
 
 export default function Previous() {
 	const dispatch = useDispatch();

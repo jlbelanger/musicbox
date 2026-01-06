@@ -1,10 +1,9 @@
-import { addPlay, addSkip, updateSong } from '../../helpers/update';
-import { nextSong, selectCurrentQueueIndex } from '../../slices/app';
+import { addPlay, addSkip, updateSong } from '../../helpers/update.js';
+import { nextSong, selectCurrentQueueIndex } from '../../slices/app.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReactComponent as NextIcon } from '../../../svg/next.svg';
-import React from 'react';
-import scrobble from '../../helpers/lastfm';
-import Storage from '../../helpers/Storage';
+import NextIcon from '../../../svg/next.svg?react'; // eslint-disable-line import/no-unresolved
+import scrobble from '../../helpers/lastfm.js';
+import Storage from '../../helpers/Storage.js';
 
 export default function Next() {
 	const dispatch = useDispatch();

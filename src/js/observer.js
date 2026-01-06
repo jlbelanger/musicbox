@@ -1,5 +1,5 @@
-import Storage from './helpers/Storage';
-import store from './store';
+import Storage from './helpers/Storage.js';
+import store from './store.js';
 import watch from 'redux-watch';
 
 export default () => {

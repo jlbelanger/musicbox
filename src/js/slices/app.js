@@ -2,9 +2,9 @@ import {
 	createQueue,
 	findCurrentSongQueueIndex,
 	moveToFrontOfQueue,
-} from '../helpers/queue';
+} from '../helpers/queue.js';
 import { createSlice } from '@reduxjs/toolkit';
-import Storage from '../helpers/Storage';
+import Storage from '../helpers/Storage.js';
 
 export const initialState = {
 	currentQueueIndex: null,
@@ -71,7 +71,7 @@ export const appSlice = createSlice({
 				{
 					seed,
 					shuffle: state.shuffle,
-				}
+				},
 			);
 			return {
 				...state,
@@ -100,7 +100,7 @@ export const appSlice = createSlice({
 				{
 					seed,
 					shuffle: state.shuffle,
-				}
+				},
 			);
 			let currentQueueIndex = state.currentQueueIndex;
 			if (currentQueueIndex !== null) {
@@ -135,7 +135,7 @@ export const appSlice = createSlice({
 				{
 					seed,
 					shuffle: state.shuffle,
-				}
+				},
 			);
 			return {
 				...state,
@@ -195,7 +195,7 @@ export const appSlice = createSlice({
 				{
 					seed,
 					shuffle,
-				}
+				},
 			);
 
 			if (!state.currentSongId) {
@@ -241,7 +241,7 @@ export const {
 export const selectCurrentQueueIndex = (state) => state.app.currentQueueIndex;
 export const selectEditSongId = (state) => state.app.editSongId;
 export const selectIsPlaying = (state) => state.app.isPlaying;
-export const selectHasQueue = (state) => (state.app.queue.length > 0);
+export const selectHasQueue = (state) => state.app.queue.length > 0;
 export const selectUpcomingSongs = (state) => {
 	const index = state.app.currentQueueIndex === null ? 0 : state.app.currentQueueIndex + 1;
 	const q = state.app.queue.slice(index, index + 15);

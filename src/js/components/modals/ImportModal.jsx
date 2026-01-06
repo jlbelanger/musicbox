@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import ImportModalFile from './ImportModalFile';
-import ImportModalItunes from './ImportModalItunes';
-import Modal from '../Modal';
-import TabButton from '../TabButton';
-import TabFrame from '../TabFrame';
+import ImportModalFile from './ImportModalFile.jsx';
+import ImportModalItunes from './ImportModalItunes.jsx';
+import Modal from '../Modal.jsx';
+import TabButton from '../TabButton.jsx';
+import TabFrame from '../TabFrame.jsx';
+import { useState } from 'react';
 
 export default function ImportModal() {
 	const [tab, setTab] = useState('Select Musicbox file');

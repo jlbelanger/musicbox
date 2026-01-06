@@ -3,18 +3,18 @@ import {
 	editSong,
 	playNext,
 	populateQueue,
-} from './slices/app';
-import { getDatetimeFormat } from './helpers/datetime';
-import React from 'react';
+} from './slices/app.js';
+import { getDatetimeFormat } from './helpers/datetime.js';
+import { DateTime } from 'luxon';
 import { renderToString } from 'react-dom/server';
-import Storage from './helpers/Storage';
-import store from './store';
+import Storage from './helpers/Storage.js';
+import store from './store.js';
 import { TabulatorFull as Tabulator } from 'tabulator-tables';
-import { ReactComponent as VolumeHighIcon } from '../svg/volume-high.svg';
-import { ReactComponent as VolumeOffIcon } from '../svg/volume-off.svg';
+import VolumeHighIcon from '../svg/volume-high.svg?react'; // eslint-disable-line import/no-unresolved
+import VolumeOffIcon from '../svg/volume-off.svg?react'; // eslint-disable-line import/no-unresolved
 
 // Required for Tabulator.
-window.luxon = require('luxon');
+window.luxon = DateTime;
 
 export default class MusicboxTable {
 	constructor(data) {
@@ -56,10 +56,10 @@ export default class MusicboxTable {
 				formatter: (cell) => {
 					const state = cell.getValue();
 					if (state === false) {
-						return renderToString(<VolumeOffIcon title="Paused" height="16" width="16" />);
+						return renderToString(<VolumeOffIcon height="16" title="Paused" width="16" />);
 					}
 					if (state === true) {
-						return renderToString(<VolumeHighIcon title="Playing" height="16" width="16" />);
+						return renderToString(<VolumeHighIcon height="16" title="Playing" width="16" />);
 					}
 					return '';
 				},
@@ -216,20 +216,20 @@ export default class MusicboxTable {
 				{
 					label: 'Edit',
 					action: (_e, row) => {
-						this.table.selectRow(row._row.data.id); // eslint-disable-line  no-underscore-dangle
-						store.dispatch(editSong({ id: row._row.data.id })); // eslint-disable-line  no-underscore-dangle
+						this.table.selectRow(row._row.data.id);
+						store.dispatch(editSong({ id: row._row.data.id }));
 					},
 				},
 				{
 					label: 'Play next',
 					action: (_e, row) => {
-						store.dispatch(playNext({ id: row._row.data.id })); // eslint-disable-line  no-underscore-dangle
+						store.dispatch(playNext({ id: row._row.data.id }));
 					},
 				},
 				{
 					label: 'Open file location',
 					action: (_e, row) => {
-						window.api.openFileLocation(row._row.data.path); // eslint-disable-line  no-underscore-dangle
+						window.api.openFileLocation(row._row.data.path);
 					},
 				},
 			],
@@ -241,7 +241,7 @@ export default class MusicboxTable {
 		table.on('dataSorted', (_, rows) => {
 			if (store.getState().app.queue.length <= 0 || !store.getState().app.shuffle) {
 				store.dispatch(populateQueue({
-					songs: rows.map((song) => song._row.data), // eslint-disable-line  no-underscore-dangle
+					songs: rows.map((song) => song._row.data),
 					sort: Storage.get('tabulator-table-sort'),
 				}));
 			}
@@ -257,7 +257,7 @@ export default class MusicboxTable {
 		});
 
 		table.on('rowDblClick', (_e, row) => {
-			store.dispatch(chooseSong({ currentSongId: row._row.data.id })); // eslint-disable-line  no-underscore-dangle
+			store.dispatch(chooseSong({ currentSongId: row._row.data.id }));
 		});
 
 		table.on('tableBuilt', () => {

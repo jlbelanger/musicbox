@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
-import Rating from './Rating';
-import React from 'react';
-import Text from './Text';
+import Rating from './Rating.jsx';
+import Text from './Text.jsx';
 
 export default function Field({
 	children = null,
@@ -41,9 +40,9 @@ export default function Field({
 
 Field.propTypes = {
 	children: PropTypes.node,
-	onChange: PropTypes.func.isRequired,
 	label: PropTypes.string.isRequired,
 	name: PropTypes.string.isRequired,
+	onChange: PropTypes.func.isRequired,
 	type: PropTypes.string,
 	value: PropTypes.any,
 };

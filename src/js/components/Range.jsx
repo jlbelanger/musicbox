@@ -1,6 +1,5 @@
 import '../../css/components/Range.css';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 export default function Range({
 	direction = 'horizontal',
@@ -13,16 +12,16 @@ export default function Range({
 	const horizontal = direction === 'horizontal';
 	return (
 		<div className={`range ${direction}`} id={id}>
-			<input className="range-input" id={`${id}-input`} max={max} onChange={onChange} type="range" step={step} />
+			<input className="range-input" id={`${id}-input`} max={max} onChange={onChange} step={step} type="range" />
 			<svg
-				xmlns="http://www.w3.org/2000/svg"
 				className="range-slider"
 				id={`${id}-svg`}
 				preserveAspectRatio="none"
 				viewBox={`0 0 ${horizontal ? max : 1} ${horizontal ? 1 : max} `}
+				xmlns="http://www.w3.org/2000/svg"
 			>
-				<rect width={horizontal ? max : 1} height={horizontal ? 1 : max} className="range-slider-before" id={`${id}-before`} />
-				<rect width={horizontal ? value : 1} height={horizontal ? 1 : value} className="range-slider-after" id={`${id}-after`} />
+				<rect className="range-slider-before" height={horizontal ? 1 : max} id={`${id}-before`} width={horizontal ? max : 1} />
+				<rect className="range-slider-after" height={horizontal ? 1 : value} id={`${id}-after`} width={horizontal ? value : 1} />
 			</svg>
 		</div>
 	);

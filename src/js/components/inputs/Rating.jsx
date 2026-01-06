@@ -1,7 +1,6 @@
 import '../../../css/components/inputs/Rating.css';
 import PropTypes from 'prop-types';
-import React from 'react';
-import { ReactComponent as StarIcon } from '../../../svg/star.svg';
+import StarIcon from '../../../svg/star.svg?react'; // eslint-disable-line import/no-unresolved
 
 export default function Rating({ onChange, value = 0 }) {
 	const onClick = (e) => {
@@ -30,11 +29,11 @@ export default function Rating({ onChange, value = 0 }) {
 				<div className={`rating ${star.active ? 'active' : 'dimmed'}`} key={star.i}>
 					<StarIcon className="rating__svg" />
 					<input
-						className="rating__input"
 						checked={num === star.i}
-						onClick={onClick}
-						onChange={onInputChange}
+						className="rating__input"
 						name="rating"
+						onChange={onInputChange}
+						onClick={onClick}
 						type="radio"
 						value={star.i}
 					/>

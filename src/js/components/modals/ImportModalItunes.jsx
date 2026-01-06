@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import importItunes from '../../helpers/import';
-import { ReactComponent as LoadingIcon } from '../../../svg/loading.svg';
+import importItunes from '../../helpers/import.js';
+import LoadingIcon from '../../../svg/loading.svg?react'; // eslint-disable-line import/no-unresolved
+import { useState } from 'react';
 
 export default function ImportModalItunes() {
 	const [error, setError] = useState(null);

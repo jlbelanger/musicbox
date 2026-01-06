@@ -1,6 +1,6 @@
 import '../../css/components/Time.css';
-import React, { useEffect } from 'react';
-import Range from './Range';
+import Range from './Range.jsx';
+import { useEffect } from 'react';
 
 export default function Time() {
 	const onChange = (e) => {
