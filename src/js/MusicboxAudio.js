@@ -103,7 +103,7 @@ export default class MusicboxAudio {
 			.then((fileExists) => {
 				if (!fileExists) {
 					if (!isPlaying) {
-						this.audio.play();
+						this.play();
 					}
 					return;
 				}
@@ -113,7 +113,7 @@ export default class MusicboxAudio {
 					this.audio.src = newSrc;
 					this.audio.currentTime = song.startTime / 1000;
 					if (isPlaying) {
-						this.audio.play();
+						this.play();
 					}
 				}
 
