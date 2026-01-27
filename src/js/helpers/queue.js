@@ -1,8 +1,6 @@
 import seedrandom from 'seedrandom';
 
-export const getActiveSongs = (songs) => (
-	Object.values(songs).filter((song) => song.checked)
-);
+export const getActiveSongs = (songs) => Object.values(songs).filter((song) => song.checked);
 
 export const createShuffledQueue = (songs, seed) => {
 	const pool = getActiveSongs(songs);
@@ -21,10 +19,7 @@ export const createShuffledQueue = (songs, seed) => {
 	return queue;
 };
 
-export const createQueue = (songs, {
-	seed,
-	shuffle,
-}) => {
+export const createQueue = (songs, { seed, shuffle }) => {
 	if (!shuffle) {
 		return getActiveSongs(songs).map((song) => song.id);
 	}
@@ -32,9 +27,7 @@ export const createQueue = (songs, {
 	return createShuffledQueue(songs, seed);
 };
 
-export const findCurrentSongQueueIndex = (queue, currentSongId) => (
-	queue.findIndex((id) => (id === currentSongId))
-);
+export const findCurrentSongQueueIndex = (queue, currentSongId) => queue.findIndex((id) => id === currentSongId);
 
 export const moveToFrontOfQueue = (queue, currentQueueIndex, songId) => {
 	const previousIndex = findCurrentSongQueueIndex(queue, songId);

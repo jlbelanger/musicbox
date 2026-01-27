@@ -1,7 +1,7 @@
-import { chooseSong } from './slices/app';
-import sortRows from './helpers/sort';
-import Storage from './helpers/Storage';
-import store from './store';
+import { chooseSong } from './slices/app.js';
+import sortRows from './helpers/sort.js';
+import Storage from './helpers/Storage.js';
+import store from './store.js';
 
 // Jump to song.
 let keySequence = [];
@@ -13,7 +13,7 @@ function jumpToSong(e) {
 	}
 
 	const now = new Date().getTime();
-	if (now > (lastKeyTime + 1000)) {
+	if (now > lastKeyTime + 1000) {
 		keySequence = [];
 	}
 	keySequence.push(e.key);
@@ -51,10 +51,10 @@ function onKeyup(e) {
 	} else if (e.key === 'Enter') {
 		const rows = window.musicboxTable.table.getSelectedRows();
 		if (rows.length > 0) {
-			if (rows[0]._row.data.state) { // eslint-disable-line  no-underscore-dangle
+			if (rows[0]._row.data.state) {
 				document.getElementById('play-pause').click();
 			} else {
-				store.dispatch(chooseSong({ currentSongId: rows[0]._row.data.id })); // eslint-disable-line  no-underscore-dangle
+				store.dispatch(chooseSong({ currentSongId: rows[0]._row.data.id }));
 			}
 		}
 	}

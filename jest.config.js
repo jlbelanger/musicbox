@@ -1,6 +1,3 @@
-module.exports = {
-	roots: [
-		'<rootDir>/public',
-		'<rootDir>/src',
-	],
+export default {
+	roots: ['<rootDir>/src'],
 };

@@ -1,8 +1,8 @@
-import MusicboxAudio from './MusicboxAudio';
+import MusicboxAudio from './MusicboxAudio.js';
 
 describe('prettyTime', () => {
 	describe('with no minimum length', () => {
-		it('returns the formatted time', async () => {
+		it('returns the formatted time', () => {
 			expect(MusicboxAudio.prettyTime(0)).toEqual('0:00');
 			expect(MusicboxAudio.prettyTime(1000)).toEqual('0:01');
 
@@ -24,7 +24,7 @@ describe('prettyTime', () => {
 	});
 
 	describe('with minimum length', () => {
-		it('returns the formatted time', async () => {
+		it('returns the formatted time', () => {
 			expect(MusicboxAudio.prettyTime(0, 0)).toEqual('0:00');
 			expect(MusicboxAudio.prettyTime(0, 1000)).toEqual('0:00');
 
@@ -47,7 +47,7 @@ describe('prettyTime', () => {
 });
 
 describe('calculateDuration', () => {
-	it('returns the duration', async () => {
+	it('returns the duration', () => {
 		expect(MusicboxAudio.calculateDuration(100, 0, 0)).toEqual(100);
 		expect(MusicboxAudio.calculateDuration(100, 10, 0)).toEqual(90);
 		expect(MusicboxAudio.calculateDuration(100, 0, 90)).toEqual(90);

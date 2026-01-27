@@ -3,7 +3,7 @@
 	--focus-color: #0cf;
 	--focus-width: 4px;
 	--focus: 0 0 0 var(--focus-width) var(--focus-color);
-	--primary-dark: hsl(from var(--primary) h s calc(l * .75));
+	--primary-dark: hsl(from var(--primary) h s calc(l * 0.75));
 	--primary-light: hsl(from var(--primary) h s calc(l * 1.15));
 	--black: #070707;
 	--off-black: #101010;

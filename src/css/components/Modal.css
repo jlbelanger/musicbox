@@ -11,7 +11,7 @@
 }
 
 .modal::backdrop {
-	background: rgba(var(--black), .75);
+	background: hsl(from var(--black) h s l / 75%);
 }
 
 .modal__box {

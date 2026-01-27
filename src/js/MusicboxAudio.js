@@ -44,7 +44,11 @@ export default class MusicboxAudio {
 			return;
 		}
 
-		const duration = MusicboxAudio.calculateDuration(window.audio.song.duration, window.audio.song.startTime, window.audio.song.endTime);
+		const duration = MusicboxAudio.calculateDuration(
+			window.audio.song.duration,
+			window.audio.song.startTime,
+			window.audio.song.endTime,
+		);
 		const currentTime = MusicboxAudio.calculateCurrentTime(window.audio.audio.currentTime * 1000, window.audio.song.startTime);
 
 		document.getElementById('now-playing-time-current').innerText = MusicboxAudio.prettyTime(currentTime, duration);
@@ -103,9 +107,8 @@ export default class MusicboxAudio {
 			.then((fileExists) => {
 				if (!fileExists) {
 					if (!isPlaying) {
-						this.audio.play();
+						this.play();
 					}
-					// document.getElementById('next').click();
 					return;
 				}
 
@@ -114,7 +117,7 @@ export default class MusicboxAudio {
 					this.audio.src = newSrc;
 					this.audio.currentTime = song.startTime / 1000;
 					if (isPlaying) {
-						this.audio.play();
+						this.play();
 					}
 				}
 
@@ -140,7 +143,7 @@ export default class MusicboxAudio {
 				document.getElementById('now-playing-title').innerText = song.title;
 				document.getElementById('now-playing-artist').innerText = song.artist;
 
-				if (Object.prototype.hasOwnProperty.call(this.albumArtCache, song.path)) {
+				if (Object.hasOwn(this.albumArtCache, song.path)) {
 					const src = this.albumArtCache[song.path];
 					this.displayAlbumArt(src);
 					this.showNotification(song, src);
@@ -174,7 +177,8 @@ export default class MusicboxAudio {
 		if (!window.api.hasFocus()) {
 			Notification.requestPermission().then((permission) => {
 				if (permission === 'granted') {
-					new Notification(song.title, { // eslint-disable-line no-new
+					// eslint-disable-next-line no-new
+					new Notification(song.title, {
 						body: song.artist,
 						icon: src,
 						silent: true,
@@ -190,18 +194,21 @@ export default class MusicboxAudio {
 		let start;
 		const minLength = otherMilliseconds === null ? milliseconds : otherMilliseconds;
 		if (minLength < 600000) {
-			// x:xx
+			// X:XX
 			start = 15;
 		} else if (minLength < 3600000) {
-			// xx:xx
+			// XX:XX
 			start = 14;
 		} else if (minLength < 36000000) {
-			// x:xx:xx
+			// X:XX:XX
 			start = 12;
 		} else {
-			// xx:xx:xx
+			// XX:XX:XX
 			start = 11;
 		}
-		return date.toISOString().substring(start).replace(/\.\d+Z$/, '');
+		return date
+			.toISOString()
+			.substring(start)
+			.replace(/\.\d+Z$/, '');
 	}
 }
