@@ -1,14 +1,7 @@
 import '../../css/components/Range.css';
 import PropTypes from 'prop-types';
 
-export default function Range({
-	direction = 'horizontal',
-	id,
-	max = 0,
-	onChange,
-	step = 1,
-	value,
-}) {
+export default function Range({ direction = 'horizontal', id, max = 0, onChange, step = 1, value }) {
 	const horizontal = direction === 'horizontal';
 	return (
 		<div className={`range ${direction}`} id={id}>

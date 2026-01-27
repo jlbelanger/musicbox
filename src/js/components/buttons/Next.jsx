@@ -14,7 +14,7 @@ export default function Next() {
 		const currentSongId = document.getElementById('now-playing').getAttribute('data-id');
 		const date = new Date().toISOString().replace(/Z$/, '+0');
 		const data = {};
-		if (currentTime >= (duration * 0.75)) {
+		if (currentTime >= duration * 0.75) {
 			data.lastPlayed = date;
 			data.numPlays = window.songs[currentSongId].numPlays + 1;
 			addPlay(currentSongId, date);
@@ -27,10 +27,12 @@ export default function Next() {
 
 		updateSong(currentSongId, data);
 
-		dispatch(nextSong({
-			songs: window.musicboxTable.table.rowManager.activeRows.map((song) => song.data),
-			sort: Storage.get('tabulator-table-sort'),
-		}));
+		dispatch(
+			nextSong({
+				songs: window.musicboxTable.table.rowManager.activeRows.map((song) => song.data),
+				sort: Storage.get('tabulator-table-sort'),
+			}),
+		);
 	};
 
 	return (

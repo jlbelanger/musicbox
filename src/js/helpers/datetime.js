@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 
-export const getTimezone = () => Intl.DateTimeFormat().resolvedOptions().timeZone; // eslint-disable-line new-cap
+// eslint-disable-next-line new-cap
+export const getTimezone = () => Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 export const getDatetimeFormat = () => 'yyyy-MM-dd h:mm a ZZZZ';
 
@@ -29,5 +30,8 @@ export const prettyTime = (milliseconds, otherMilliseconds = null) => {
 		// XX:XX:XX
 		start = 11;
 	}
-	return date.toISOString().substring(start).replace(/\.\d+Z$/, '');
+	return date
+		.toISOString()
+		.substring(start)
+		.replace(/\.\d+Z$/, '');
 };

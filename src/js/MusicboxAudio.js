@@ -44,7 +44,11 @@ export default class MusicboxAudio {
 			return;
 		}
 
-		const duration = MusicboxAudio.calculateDuration(window.audio.song.duration, window.audio.song.startTime, window.audio.song.endTime);
+		const duration = MusicboxAudio.calculateDuration(
+			window.audio.song.duration,
+			window.audio.song.startTime,
+			window.audio.song.endTime,
+		);
 		const currentTime = MusicboxAudio.calculateCurrentTime(window.audio.audio.currentTime * 1000, window.audio.song.startTime);
 
 		document.getElementById('now-playing-time-current').innerText = MusicboxAudio.prettyTime(currentTime, duration);
@@ -173,7 +177,8 @@ export default class MusicboxAudio {
 		if (!window.api.hasFocus()) {
 			Notification.requestPermission().then((permission) => {
 				if (permission === 'granted') {
-					new Notification(song.title, { // eslint-disable-line no-new
+					// eslint-disable-next-line no-new
+					new Notification(song.title, {
 						body: song.artist,
 						icon: src,
 						silent: true,
@@ -201,6 +206,9 @@ export default class MusicboxAudio {
 			// XX:XX:XX
 			start = 11;
 		}
-		return date.toISOString().substring(start).replace(/\.\d+Z$/, '');
+		return date
+			.toISOString()
+			.substring(start)
+			.replace(/\.\d+Z$/, '');
 	}
 }

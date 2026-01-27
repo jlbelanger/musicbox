@@ -29,7 +29,7 @@ contextBridge.exposeInMainWorld('api', {
 	allowSuspension: () => {
 		ipcRenderer.send('allowSuspension');
 	},
-	getData: (filePath) => (readFile(filePath)),
+	getData: (filePath) => readFile(filePath),
 	hasFocus: () => (window.hasFocus === undefined ? true : window.hasFocus),
 	openFileLocation: (filePath) => {
 		ipcRenderer.send('openFileLocation', filePath);
@@ -37,8 +37,8 @@ contextBridge.exposeInMainWorld('api', {
 	preventSuspension: () => {
 		ipcRenderer.send('preventSuspension');
 	},
-	fileExists: (filePath) => (ipcRenderer.invoke('fileExists', filePath)),
-	parseFile: (filePath) => (ipcRenderer.invoke('parseFile', filePath)),
+	fileExists: (filePath) => ipcRenderer.invoke('fileExists', filePath),
+	parseFile: (filePath) => ipcRenderer.invoke('parseFile', filePath),
 	saveFile: (fileContents) => {
 		ipcRenderer.send('saveFile', { fileContents });
 	},

@@ -19,10 +19,7 @@ export const createShuffledQueue = (songs, seed) => {
 	return queue;
 };
 
-export const createQueue = (songs, {
-	seed,
-	shuffle,
-}) => {
+export const createQueue = (songs, { seed, shuffle }) => {
 	if (!shuffle) {
 		return getActiveSongs(songs).map((song) => song.id);
 	}

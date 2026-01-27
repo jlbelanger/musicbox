@@ -2,13 +2,7 @@ import '../../css/components/Modal.css';
 import { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-export default function Modal({
-	cancelable = true,
-	children = null,
-	event = null,
-	onClickCancel = null,
-	...otherProps
-}) {
+export default function Modal({ cancelable = true, children = null, event = null, onClickCancel = null, ...otherProps }) {
 	const dialogRef = useRef(null);
 
 	const onKeydown = (e) => {
@@ -56,9 +50,7 @@ export default function Modal({
 
 	return (
 		<dialog className="modal" ref={dialogRef} tabIndex={-1} {...otherProps}>
-			<div className="modal__box">
-				{children}
-			</div>
+			<div className="modal__box">{children}</div>
 		</dialog>
 	);
 }

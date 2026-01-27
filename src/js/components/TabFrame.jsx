@@ -5,9 +5,7 @@ export default function TabFrame({ children, label, tab }) {
 		return null;
 	}
 	return (
-		<div className="tab--frame">
-			{children}
-		</div>
+		<div className="tab--frame">{children}</div>
 	);
 }
 

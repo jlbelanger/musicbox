@@ -18,10 +18,14 @@ export default (row) => {
 				track: row.title || '',
 			};
 
-			const sig = Object.keys(body).map((key) => `${key}${body[key]}`).join('');
+			const sig = Object.keys(body)
+				.map((key) => `${key}${body[key]}`)
+				.join('');
 			body.api_sig = md5(`${sig}${auth.apiSecret}`);
 
-			body = Object.keys(body).map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(body[key])}`).join('&');
+			body = Object.keys(body)
+				.map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(body[key])}`)
+				.join('&');
 
 			const postData = {
 				method: 'POST',

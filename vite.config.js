@@ -7,10 +7,7 @@ export default defineConfig(() => ({
 	build: {
 		outDir: 'build',
 	},
-	plugins: [
-		react(),
-		svgr(),
-	],
+	plugins: [react(), svgr()],
 	server: {
 		open: true,
 		port: 3000,

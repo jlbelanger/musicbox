@@ -1,5 +1,3 @@
 export default {
-	roots: [
-		'<rootDir>/src',
-	],
+	roots: ['<rootDir>/src'],
 };

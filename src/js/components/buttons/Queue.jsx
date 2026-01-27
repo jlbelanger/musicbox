@@ -10,7 +10,13 @@ export default function Queue() {
 
 	return (
 		<>
-			<button className={`icon${showQueue ? ' active' : ''}`} id="toggle-queue" onClick={onClick} title="Toggle queue" type="button">
+			<button
+				className={`icon${showQueue ? ' active' : ''}`}
+				id="toggle-queue"
+				onClick={onClick}
+				title="Toggle queue"
+				type="button"
+			>
 				<QueueIcon />
 				Toggle queue
 			</button>

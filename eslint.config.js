@@ -64,7 +64,7 @@ export default defineConfig([
 			'@stylistic/multiline-ternary': 0,
 			'@stylistic/newline-per-chained-call': 0, // TODO.
 			'@stylistic/no-confusing-arrow': ['error'],
-			'@stylistic/no-extra-parens': ['error', 'all', { ignoreJSX: 'all', nestedBinaryExpressions: false }],
+			'@stylistic/no-extra-parens': ['error', 'all', { ignoreJSX: 'multi-line', nestedBinaryExpressions: false }],
 			'@stylistic/no-extra-semi': ['error'],
 			'@stylistic/no-mixed-operators': ['error'],
 			'@stylistic/no-multiple-empty-lines': ['error', { max: 1, maxBOF: 0, maxEOF: 0 }],
@@ -190,7 +190,7 @@ export default defineConfig([
 			'react/jsx-handler-names': 'error',
 			// 'react/jsx-no-bind': 'error', // TODO.
 			'react/jsx-no-constructed-context-values': 'error',
-			// 'react/jsx-no-leaked-render': 'error', // TODO.
+			'react/jsx-no-leaked-render': 'error',
 			'react/jsx-no-script-url': 'error',
 			'react/jsx-no-useless-fragment': 'error',
 			'react/jsx-pascal-case': 'error',
@@ -213,7 +213,7 @@ export default defineConfig([
 			'react/no-set-state': 'error',
 			'react/no-this-in-sfc': 'error',
 			'react/no-typos': 'error',
-			// 'react/no-unstable-nested-components': 'error', // TODO.
+			'react/no-unstable-nested-components': 'error',
 			'react/no-unused-class-component-methods': 'error',
 			'react/no-unused-prop-types': 'error',
 			'react/no-unused-state': 'error',

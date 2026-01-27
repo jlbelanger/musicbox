@@ -2,28 +2,16 @@ import PropTypes from 'prop-types';
 import Rating from './Rating.jsx';
 import Text from './Text.jsx';
 
-export default function Field({
-	children = null,
-	onChange,
-	label,
-	name,
-	type = 'text',
-	value = '',
-	...otherProps
-}) {
+export default function Field({ children = null, onChange, label, name, type = 'text', value = '', ...otherProps }) {
 	const onInputChange = (e) => {
 		onChange(e.target.name, e.target.value);
 	};
 
 	let input;
 	if (type === 'rating') {
-		input = (
-			<Rating onChange={onChange} value={value} />
-		);
+		input = <Rating onChange={onChange} value={value} />;
 	} else {
-		input = (
-			<Text name={name} onChange={onInputChange} type={type} value={value || ''} {...otherProps} />
-		);
+		input = <Text name={name} onChange={onInputChange} type={type} value={value || ''} {...otherProps} />;
 	}
 
 	return (

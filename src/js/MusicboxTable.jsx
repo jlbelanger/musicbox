@@ -1,9 +1,4 @@
-import {
-	chooseSong,
-	editSong,
-	playNext,
-	populateQueue,
-} from './slices/app.js';
+import { chooseSong, editSong, playNext, populateQueue } from './slices/app.js';
 import { getDatetimeFormat } from './helpers/datetime.js';
 import { DateTime } from 'luxon';
 import { renderToString } from 'react-dom/server';
@@ -49,7 +44,7 @@ export default class MusicboxTable {
 			}
 		});
 		const outputFormat = getDatetimeFormat();
-		const inputFormat = 'yyyy-MM-dd\'T\'HH:mm:ss.SSSZ';
+		const inputFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
 		const columns = [
 			{
 				field: 'state',
@@ -240,10 +235,12 @@ export default class MusicboxTable {
 
 		table.on('dataSorted', (_, rows) => {
 			if (store.getState().app.queue.length <= 0 || !store.getState().app.shuffle) {
-				store.dispatch(populateQueue({
-					songs: rows.map((song) => song._row.data),
-					sort: Storage.get('tabulator-table-sort'),
-				}));
+				store.dispatch(
+					populateQueue({
+						songs: rows.map((song) => song._row.data),
+						sort: Storage.get('tabulator-table-sort'),
+					}),
+				);
 			}
 
 			// Calling scrollToRow immediately doesn't seem to work.

@@ -51,13 +51,13 @@ Musicbox currently only supports hard-coded last.fm authentication in the librar
 1. Enter "Musicbox" as the application name. Enter whatever you want for the other fields, but leave the callback URL blank.
 1. Make a note of the API key and the shared secret values. In the steps below, replace `API_KEY_FROM_LAST_FM` and `SHARED_SECRET_FROM_LAST_FM` with the values from last.fm.
 1. Open your Musicbox JSON file and add the following after the first `{`:
-	``` js
-	"lastfm": {
-		"apiKey": "API_KEY_FROM_LAST_FM",
-		"apiSecret": "SHARED_SECRET_FROM_LAST_FM",
-		"sk": ""
-	},
-	```
+   ```js
+   "lastfm": {
+   	"apiKey": "API_KEY_FROM_LAST_FM",
+   	"apiSecret": "SHARED_SECRET_FROM_LAST_FM",
+   	"sk": ""
+   },
+   ```
 1. In your browser, open `https://ws.audioscrobbler.com/2.0/?method=auth.gettoken&api_key=API_KEY_FROM_LAST_FM&format=json`
 1. Make a note of the token that is included in the response. In the steps below, replace `TOKEN_FROM_LAST_FM` with the value of the token.
 1. In your browser, open `https://www.last.fm/api/auth/?api_key=API_KEY_FROM_LAST_FM&token=TOKEN_FROM_LAST_FM`
@@ -76,7 +76,7 @@ Musicbox currently only supports hard-coded last.fm authentication in the librar
 
 ### Setup
 
-``` bash
+```bash
 # Clone the repo
 git clone https://github.com/jlbelanger/musicbox.git
 cd musicbox
@@ -90,25 +90,25 @@ npm install
 
 ### Run
 
-``` bash
+```bash
 npm start
 ```
 
 ### Build
 
-``` bash
+```bash
 npm run dist
 ```
 
 ### Lint
 
-``` bash
+```bash
 npm run lint
 ```
 
 ### Test
 
-``` bash
+```bash
 npm run test:watch
 npm run test:cypress
 ```

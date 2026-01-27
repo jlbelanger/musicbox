@@ -10,10 +10,12 @@ export default function Previous() {
 		if (window.audio.getTime() >= 5) {
 			window.audio.setTime(0);
 		} else {
-			dispatch(previousSong({
-				songs: window.musicboxTable.table.rowManager.activeRows.map((song) => song.data),
-				sort: Storage.get('tabulator-table-sort'),
-			}));
+			dispatch(
+				previousSong({
+					songs: window.musicboxTable.table.rowManager.activeRows.map((song) => song.data),
+					sort: Storage.get('tabulator-table-sort'),
+				}),
+			);
 		}
 	};
 

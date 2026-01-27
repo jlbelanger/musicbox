@@ -27,11 +27,7 @@ function createWindow() {
 		},
 	});
 	mainWindow.maximize();
-	mainWindow.loadURL(
-		app.isPackaged
-			? `file://${path.join(__dirname, 'build', 'index.html')}`
-			: 'http://localhost:3000'
-	);
+	mainWindow.loadURL(app.isPackaged ? `file://${path.join(__dirname, 'build', 'index.html')}` : 'http://localhost:3000');
 
 	if (!app.isPackaged) {
 		mainWindow.webContents.openDevTools();
@@ -83,9 +79,10 @@ app.whenReady().then(() => {
 		return '';
 	});
 
-	ipcMain.handle('parseFile', async (_e, filePath) => (
-		await parseFile(filePath)
-			.then((metadata) => {
+	ipcMain.handle(
+		'parseFile',
+		async (_e, filePath) =>
+			await parseFile(filePath).then((metadata) => {
 				const pictures = metadata.common.picture;
 				let src;
 				if (pictures && pictures.length > 0) {
@@ -93,20 +90,22 @@ app.whenReady().then(() => {
 					src = `data:${pictures[0].format};base64,${data}`;
 				}
 				return src;
-			})
-	));
+			}),
+	);
 
 	ipcMain.on('saveFile', (_e, { fileContents }) => {
-		dialog.showSaveDialog(null, {
-			title: 'Choose a location to save the Musicbox library file',
-			defaultPath: 'musicbox.json',
-		}).then((result) => {
-			if (result.filePath) {
-				fs.writeFileSync(result.filePath, fileContents, 'utf-8');
-				window.localStorage.setItem('filePath', result.filePath);
-				window.location.reload();
-			}
-		});
+		dialog
+			.showSaveDialog(null, {
+				title: 'Choose a location to save the Musicbox library file',
+				defaultPath: 'musicbox.json',
+			})
+			.then((result) => {
+				if (result.filePath) {
+					fs.writeFileSync(result.filePath, fileContents, 'utf-8');
+					window.localStorage.setItem('filePath', result.filePath);
+					window.location.reload();
+				}
+			});
 	});
 
 	let powerSaveBlockerId;

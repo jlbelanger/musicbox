@@ -13,7 +13,7 @@ function jumpToSong(e) {
 	}
 
 	const now = new Date().getTime();
-	if (now > (lastKeyTime + 1000)) {
+	if (now > lastKeyTime + 1000) {
 		keySequence = [];
 	}
 	keySequence.push(e.key);

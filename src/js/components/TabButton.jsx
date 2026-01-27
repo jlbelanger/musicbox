@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 export default function TabButton({ label, onClick, tab }) {
 	return (
 		<li className="tab--item">
-			<button className={`tab--button${tab === label ? ' active' : ''}`} data-tab={label} onClick={onClick} type="button">{label}</button>
+			<button className={`tab--button${tab === label ? ' active' : ''}`} data-tab={label} onClick={onClick} type="button">
+				{label}
+			</button>
 		</li>
 	);
 }

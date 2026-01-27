@@ -28,7 +28,11 @@ export default function QueueList({ className = '' }) {
 			<h1 id="queue-title">Queue</h1>
 			<ol id="queue-list">
 				{songs.map((song) => (
-					<li className="queue-item" key={song.id} title={`${song.title} - ${song.artist}${song.album ? ` (${song.album})` : ''}`}>
+					<li
+						className="queue-item"
+						key={song.id}
+						title={`${song.title} - ${song.artist}${song.album ? ` (${song.album})` : ''}`}
+					>
 						<div className="queue-info">
 							<div className="queue-title">{song.title}</div>
 							<div className="queue-artist">{song.artist}</div>
